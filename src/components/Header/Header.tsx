@@ -6,7 +6,7 @@ import Button from "@mui/material/Button";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import MenuIcon from "@mui/icons-material/Menu";
-// import SimpleDialogDemo from "../SimpleDialogDemo/SimpleDialogDemo";
+import SimpleDialogDemo from "../SimpleDialogDemo/SimpleDialogDemo";
 import Head from "next/head";
 
 const Header = () => {
@@ -89,14 +89,12 @@ const Header = () => {
                 id: 2,
                 href: "",
                 modal: "modal",
-                content:
-                  // (
-                  //   <SimpleDialogDemo
-                  //     content="Post opportunity "
-                  //     className="hover:bg-blue-50 ease-in-out duration-150 p-2"
-                  //   />
-                  // )
-                  "Post opportunity ",
+                content: (
+                  <SimpleDialogDemo
+                    content="Post opportunity "
+                    className="hover:bg-blue-50 ease-in-out duration-150 p-2"
+                  />
+                ),
                 classNameOfLI: "hover:bg-blue-50 ease-in-out duration-150 p-2",
               },
               {
