@@ -22,6 +22,11 @@ const index = () => {
           id={"LearningCenter"}
           href="LearningCenter"
         />
+        {/* <SlidesOfSections
+          title="Learning Center"
+          id={"LearningCenter"}
+          href="LearningCenter"
+        /> */}
       </div>
     </>
   );
