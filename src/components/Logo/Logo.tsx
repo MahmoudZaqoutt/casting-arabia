@@ -5,11 +5,7 @@ import Link from "next/link";
 const Logo = () => {
   return (
     <Link href={"/"}>
-      <Image
-        src={img}
-        alt="LogoImage"
-        className="max-w-[140px] lg:ml-0 -ml-10"
-      />
+      <Image src={img} alt="LogoImage" className="max-w-[140px] " />
     </Link>
   );
 };
