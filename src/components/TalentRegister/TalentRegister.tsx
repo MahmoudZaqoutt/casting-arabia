@@ -11,6 +11,7 @@ import {
 import { schema } from "@/constants/Register";
 import DropDownList from "../Shared/DropDownList/DropDownList";
 import Container from "../Shared/Container/Container";
+import ToolTip from "../Shared/ToolTip/ToolTip";
 
 const TalentRegister = () => {
   const [errors, setErrors] = useState<any>([]);
@@ -64,16 +65,11 @@ const TalentRegister = () => {
             profile, apply for new opportunities, and take your talent to a
             whole new level … all free of charge!
           </p>
-          <Tooltip
-            title={
-              "Only the Talent Seeker who has posted the opportunity that you have applied to can see your profile."
-            }
-            className="mt-5"
-          >
-            <IconButton className="!text-lg font-semibold !text-blue-600 !rounded-none p-1">
-              <p>Who can view my profile on Casting Arabia ?</p>
-            </IconButton>
-          </Tooltip>
+          <ToolTip
+            className="text-lg font-semibold !text-blue-600  p-1 cursor-pointer mt-5"
+            toolTipContent="Who can view my profile on Casting Arabia ?"
+            toolTipToShow="Only the Talent Seeker who has posted the opportunity that you have applied to can see your profile."
+          />
         </div>
         <form onSubmit={handleSubmit} className="w-[95%] mx-auto mt-5">
           <label htmlFor="" className="text-xl ">
