@@ -5,12 +5,12 @@ import Container from "../Shared/Container/Container";
 
 const Footer = () => {
   return (
-    <footer className="min-h-20 p-5 !bg-white pl-16">
+    <footer className="min-h-20 p-5 !bg-white ">
       <Container>
         <div className="flex flex-col md:flex-row md:items-center gap-3 h-full">
           <Logo />
           <List
-            className=" sm:gap-5 text-gray-400 flex flex-col sm:flex-row md:ml-0 -ml-10"
+            className=" sm:gap-5 text-gray-400 flex flex-col sm:flex-row md:ml-0 "
             options={[
               {
                 id: 1,

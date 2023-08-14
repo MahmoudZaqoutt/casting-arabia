@@ -6,7 +6,7 @@ import React from "react";
 const index = () => {
   return (
     <Container>
-      <div className="mt-12 bg-white p-6 rounded-xl shadow-xl">
+      <div className="mt-12 bg-white p-6 rounded-xl shadow-xl mb-7">
         {ABOUT_US.map((item: any, index) => (
           <TitleAndSubTitle
             key={index}

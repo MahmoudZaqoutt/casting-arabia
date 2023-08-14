@@ -4,7 +4,7 @@ import img from "../../assets/Logo.png";
 import Link from "next/link";
 const Logo = () => {
   return (
-    <Link href={"/"}>
+    <Link href={"/creator"}>
       <Image src={img} alt="LogoImage" className="max-w-[140px] " />
     </Link>
   );

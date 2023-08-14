@@ -91,7 +91,7 @@ const InternalHeader = () => {
               }
               Items={[
                 {
-                  href: "/Profile",
+                  href: "/creator/profile",
                   content: (
                     <div className="hover:bg-blue-50 ease-in-out duration-150 text-lg flex items-center justify-between gap-2">
                       <BsPerson />
