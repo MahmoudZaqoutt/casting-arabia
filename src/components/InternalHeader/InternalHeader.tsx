@@ -6,8 +6,8 @@ import MenuItems from "../Shared/MenuItems/MenuItems";
 import Container from "../Shared/Container/Container";
 import Image from "next/image";
 import { AiOutlineProfile, AiOutlineExclamationCircle } from "react-icons/ai";
-import { BsChatSquareText } from "react-icons/bs";
-import { MdOutlineSupervisorAccount } from "react-icons/md";
+import { BsChatSquareText, BsPerson } from "react-icons/bs";
+import { MdOutlineSupervisorAccount, MdLogout } from "react-icons/md";
 
 import img from "../../assets/Rectangle16.png";
 import ToolTip from "../Shared/ToolTip/ToolTip";
@@ -22,15 +22,15 @@ const InternalHeader = () => {
 
           <div className="flex justify-between items-center">
             <List
-              className="flex  gap-5 items-center  text-gray-500"
+              className=" sm:flex  hidden gap-5 items-center  text-gray-500"
               options={[
                 {
                   href: "/Login",
                   content: (
                     <ToolTip
-                      className="hover:bg-blue-50 ease-in-out duration-150 p-2 text-2xl sm:block  hidden"
+                      className="hover:bg-blue-50 ease-in-out duration-150 p-2 text-2xl "
                       toolTipContent={<AiOutlineProfile />}
-                      toolTipToShow="review"
+                      toolTipToShow="Review"
                     />
                   ),
                 },
@@ -38,32 +38,37 @@ const InternalHeader = () => {
                   href: "",
                   content: (
                     <ToolTip
-                      className="hover:bg-blue-50 ease-in-out duration-150 p-2 text-2xl sm:block  hidden"
+                      className="hover:bg-blue-50 ease-in-out duration-150 p-2 text-2xl "
                       toolTipContent={<BsChatSquareText />}
-                      toolTipToShow="review"
+                      toolTipToShow="Chats"
                     />
                   ),
                 },
                 {
-                  href: "",
+                  href: "/community",
                   content: (
                     <ToolTip
-                      className="hover:bg-blue-50 ease-in-out duration-150 p-2 text-2xl sm:block  hidden"
+                      className="hover:bg-blue-50 ease-in-out duration-150 p-2 text-2xl "
                       toolTipContent={<MdOutlineSupervisorAccount />}
-                      toolTipToShow="review"
+                      toolTipToShow="Community"
                     />
                   ),
                 },
                 {
-                  href: "/TalentRegister",
+                  href: "/about-us",
                   content: (
                     <ToolTip
-                      className="hover:bg-blue-50 ease-in-out duration-150 p-2 text-2xl sm:block  hidden"
+                      className="hover:bg-blue-50 ease-in-out duration-150 p-2 text-2xl "
                       toolTipContent={<AiOutlineExclamationCircle />}
-                      toolTipToShow="review"
+                      toolTipToShow="About Us"
                     />
                   ),
                 },
+              ]}
+            />
+            <List
+              className="mx-2"
+              options={[
                 {
                   href: "/TalentRegister",
                   content: (
@@ -89,7 +94,7 @@ const InternalHeader = () => {
                   href: "/Profile",
                   content: (
                     <div className="hover:bg-blue-50 ease-in-out duration-150 text-lg flex items-center justify-between gap-2">
-                      <AiOutlineProfile />
+                      <BsPerson />
                       <p>Profile</p>
                     </div>
                   ),
@@ -98,7 +103,7 @@ const InternalHeader = () => {
                   href: "/Login",
                   content: (
                     <div className="hover:bg-blue-50 ease-in-out duration-150 text-lg flex items-center justify-between gap-2">
-                      <AiOutlineProfile />
+                      <MdLogout />
                       <p>Logout</p>
                     </div>
                   ),
@@ -113,8 +118,8 @@ const InternalHeader = () => {
                   href: "/TalentRegister",
                   content: (
                     <div className="hover:bg-blue-50 ease-in-out duration-150 text-lg flex items-center justify-between gap-2">
-                      <AiOutlineProfile />
-                      <p>review</p>
+                      <AiOutlineProfile className="text-2xl" />
+                      <p>Review</p>
                     </div>
                   ),
                 },
@@ -122,8 +127,8 @@ const InternalHeader = () => {
                   href: "/TalentRegister",
                   content: (
                     <div className="hover:bg-blue-50 ease-in-out duration-150 text-lg flex items-center justify-between gap-2">
-                      <BsChatSquareText />
-                      <p>review</p>
+                      <BsChatSquareText className="text-2xl" />
+                      <p>Chats</p>
                     </div>
                   ),
                 },
@@ -131,8 +136,8 @@ const InternalHeader = () => {
                   href: "/TalentRegister",
                   content: (
                     <div className="hover:bg-blue-50 ease-in-out duration-150 text-lg flex items-center justify-between gap-2">
-                      <MdOutlineSupervisorAccount />
-                      <p>review</p>
+                      <MdOutlineSupervisorAccount className="text-2xl" />
+                      <p>Community</p>
                     </div>
                   ),
                 },
@@ -140,8 +145,8 @@ const InternalHeader = () => {
                   href: "/TalentRegister",
                   content: (
                     <div className="hover:bg-blue-50 ease-in-out duration-150 text-lg flex items-center justify-between gap-2">
-                      <AiOutlineExclamationCircle />
-                      <p>review</p>
+                      <AiOutlineExclamationCircle className="text-2xl" />
+                      <p>About Us</p>
                     </div>
                   ),
                 },
