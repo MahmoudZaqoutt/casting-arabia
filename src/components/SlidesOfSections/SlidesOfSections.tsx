@@ -7,7 +7,8 @@ import { useState } from "react";
 import { AiOutlineLeft, AiOutlineRight } from "react-icons/ai";
 import Link from "next/link";
 import { IPropsSlide } from "@/interfaces/props/IPropsSlide";
-import SimpleDialogDemo from "../SimpleDialogDemo/SimpleDialogDemo";
+import Modall from "../Shared/Modal/Modal";
+import TalentRegister from "../TalentRegister/TalentRegister";
 
 const SlidesOfSections = (props: IPropsSlide) => {
   const [isBeginning, setIsBeginning] = useState(true);
@@ -177,9 +178,11 @@ const SlidesOfSections = (props: IPropsSlide) => {
         </Swiper>
         <div className="text-center">
           {props.buttonContent ? (
-            <SimpleDialogDemo
-              content={props.buttonContent}
-              className="text-lg !text-center font-semibold text-blue-700 border-blue-400 border-2 px-5 py-2 inline-block rounded-xl hover:bg-blue-100 duration-150 mt-8"
+            <Modall
+              modalName={props.buttonContent}
+              modalContent={<TalentRegister />}
+              buttonClassName="text-lg !text-center font-semibold text-blue-700 border-blue-400 border-2 px-5 py-2 inline-block rounded-xl hover:bg-blue-100 duration-150 mt-8"
+              modalClassName="!w-[85%] -mt-10"
             />
           ) : (
             <Link href={`/${props.href}`}>

@@ -13,4 +13,5 @@ export const schema = yup.object().shape({
   PhoneNumber: yup.number().required("required"),
   Password: yup.string().required("required"),
   CompanyName: yup.string().required("required"),
+  City: yup.string().required("required"),
 });

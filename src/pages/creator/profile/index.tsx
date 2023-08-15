@@ -1,10 +1,12 @@
 import React, { useState } from "react";
-import { UploadButton } from "react-uploader";
 import { Uploader } from "uploader"; // Installed by "react-uploader".
 import { UploadDropzone } from "react-uploader";
 import Container from "@/components/Shared/Container/Container";
 import { MdOutlineModeEdit } from "react-icons/md";
 import TitleAndSubTitle from "@/components/Shared/TitleAndSubTitle/TitleAndSubTitle";
+import Modall from "@/components/Shared/Modal/Modal";
+import UserInfoForm from "@/components/UserInfoForm/UserInfoForm";
+import BasicInfoForm from "@/components/BasicInfoForm/BasicInfoForm";
 
 const index = () => {
   const [img, setImg] = useState(null);
@@ -32,12 +34,14 @@ const index = () => {
         <div className="">
           <div className="flex  items-center gap-5 mb-10">
             <p className="text-3xl font-semibold"> Mahmoud Casting</p>
-            <button
-              title="."
-              className="hover:bg-blue-50 rounded-full p-1 duration-200 "
-            >
-              <MdOutlineModeEdit className=" text-3xl text-blue-600 " />
-            </button>
+            <Modall
+              modalClassName="!w-[45%]  -mt-10"
+              buttonClassName="hover:bg-blue-50 rounded-full  p-1 duration-200"
+              modalName={
+                <MdOutlineModeEdit className=" text-3xl text-blue-600 " />
+              }
+              modalContent={<UserInfoForm />}
+            />
           </div>
 
           <div className="grid grid-cols-3 gap-10 ">
@@ -45,8 +49,8 @@ const index = () => {
               title="First Name"
               subTitle="Mahmoud"
               className="border-r-2 border-blue-200 "
-              classNameOfTitle="text-xl text-blue-600 "
-              classNameOfSubTitle="text-xl"
+              classNameOfTitle="text-xl text-blue-600 !w-full"
+              classNameOfSubTitle="text-xl !w-full"
             />
             <TitleAndSubTitle
               title="Last Name"
@@ -78,12 +82,14 @@ const index = () => {
 
           <div className="flex  items-center gap-5 my-10">
             <p className="text-3xl font-semibold"> Basic Info</p>
-            <button
-              title="."
-              className="hover:bg-blue-50 rounded-full p-1 duration-200 "
-            >
-              <MdOutlineModeEdit className=" text-3xl text-blue-600 " />
-            </button>
+            <Modall
+              modalClassName="!w-[85%] -mt-10"
+              buttonClassName="hover:bg-blue-50 rounded-full p-1 duration-200"
+              modalName={
+                <MdOutlineModeEdit className=" text-3xl text-blue-600 " />
+              }
+              modalContent={<BasicInfoForm />}
+            />
           </div>
 
           <div className="grid grid-cols-3 gap-10 ">

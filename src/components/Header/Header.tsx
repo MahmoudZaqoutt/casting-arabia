@@ -2,11 +2,12 @@ import { List } from "../Shared/List/List";
 import Logo from "../Logo/Logo";
 import * as React from "react";
 import MenuIcon from "@mui/icons-material/Menu";
-import SimpleDialogDemo from "../SimpleDialogDemo/SimpleDialogDemo";
 import Head from "next/head";
 import MenuItems from "../Shared/MenuItems/MenuItems";
 import Container from "../Shared/Container/Container";
 import ToolTip from "../Shared/ToolTip/ToolTip";
+import Modall from "../Shared/Modal/Modal";
+import SeekerRegister from "../SeekerRegister/SeekerRegister";
 
 const Header = () => {
   return (
@@ -60,9 +61,11 @@ const Header = () => {
                   href: "",
                   modal: "modal",
                   content: (
-                    <SimpleDialogDemo
-                      content="Post opportunity "
-                      className="hover:bg-blue-50 ease-in-out duration-150 p-2 hidden sm:block"
+                    <Modall
+                      modalName={"Post opportunity"}
+                      modalContent={<SeekerRegister />}
+                      buttonClassName="hover:bg-blue-50 ease-in-out duration-150 p-2 hidden sm:block"
+                      modalClassName="!w-[85%] -mt-10"
                     />
                   ),
                   classNameOfLI:
