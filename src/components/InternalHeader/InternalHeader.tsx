@@ -25,7 +25,7 @@ const InternalHeader = () => {
               className=" sm:flex  hidden gap-5 items-center  text-gray-500"
               options={[
                 {
-                  href: "/Login",
+                  href: "/creator/review",
                   content: (
                     <ToolTip
                       className="hover:bg-blue-50 ease-in-out duration-150 p-2 text-2xl "

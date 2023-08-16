@@ -3,4 +3,5 @@ export interface IPropsModal {
   modalContent?: any;
   modalClassName?: string;
   buttonClassName?: string;
+  onSubmit?: any;
 }

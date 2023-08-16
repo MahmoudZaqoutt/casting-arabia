@@ -11,7 +11,7 @@ const DropDownList = (props: IPropsDropDownList) => {
         label={props.label}
         title={props.label}
         onChange={props.onChange}
-        className="w-full"
+        className={`w-full ${props.className}`}
       >
         {props.options?.map((item: any, index) => (
           <MenuItem key={index} value={item}>

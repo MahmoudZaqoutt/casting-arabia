@@ -4,4 +4,5 @@ export interface IPropsDropDownList {
   value?: string;
   label?: string;
   onChange?: any;
+  className?: string;
 }

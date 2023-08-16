@@ -1,0 +1,29 @@
+.ant-upload-list-item-container {
+  width: 320px !important;
+  height: 330px !important;
+  cursor: pointer;
+}
+.ant-upload-list-item {
+  border: none !important;
+}
+
+.ant-upload-list-item-thumbnail {
+  border-radius: 30px !important;
+  width: 100% !important;
+}
+
+.ant-upload-select {
+  border-radius: 30px !important;
+}
+.ant-upload {
+  width: 320px !important;
+  height: 330px !important;
+}
+.ant-btn-primary {
+  background-color: rgb(77, 49, 220);
+}
+
+.ant-upload-list-item-actions {
+  display: inline-block;
+  width: 30px;
+}
