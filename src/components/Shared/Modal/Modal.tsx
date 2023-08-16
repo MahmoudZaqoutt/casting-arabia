@@ -28,6 +28,7 @@ const Modall = (props: IPropsModal) => {
         {props.modalName}
       </button>
       <Modal
+        title={props.title}
         open={open}
         onCancel={handleCancel}
         onOk={handleOk}

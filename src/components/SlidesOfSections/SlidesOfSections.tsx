@@ -53,7 +53,6 @@ const SlidesOfSections = (props: IPropsSlide) => {
                 title="s"
                 className={`next${props.id} hidden md:block text-blue-700`}
               >
-                {" "}
                 <AiOutlineRight className="w-7 h-7" />
               </button>
             )}
