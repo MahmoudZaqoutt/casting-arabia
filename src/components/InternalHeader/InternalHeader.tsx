@@ -35,7 +35,7 @@ const InternalHeader = () => {
                   ),
                 },
                 {
-                  href: "",
+                  href: "/chats",
                   content: (
                     <ToolTip
                       className="hover:bg-blue-50 ease-in-out duration-150 p-2 text-2xl "

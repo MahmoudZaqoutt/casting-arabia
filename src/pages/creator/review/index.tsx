@@ -12,6 +12,7 @@ import { EffectCoverflow, Navigation, Pagination } from "swiper/modules";
 
 import ReviewCard from "./ReviewCard/ReviewCard";
 import { AiOutlineArrowLeft, AiOutlineArrowRight } from "react-icons/ai";
+import Link from "next/link";
 
 const index = () => {
   const [selectedData, setSelectedData] = useState({
@@ -159,7 +160,7 @@ const index = () => {
             ) : (
               <>
                 <button className="text-2xl font-semibold border-blue-400 text-blue-500 border-2 p-2 rounded-full ">
-                  Chat
+                  <Link href={"/chats"}> Chat</Link>
                 </button>
                 <button
                   onClick={handleReject}
