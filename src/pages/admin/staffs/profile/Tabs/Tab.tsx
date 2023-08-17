@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import DetailsTap from "../DetailsTap/DetailsTap";
+import MediaTab from "../MediaTab/MediaTab";
+import DetailsTab from "../DetailsTab/DetailsTab";
 
 const Tab = () => {
   const [detailsTab, setDetailsTab] = useState(true);
@@ -30,7 +31,7 @@ const Tab = () => {
           </>
         )}
       </div>
-      {detailsTab ? <DetailsTap /> : "c"}
+      {detailsTab ? <DetailsTab /> : <MediaTab />}
     </div>
   );
 };

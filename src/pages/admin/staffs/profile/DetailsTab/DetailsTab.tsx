@@ -1,7 +1,7 @@
 import TitleAndSubTitle from "@/components/Shared/TitleAndSubTitle/TitleAndSubTitle";
 import React from "react";
 
-const DetailsTap = () => {
+const DetailsTab = () => {
   return (
     <div>
       <p className="text-2xl font-semibold my-8">Characteristics</p>
@@ -78,4 +78,4 @@ const DetailsTap = () => {
   );
 };
 
-export default DetailsTap;
+export default DetailsTab;
