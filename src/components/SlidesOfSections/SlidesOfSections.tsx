@@ -9,6 +9,7 @@ import Link from "next/link";
 import { IPropsSlide } from "@/interfaces/props/IPropsSlide";
 import Modall from "../Shared/Modal/Modal";
 import TalentRegister from "../TalentRegister/TalentRegister";
+import RolesCard from "@/pages/creator/roles/rolesCard/RolesCard";
 
 const SlidesOfSections = (props: IPropsSlide) => {
   const [isBeginning, setIsBeginning] = useState(true);
@@ -24,38 +25,52 @@ const SlidesOfSections = (props: IPropsSlide) => {
         <div className="flex justify-between  items-center mt-[24px] mb-[24px]">
           <p className="text-2xl font-semibold text-blue-700">{props.title}</p>
 
-          <div className="flex items-center gap-4">
-            {isBeginning ? (
-              <button
-                title="'"
-                className={`prev${props.id} hidden md:block text-[#ccc3c3] cursor-not-allowed `}
-              >
-                <AiOutlineLeft className="w-7 h-7" />
-              </button>
+          <div className="flex items-center gap-5">
+            {props.link ? (
+              <div>
+                <Link href={""}>
+                  <p className="font-semibold text-xl text-blue-600 border-2 border-blue-600 rounded-md px-5 py-2 hover:bg-blue-100 duration-200">
+                    New
+                  </p>
+                </Link>
+              </div>
             ) : (
-              <button
-                title="s"
-                className={`next${props.id} hidden md:block text-blue-700`}
-              >
-                <AiOutlineLeft className="w-7 h-7" />
-              </button>
+              ""
             )}
 
-            {isEnd ? (
-              <button
-                title="s"
-                className={`next${props.id} hidden md:block text-[#ccc3c3] cursor-not-allowed`}
-              >
-                <AiOutlineRight className="w-7 h-7" />
-              </button>
-            ) : (
-              <button
-                title="s"
-                className={`next${props.id} hidden md:block text-blue-700`}
-              >
-                <AiOutlineRight className="w-7 h-7" />
-              </button>
-            )}
+            <div className="flex items-center gap-4">
+              {isBeginning ? (
+                <button
+                  title="'"
+                  className={`prev${props.id} hidden md:block text-[#ccc3c3] cursor-not-allowed `}
+                >
+                  <AiOutlineLeft className="w-7 h-7" />
+                </button>
+              ) : (
+                <button
+                  title="s"
+                  className={`next${props.id} hidden md:block text-blue-700`}
+                >
+                  <AiOutlineLeft className="w-7 h-7" />
+                </button>
+              )}
+
+              {isEnd ? (
+                <button
+                  title="s"
+                  className={`next${props.id} hidden md:block text-[#ccc3c3] cursor-not-allowed`}
+                >
+                  <AiOutlineRight className="w-7 h-7" />
+                </button>
+              ) : (
+                <button
+                  title="s"
+                  className={`next${props.id} hidden md:block text-blue-700`}
+                >
+                  <AiOutlineRight className="w-7 h-7" />
+                </button>
+              )}
+            </div>
           </div>
         </div>
         <Swiper
@@ -102,78 +117,85 @@ const SlidesOfSections = (props: IPropsSlide) => {
             },
           }}
         >
-          <SwiperSlide className="!w-[20.313rem] ">
-            <Card
-              className="w-[20.313rem]  max-h-[20.875rem] md:hover:scale-105 my-2 ease-in-out duration-150 "
-              Icon={props.Icon}
-              paid={props.paid}
-              title="فيلم قصير _قلم، صفحة، وأستيكا"
-              subTitle="فيلم قلم وورقة وأستيكا هو فيلم قصير كوميدي مدته حوالي 15 دقيقة باللهجة..."
-            />
-          </SwiperSlide>
-          <SwiperSlide className="!w-[20.313rem] ">
-            <Card
-              className="w-[20.313rem]  max-h-[20.875rem] md:hover:scale-105 my-2 ease-in-out duration-150 "
-              Icon={props.Icon}
-              paid={props.paid}
-              title="فيلم قصير _قلم، صفحة، وأستيكا"
-              subTitle="فيلم قلم وورقة وأستيكا هو فيلم قصير كوميدي مدته حوالي 15 دقيقة باللهجة..."
-            />
-          </SwiperSlide>
-          <SwiperSlide className="!w-[20.313rem] ">
-            <Card
-              className="w-[20.313rem]  max-h-[20.875rem] md:hover:scale-105 my-2 ease-in-out duration-150 "
-              Icon={props.Icon}
-              paid={props.paid}
-              title="فيلم قصير _قلم، صفحة، وأستيكا"
-              subTitle="فيلم قلم وورقة وأستيكا هو فيلم قصير كوميدي مدته حوالي 15 دقيقة باللهجة..."
-            />
-          </SwiperSlide>
-          <SwiperSlide className="!w-[20.313rem] ">
-            <Card
-              className="w-[20.313rem]  max-h-[20.875rem] md:hover:scale-105 my-2 ease-in-out duration-150 "
-              Icon={props.Icon}
-              paid={props.paid}
-              title="فيلم قصير _قلم، صفحة، وأستيكا"
-              subTitle="فيلم قلم وورقة وأستيكا هو فيلم قصير كوميدي مدته حوالي 15 دقيقة باللهجة..."
-            />
-          </SwiperSlide>
-          <SwiperSlide className="!w-[20.313rem] ">
-            <Card
-              className="w-[20.313rem]  max-h-[20.875rem] md:hover:scale-105 my-2 ease-in-out duration-150 "
-              Icon={props.Icon}
-              paid={props.paid}
-              title="فيلم قصير _قلم، صفحة، وأستيكا"
-              subTitle="فيلم قلم وورقة وأستيكا هو فيلم قصير كوميدي مدته حوالي 15 دقيقة باللهجة..."
-            />
-          </SwiperSlide>
-          <SwiperSlide className="!w-[20.313rem] ">
-            <Card
-              className="w-[20.313rem]  max-h-[20.875rem] md:hover:scale-105 my-2 ease-in-out duration-150 "
-              Icon={props.Icon}
-              paid={props.paid}
-              title="فيلم قصير _قلم، صفحة، وأستيكا"
-              subTitle="فيلم قلم وورقة وأستيكا هو فيلم قصير كوميدي مدته حوالي 15 دقيقة باللهجة..."
-            />
-          </SwiperSlide>
-          <SwiperSlide className="!w-[20.313rem] ">
-            <Card
-              className="w-[20.313rem]  max-h-[20.875rem] md:hover:scale-105 my-2 ease-in-out duration-150 "
-              Icon={props.Icon}
-              paid={props.paid}
-              title="فيلم قصير _قلم، صفحة، وأستيكا"
-              subTitle="فيلم قلم وورقة وأستيكا هو فيلم قصير كوميدي مدته حوالي 15 دقيقة باللهجة..."
-            />
-          </SwiperSlide>
-          <SwiperSlide className="!w-[20.313rem] ">
-            <Card
-              className="w-[20.313rem]  max-h-[20.875rem] md:hover:scale-105 my-2 ease-in-out duration-150 "
-              Icon={props.Icon}
-              paid={props.paid}
-              title="فيلم قصير _قلم، صفحة، وأستيكا"
-              subTitle="فيلم قلم وورقة وأستيكا هو فيلم قصير كوميدي مدته حوالي 15 دقيقة باللهجة..."
-            />
-          </SwiperSlide>
+          {props.myRoles ? (
+            <>
+              <SwiperSlide className="!w-[20.313rem] ">
+                <RolesCard />
+              </SwiperSlide>
+              <SwiperSlide className="!w-[20.313rem] ">
+                <RolesCard />
+              </SwiperSlide>
+              <SwiperSlide className="!w-[20.313rem] ">
+                <RolesCard />
+              </SwiperSlide>
+              <SwiperSlide className="!w-[20.313rem] ">
+                <RolesCard />
+              </SwiperSlide>
+              <SwiperSlide className="!w-[20.313rem] ">
+                <RolesCard />
+              </SwiperSlide>
+              <SwiperSlide className="!w-[20.313rem] ">
+                <RolesCard />
+              </SwiperSlide>
+            </>
+          ) : (
+            <>
+              <SwiperSlide className="!w-[20.313rem] ">
+                <Card
+                  className="w-[20.313rem]  max-h-[20.875rem] md:hover:scale-105 my-2 ease-in-out duration-150 "
+                  Icon={props.Icon}
+                  paid={props.paid}
+                  title="فيلم قصير _قلم، صفحة، وأستيكا"
+                  subTitle="فيلم قلم وورقة وأستيكا هو فيلم قصير كوميدي مدته حوالي 15 دقيقة باللهجة..."
+                />
+              </SwiperSlide>
+              <SwiperSlide className="!w-[20.313rem] ">
+                <Card
+                  className="w-[20.313rem]  max-h-[20.875rem] md:hover:scale-105 my-2 ease-in-out duration-150 "
+                  Icon={props.Icon}
+                  paid={props.paid}
+                  title="فيلم قصير _قلم، صفحة، وأستيكا"
+                  subTitle="فيلم قلم وورقة وأستيكا هو فيلم قصير كوميدي مدته حوالي 15 دقيقة باللهجة..."
+                />
+              </SwiperSlide>
+              <SwiperSlide className="!w-[20.313rem] ">
+                <Card
+                  className="w-[20.313rem]  max-h-[20.875rem] md:hover:scale-105 my-2 ease-in-out duration-150 "
+                  Icon={props.Icon}
+                  paid={props.paid}
+                  title="فيلم قصير _قلم، صفحة، وأستيكا"
+                  subTitle="فيلم قلم وورقة وأستيكا هو فيلم قصير كوميدي مدته حوالي 15 دقيقة باللهجة..."
+                />
+              </SwiperSlide>
+              <SwiperSlide className="!w-[20.313rem] ">
+                <Card
+                  className="w-[20.313rem]  max-h-[20.875rem] md:hover:scale-105 my-2 ease-in-out duration-150 "
+                  Icon={props.Icon}
+                  paid={props.paid}
+                  title="فيلم قصير _قلم، صفحة، وأستيكا"
+                  subTitle="فيلم قلم وورقة وأستيكا هو فيلم قصير كوميدي مدته حوالي 15 دقيقة باللهجة..."
+                />
+              </SwiperSlide>
+              <SwiperSlide className="!w-[20.313rem] ">
+                <Card
+                  className="w-[20.313rem]  max-h-[20.875rem] md:hover:scale-105 my-2 ease-in-out duration-150 "
+                  Icon={props.Icon}
+                  paid={props.paid}
+                  title="فيلم قصير _قلم، صفحة، وأستيكا"
+                  subTitle="فيلم قلم وورقة وأستيكا هو فيلم قصير كوميدي مدته حوالي 15 دقيقة باللهجة..."
+                />
+              </SwiperSlide>
+              <SwiperSlide className="!w-[20.313rem] ">
+                <Card
+                  className="w-[20.313rem]  max-h-[20.875rem] md:hover:scale-105 my-2 ease-in-out duration-150 "
+                  Icon={props.Icon}
+                  paid={props.paid}
+                  title="فيلم قصير _قلم، صفحة، وأستيكا"
+                  subTitle="فيلم قلم وورقة وأستيكا هو فيلم قصير كوميدي مدته حوالي 15 دقيقة باللهجة..."
+                />
+              </SwiperSlide>
+            </>
+          )}
         </Swiper>
         <div className="text-center">
           {props.buttonContent ? (

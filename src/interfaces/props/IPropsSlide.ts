@@ -5,4 +5,7 @@ export interface IPropsSlide {
   paid?: string;
   href?: string;
   buttonContent?: string;
+  link?: string;
+  linkContent?: string;
+  myRoles?: boolean;
 }

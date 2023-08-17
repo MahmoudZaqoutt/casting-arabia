@@ -52,6 +52,11 @@ const index = () => {
             <div className="w-full flex flex-col gap-3">
               <label className="text-lg text-gray-500">Language</label>
               <DropDownList options={["Arabic", "English"]} />
+              <button className="flex justify-end">
+                <p className="text-xl text-white bg-blue-500 px-6 py-2 font-semibold rounded-xl inline-block">
+                  Search
+                </p>
+              </button>
             </div>
           </div>
         </div>

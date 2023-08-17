@@ -7,9 +7,23 @@ import WhoAreYouSection from "@/components/WhoAreYou/WhoAreYouSection/WhoAreYouS
 
 const index = () => {
   return (
-    <>
-      <WhoAreYouSection />
+    <div className="mb-20">
+      {/* <WhoAreYouSection /> */}
       <div>
+        <SlidesOfSections
+          title="My Opportunities"
+          id={"MyOpportunities"}
+          paid="p"
+          Icon="i"
+          link="link"
+          buttonContent="Show More"
+        />
+        <SlidesOfSections
+          title="My Roles"
+          id={"MyRoles"}
+          href="/creator/roles"
+          myRoles={true}
+        />
         <SlidesOfSections
           title="Opportunities"
           id={"Opportunities"}
@@ -24,7 +38,7 @@ const index = () => {
           href="LearningCenter"
         />
       </div>
-    </>
+    </div>
   );
 };
 

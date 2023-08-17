@@ -1,7 +1,7 @@
 import Container from "@/components/Shared/Container/Container";
 import React, { useState } from "react";
 import ChatAccount from "./ChatAccount/ChatAccount";
-import UploadImage from "./Upload/UploadImage";
+import UploadImage from "./UploadImage/UploadImage";
 
 import { IoSendSharp } from "react-icons/io5";
 import { Button } from "antd";
