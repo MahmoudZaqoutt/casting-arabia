@@ -13,26 +13,25 @@ const index = () => {
         <SlidesOfSections
           title="My Opportunities"
           id={"MyOpportunities"}
-          paid="p"
-          Icon="i"
           link="link"
-          buttonContent="Show More"
+          MyOpportunities={true}
         />
         <SlidesOfSections
           title="My Roles"
           id={"MyRoles"}
-          href="/creator/roles"
+          href="creator/roles"
           myRoles={true}
         />
-        <SlidesOfSections
+        {/* <SlidesOfSections
           title="Opportunities"
           id={"Opportunities"}
           paid="p"
           Icon="i"
           buttonContent="Show More"
-        />
-        <SlidesOfSections title="News" id={"News"} href="News" />
+        /> */}
+        <SlidesOfSections News title="News" id={"News"} href="News" />
         <SlidesOfSections
+          LearningCenter
           title="Learning Center"
           id={"LearningCenter"}
           href="LearningCenter"

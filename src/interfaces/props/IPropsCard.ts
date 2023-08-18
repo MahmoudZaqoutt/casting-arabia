@@ -1,5 +1,5 @@
 export interface IPropsCard {
-  Icon?: string;
+  Icon?: any;
   paid?: string;
   subTitle?: string;
   title?: string;

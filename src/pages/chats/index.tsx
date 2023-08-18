@@ -28,7 +28,7 @@ const index = () => {
     "Hi",
     "Hi",
     "Hi",
-    "HiHiHiHiHiHiHiHiHiHiHiHiHiHiHiHiHiHi",
+    "HiHiHiHiHiHiHiHiHiHiHiHHiHiHiiHiHiHiHiiHiHiHiHiHiHi",
     "Hi",
     "Hi",
     "Hi",
@@ -41,7 +41,8 @@ const index = () => {
 
   const handleSubmitMessage = (e: any) => {
     e.preventDefault();
-    messages.push(message);
+    setMessages([...messages, message]);
+    setMessage("");
     console.log(messages);
   };
 
@@ -78,6 +79,7 @@ const index = () => {
 
             <div className="w-full">
               <input
+                value={message}
                 onChange={handleChangeMessage}
                 type="text"
                 title="."
