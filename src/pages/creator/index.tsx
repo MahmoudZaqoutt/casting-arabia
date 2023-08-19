@@ -13,7 +13,7 @@ const index = () => {
         <SlidesOfSections
           title="My Opportunities"
           id={"MyOpportunities"}
-          link="link"
+          link="/creator/opportunities/edit/step-one"
           MyOpportunities={true}
         />
         <SlidesOfSections

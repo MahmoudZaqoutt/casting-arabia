@@ -29,7 +29,7 @@ const SlidesOfSections = (props: IPropsSlide) => {
           <div className="flex items-center gap-5">
             {props.link ? (
               <div>
-                <Link href={""}>
+                <Link href={props.link}>
                   <p className="font-semibold text-xl text-blue-600 border-2 border-blue-600 rounded-md px-5 py-2 hover:bg-blue-100 duration-200">
                     New
                   </p>
