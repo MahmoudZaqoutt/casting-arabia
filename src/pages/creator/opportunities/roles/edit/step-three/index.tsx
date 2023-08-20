@@ -1,19 +1,21 @@
 import React, { useState } from "react";
-import { TextField } from "@mui/material";
 import Textarea from "@mui/joy/Textarea";
 import Container from "@/components/Shared/Container/Container";
 import { schema } from "@/constants/Register";
 import Link from "next/link";
-import { IoAddOutline } from "react-icons/io5";
-import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import DropDownList from "@/components/Shared/DropDownList/DropDownList";
+import { DatePicker, Space } from "antd";
+import Modall from "@/components/Shared/Modal/Modal";
 
 const index = () => {
+  const { RangePicker } = DatePicker;
+
   const [errors, setErrors] = useState<any>([]);
   const [formData, setFormData] = useState({
-    RoleName: "",
-    dateOfBirth: { day: "", month: "", year: "" },
+    RoleDescription: "",
+    startDate: { day: "", month: "", year: "" },
+    endDate: { day: "", month: "", year: "" },
+    FilmingCity: "",
   });
   const handleInputChange = (e: any) => {
     const { name, value } = e.target;
@@ -21,10 +23,10 @@ const index = () => {
   };
 
   const handleDateChange = (e: any) => {
-    console.log(e.$D, e.$M, e.$y);
     setFormData({
       ...formData,
-      dateOfBirth: { day: e.$D, month: e.$M, year: e.$y },
+      startDate: { day: e[0].$D, month: e[0].$M + 1, year: e[0].$y },
+      endDate: { day: e[1].$D, month: e[1].$M + 1, year: e[1].$y },
     });
   };
 
@@ -43,43 +45,63 @@ const index = () => {
         setErrors(Errors);
       });
   };
+
   return (
     <Container>
       <div className="my-12">
         <p className="text-3xl text-blue-600 font-semibold sm:w-[500px] mx-auto mb-10">
-          Posting an Opportunity
+          Role Details
         </p>
         <div className="flex flex-col sm:w-[500px] mx-auto gap-3">
-          <div className="flex sm:w-[500px] mx-auto justify-between items-center">
-            <p className="text-xl text-gray-500   ">Role(s) You're Castig</p>
-            <button className=" hover:bg-blue-50 duration-200 text-gray-500 rounded-full text-3xl">
-              <Link href={"/creator/opportunities/roles/edit/step-one"}>
-                <IoAddOutline /> {""}
-              </Link>
-            </button>
-          </div>
           <div>
             <Textarea
-              value={formData.RoleName}
+              value={formData.RoleDescription}
               onChange={handleInputChange}
-              name="RoleName"
+              name="RoleDescription"
               minRows={7}
               className="sm:w-[500px] "
-              placeholder="Role Name"
+              placeholder="Role Description"
             />
             <p className="text-sm  text-red-500  p-2 inline-block ">
-              {errors.RoleName && errors.RoleName}
+              {errors.RoleDescription && errors.RoleDescription}
             </p>
           </div>
 
-          <div className="mb-10">
-            <LocalizationProvider dateAdapter={AdapterDayjs}>
-              <DatePicker
-                label="When should this listing expire?"
-                className="w-full h-14 border-2 border-gray-300 outline-none rounded-xl  text-lg  border-none"
-                onChange={handleDateChange}
+          <div className="mb-5">
+            <DropDownList
+              value={formData.FilmingCity}
+              onChange={handleInputChange}
+              options={["1", "2"]}
+              label="Filming City"
+              name="FilmingCity"
+            />
+            <p className="text-sm  text-red-500  p-2 inline-block ">
+              {errors.FilmingCity && errors.FilmingCity}
+            </p>
+          </div>
+
+          <div className="flex justify-between items-center mb-10">
+            <p className="text-lg">Audition/Meeting Dates</p>
+            <div>
+              <Modall
+                // modalContent={}
+                modalName={
+                  <p className="text-blue-600 text-xl border-2 border-blue-600 rounded-lg px-3 py-1  ">
+                    +Add
+                  </p>
+                }
               />
-            </LocalizationProvider>
+            </div>
+          </div>
+
+          <div className="w-full mb-5">
+            <p className="text-lg mb-5">Filming Availability</p>
+            <div>
+              <RangePicker
+                onChange={handleDateChange}
+                className="sm:w-[500px] h-14"
+              />
+            </div>
           </div>
 
           <div className="flex items-center gap-4">
@@ -90,8 +112,8 @@ const index = () => {
               onClick={handleSubmit}
               className="border-2 border-blue-700 bg-blue-700 rounded-md text-lg text-white px-4 py-1 font-semibold hover:bg-blue-600 duration-200"
             >
-              {formData.RoleName !== "" ? (
-                <Link href={"/creator/opportunities/edit/step-two"}>
+              {formData.RoleDescription && formData.FilmingCity !== "" ? (
+                <Link href={"/creator/opportunities/roles/edit/step-four"}>
                   Continue
                 </Link>
               ) : (

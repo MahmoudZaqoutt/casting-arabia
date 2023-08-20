@@ -37,7 +37,7 @@ const Modall = (props: IPropsModal) => {
           <Button
             key="cancel"
             onClick={handleCancel}
-            className="border-red-600 text-xl text-red-600 border-2 hover:!text-red-500 hover:!border-red-500 h-10 font-semibold"
+            className=" border-red-600 text-xl text-red-600 border-2 hover:!text-red-500 hover:!border-red-500 h-10 font-semibold"
           >
             Cancel
           </Button>,

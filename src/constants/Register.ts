@@ -19,4 +19,10 @@ export const schema = yup.object().shape({
   ProductionDescription: yup.string().required("this field is required"),
   RoleName: yup.string().required("this field is required"),
   SubType: yup.string().required("this field is required"),
+  Skills: yup.array().required("this field is required"),
+  RoleDescription: yup.string().required("this field is required"),
+  FilmingCity: yup.string().required("this field is required"),
+  compensationAgreement: yup.string().required("this field is required"),
+  period: yup.string().required("this field is required"),
+  Rate: yup.string().required("this field is required"),
 });

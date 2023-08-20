@@ -133,7 +133,7 @@ const index = () => {
               formData.talent &&
               formData.Gender &&
               formData.RoleName !== "" ? (
-                <Link href={"/creator/opportunities/roles/edit/step-one"}>
+                <Link href={"/creator/opportunities/roles/edit/step-two"}>
                   Continue
                 </Link>
               ) : (
