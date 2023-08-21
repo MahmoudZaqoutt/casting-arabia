@@ -91,7 +91,7 @@ const index = () => {
               className="border-2 border-blue-700 bg-blue-700 rounded-md text-lg text-white px-4 py-1 font-semibold hover:bg-blue-600 duration-200"
             >
               {formData.RoleName !== "" ? (
-                <Link href={"/creator/opportunities/edit/step-two"}>
+                <Link href={"/creator/opportunities/edit/summary"}>
                   Continue
                 </Link>
               ) : (

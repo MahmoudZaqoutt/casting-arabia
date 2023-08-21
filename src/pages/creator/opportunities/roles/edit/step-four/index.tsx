@@ -54,9 +54,8 @@ const index = () => {
           </div>
           {formData.compensationAgreement === "Paid" ? (
             <div className="flex gap-4 mb-5">
-              <div>
+              <div className="w-52">
                 <DropDownList
-                  className="w-52"
                   options={["Hourly", "Daily", "Weekly"]}
                   label="period"
                   name="period"
@@ -96,9 +95,7 @@ const index = () => {
             >
               {formData.compensationAgreement === "Unpaid" ||
               (formData.period && formData.Rate) !== "" ? (
-                <Link href={"/creator/opportunities/roles/edit/step-four"}>
-                  Save
-                </Link>
+                <Link href={"/creator/opportunities/edit/step-two"}>Save</Link>
               ) : (
                 "Save"
               )}

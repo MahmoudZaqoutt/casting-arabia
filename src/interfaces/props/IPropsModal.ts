@@ -5,4 +5,5 @@ export interface IPropsModal {
   buttonClassName?: string;
   onSubmit?: any;
   title?: string;
+  date?: any;
 }

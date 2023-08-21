@@ -6,6 +6,10 @@ import Link from "next/link";
 import DropDownList from "@/components/Shared/DropDownList/DropDownList";
 import { DatePicker, Space } from "antd";
 import Modall from "@/components/Shared/Modal/Modal";
+import Calender from "./Calender/Calender";
+import ResponsiveDatePickers from "./Calender/Calender";
+import BasicDateCalendar from "./Calender/Calender";
+import Chips from "./Chips/Chips";
 
 const index = () => {
   const { RangePicker } = DatePicker;
@@ -84,14 +88,20 @@ const index = () => {
             <p className="text-lg">Audition/Meeting Dates</p>
             <div>
               <Modall
-                // modalContent={}
+                title="SELECT DATE"
+                modalContent={<BasicDateCalendar />}
                 modalName={
                   <p className="text-blue-600 text-xl border-2 border-blue-600 rounded-lg px-3 py-1  ">
                     +Add
                   </p>
                 }
+                modalClassName="!w-96"
               />
             </div>
+          </div>
+
+          <div>
+            <Chips />
           </div>
 
           <div className="w-full mb-5">
