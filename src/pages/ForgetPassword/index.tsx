@@ -1,10 +1,14 @@
 import Container from "@/components/Shared/Container/Container";
 import { TextField } from "@mui/material";
+import axios from "axios";
 import React, { useState } from "react";
 import * as yup from "yup";
 
 const ForgetPassword = () => {
   const [errors, setErrors] = useState<any>([]);
+  const [error, setError] = useState<any>("");
+  const [success, setSuccess] = useState<any>("");
+
   const [formData, setFormData] = useState({
     email: "",
   });
@@ -22,8 +26,19 @@ const ForgetPassword = () => {
     event.preventDefault();
     schema
       .validate(formData, { abortEarly: false })
-      .then(() => {
-        console.log("Form data is valid:", formData);
+      .then(async () => {
+        try {
+          const res = await axios.post(
+            "http://casting-ec2-1307338951.us-east-2.elb.amazonaws.com:7001/auth/forget-password",
+            formData
+          );
+          if (res) {
+            if (res.data.success)
+              setSuccess("A password reset link has been sent to your email");
+          }
+        } catch (error) {
+          setError("user not found");
+        }
       })
       .catch((validationErrors) => {
         const Errors: any = {};
@@ -51,6 +66,12 @@ const ForgetPassword = () => {
             <p className="text-sm  text-red-500  p-2 inline-block ">
               {errors.email ? errors.email : ""}
             </p>
+
+            {success ? (
+              <p className="text-xl text-center mb-2">{success}</p>
+            ) : (
+              <p className="text-xl text-center text-red-500 mb-2">{error}</p>
+            )}
           </div>
 
           <div className="w-[95%] mx-auto">

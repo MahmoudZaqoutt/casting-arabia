@@ -8,17 +8,19 @@ interface ChipData {
 }
 
 export default function Chips(props: IPropsModal) {
-  const [chipData, setChipData] = React.useState<readonly ChipData[]>([
-    { key: 0, label: "Angular" },
-    { key: 1, label: "jQuery" },
-    { key: 2, label: "Polymer" },
-    { key: 3, label: "React" },
-    { key: 4, label: "Vue.js" },
-  ]);
+  const [chipData, setChipData] = React.useState<readonly ChipData[]>([]);
+  const [date, setDate] = React.useState<any>();
+
+  React.useEffect(() => {
+    const date = localStorage.getItem("date");
+    setDate(date ? date : date);
+  }, []);
+
+  console.log(date);
 
   const handleDelete = (chipToDelete: ChipData) => () => {
-    setChipData((chips) =>
-      chips.filter((chip) => chip.key !== chipToDelete.key)
+    setChipData((chips: any) =>
+      chips.filter((chip: any) => chip !== chipToDelete)
     );
   };
 

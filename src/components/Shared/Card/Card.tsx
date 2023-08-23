@@ -7,19 +7,23 @@ import {
   BsFillXCircleFill,
 } from "react-icons/bs";
 
-import img from "../../../assets/Rectangle16.png";
 import { IPropsCard } from "@/interfaces/props/IPropsCard";
 const Card = (props: IPropsCard) => {
   return (
-    // "w-[20.313rem]  max-h-[20.875rem] md:hover:scale-105 my-2 ease-in-out duration-150 "
     <div className={props.className}>
-      <Image src={img} alt="img" className="w-full h-[10rem]" />
+      <img
+        src={props.img}
+        alt="img"
+        // height={100}
+        // width={100}
+        className="w-full h-[10rem]"
+      />
       <div className="flex flex-col gap-5 justify-between mt-5 h-auto">
         <TitleAndSubTitle
           title={props.title}
           subTitle={props.subTitle}
-          classNameOfTitle="  font-semibold"
-          classNameOfSubTitle="text-sm text-gray-500"
+          classNameOfTitle="  font-semibold "
+          classNameOfSubTitle="text-sm text-gray-500 "
         />
         {props.Icon ? (
           <div className="text-sm flex gap-3  ">

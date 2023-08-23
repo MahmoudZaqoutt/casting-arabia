@@ -8,4 +8,5 @@ export interface IPropsCard {
   iconStatus?: any;
   status?: any;
   id?: number;
+  img?: any;
 }

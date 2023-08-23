@@ -93,18 +93,24 @@ const InternalHeader = () => {
                 {
                   href: "/creator/profile",
                   content: (
-                    <div className="hover:bg-blue-50 ease-in-out duration-150 text-lg flex items-center justify-between gap-2">
-                      <BsPerson />
-                      <p>Profile</p>
+                    <div>
+                      <button className="hover:bg-blue-50 ease-in-out duration-150 text-lg flex items-center justify-between gap-2">
+                        <BsPerson />
+                        <p>Profile</p>
+                      </button>
                     </div>
                   ),
                 },
                 {
-                  href: "/Login",
+                  href: "/",
                   content: (
-                    <div className="hover:bg-blue-50 ease-in-out duration-150 text-lg flex items-center justify-between gap-2">
-                      <MdLogout />
-                      <p>Logout</p>
+                    <div>
+                      <button
+                        onClick={() => localStorage.removeItem("token")}
+                        className="hover:bg-blue-50 ease-in-out duration-150 text-lg flex items-center justify-between gap-2"
+                      >
+                        <MdLogout /> <p>Logout</p>
+                      </button>
                     </div>
                   ),
                 },

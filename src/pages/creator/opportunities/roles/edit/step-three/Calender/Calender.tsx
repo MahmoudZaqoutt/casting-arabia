@@ -71,7 +71,10 @@ import { schema } from "@/constants/Register";
 import { BiSolidPencil } from "react-icons/bi";
 import { AiFillCalendar } from "react-icons/ai";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+
+
 export default function BasicDateCalendar() {
+
   const currentDate = dayjs();
 
   const [errors, setErrors] = React.useState<any>([]);
@@ -94,11 +97,12 @@ export default function BasicDateCalendar() {
     });
   };
 
-  console.log(formData);
+  // console.log(formData);
 
   const handleSubmit = (event: any) => {
     event.preventDefault();
-    console.log("first");
+
+    localStorage.setItem("date", JSON.stringify(formData));
   };
 
   const handleDate = (event: any) => {

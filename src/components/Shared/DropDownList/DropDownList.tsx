@@ -3,7 +3,8 @@ import { IPropsDropDownList } from "@/interfaces/props/IPropsDropDownList";
 import { FormControl, InputLabel, MenuItem, Select } from "@mui/material";
 const DropDownList = (props: IPropsDropDownList) => {
   return (
-    <FormControl variant="standard" fullWidth>
+    // variant="standard"
+    <FormControl fullWidth>
       <InputLabel id={props.name}>{props.label}</InputLabel>
       <Select
         name={props.name}

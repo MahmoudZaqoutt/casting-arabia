@@ -6,14 +6,14 @@ import Link from "next/link";
 import React, { useState } from "react";
 import { GrSend } from "react-icons/gr";
 
-const index = () => {
+const News = () => {
   const [formData, setFormData] = useState(null);
   const handleInputChange = (e: any) => {
     setFormData(e.target.value);
   };
 
   const [isSectionVisible, setIsSectionVisible] = useState(false);
-  
+
   const toggleSection = () => {
     setIsSectionVisible(!isSectionVisible);
   };
@@ -116,4 +116,4 @@ const index = () => {
   );
 };
 
-export default index;
+export default News;

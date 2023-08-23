@@ -8,7 +8,7 @@ import { AiOutlineLeft, AiOutlineRight } from "react-icons/ai";
 import Link from "next/link";
 import { IPropsSlide } from "@/interfaces/props/IPropsSlide";
 import Modall from "../Shared/Modal/Modal";
-import TalentRegister from "../TalentRegister/TalentRegister";
+import TalentRegister from "../../pages/TalentRegister";
 import RolesCard from "@/pages/creator/roles/rolesCard/RolesCard";
 import OpportunitiesCard from "@/pages/creator/OpportunitiesCard/OpportunitiesCard";
 
@@ -20,6 +20,7 @@ const SlidesOfSections = (props: IPropsSlide) => {
     setIsBeginning(swiper.isBeginning);
     setIsEnd(swiper.isEnd);
   };
+
   return (
     <Container>
       <div className="bg-white p-5 mt-5 rounded-3xl" id={props.id}>
@@ -188,60 +189,22 @@ const SlidesOfSections = (props: IPropsSlide) => {
 
           {props.News ? (
             <>
-              <SwiperSlide className="!w-[20.313rem] ">
-                <Card
-                  className="w-[20.313rem]  max-h-[20.875rem] md:hover:scale-105 my-2 ease-in-out duration-150 "
-                  Icon={props.Icon}
-                  paid={props.paid}
-                  title="فيلم قصير _قلم، صفحة، وأستيكا"
-                  subTitle="فيلم قلم وورقة وأستيكا هو فيلم قصير كوميدي مدته حوالي 15 دقيقة باللهجة..."
-                />
-              </SwiperSlide>
-              <SwiperSlide className="!w-[20.313rem] ">
-                <Card
-                  className="w-[20.313rem]  max-h-[20.875rem] md:hover:scale-105 my-2 ease-in-out duration-150 "
-                  Icon={props.Icon}
-                  paid={props.paid}
-                  title="فيلم قصير _قلم، صفحة، وأستيكا"
-                  subTitle="فيلم قلم وورقة وأستيكا هو فيلم قصير كوميدي مدته حوالي 15 دقيقة باللهجة..."
-                />
-              </SwiperSlide>
-              <SwiperSlide className="!w-[20.313rem] ">
-                <Card
-                  className="w-[20.313rem]  max-h-[20.875rem] md:hover:scale-105 my-2 ease-in-out duration-150 "
-                  Icon={props.Icon}
-                  paid={props.paid}
-                  title="فيلم قصير _قلم، صفحة، وأستيكا"
-                  subTitle="فيلم قلم وورقة وأستيكا هو فيلم قصير كوميدي مدته حوالي 15 دقيقة باللهجة..."
-                />
-              </SwiperSlide>
-              <SwiperSlide className="!w-[20.313rem] ">
-                <Card
-                  className="w-[20.313rem]  max-h-[20.875rem] md:hover:scale-105 my-2 ease-in-out duration-150 "
-                  Icon={props.Icon}
-                  paid={props.paid}
-                  title="فيلم قصير _قلم، صفحة، وأستيكا"
-                  subTitle="فيلم قلم وورقة وأستيكا هو فيلم قصير كوميدي مدته حوالي 15 دقيقة باللهجة..."
-                />
-              </SwiperSlide>
-              <SwiperSlide className="!w-[20.313rem] ">
-                <Card
-                  className="w-[20.313rem]  max-h-[20.875rem] md:hover:scale-105 my-2 ease-in-out duration-150 "
-                  Icon={props.Icon}
-                  paid={props.paid}
-                  title="فيلم قصير _قلم، صفحة، وأستيكا"
-                  subTitle="فيلم قلم وورقة وأستيكا هو فيلم قصير كوميدي مدته حوالي 15 دقيقة باللهجة..."
-                />
-              </SwiperSlide>
-              <SwiperSlide className="!w-[20.313rem] ">
-                <Card
-                  className="w-[20.313rem]  max-h-[20.875rem] md:hover:scale-105 my-2 ease-in-out duration-150 "
-                  Icon={props.Icon}
-                  paid={props.paid}
-                  title="فيلم قصير _قلم، صفحة، وأستيكا"
-                  subTitle="فيلم قلم وورقة وأستيكا هو فيلم قصير كوميدي مدته حوالي 15 دقيقة باللهجة..."
-                />
-              </SwiperSlide>
+              {props.News.data.map((item: any, index: number) => (
+                <>
+                  {console.log(item)}
+                  <SwiperSlide key={index} className="!w-[20.313rem] ">
+                    <Card
+                      img={item.imageUrl}
+                      className="w-[20.313rem]  max-h-[20.875rem] md:hover:scale-105 my-2 ease-in-out duration-150 "
+                      Icon={props.Icon}
+                      paid={props.paid}
+                      title={item.title}
+                      subTitle=""
+                    />
+                  </SwiperSlide>
+                  ;
+                </>
+              ))}
             </>
           ) : (
             <></>
