@@ -16,7 +16,6 @@ const index = ({ News }: any) => {
 
   return (
     <>
-      <Header isAuthorized={isAuthorized} />;
       <div className="mb-20">
         {/* <WhoAreYouSection /> */}
         <div>
@@ -41,7 +40,7 @@ const index = ({ News }: any) => {
         /> */}
           <SlidesOfSections News={News} title="News" id={"News"} href="News" />
           <SlidesOfSections
-            LearningCenter
+            News={News}
             title="Learning Center"
             id={"LearningCenter"}
             href="LearningCenter"

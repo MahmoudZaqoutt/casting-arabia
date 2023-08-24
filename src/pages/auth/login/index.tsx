@@ -17,13 +17,21 @@ import VisibilityOff from "@mui/icons-material/VisibilityOff";
 const Login = () => {
   const router = useRouter();
 
+  // console.log();
+
   const [token, setToken] = useState<any>("");
 
   const [isAuthorized, setIsAuthorized] = useState(false);
 
   useEffect(() => {
     const token = localStorage.getItem("token");
-    token ? setIsAuthorized(true) : setIsAuthorized(false);
+    if (token) {
+      router.push("/creator");
+      setIsAuthorized(true);
+    } else {
+      router.push("/auth/login");
+      setIsAuthorized(false);
+    }
   }, []);
 
   const [formData, setFormData] = useState({
@@ -84,7 +92,6 @@ const Login = () => {
   };
   return (
     <>
-      <Header isAuthorized={isAuthorized} />;
       <Container>
         <div className=" min-h-[450px] rounded-xl shadow-xl bg-white mt-[5rem] pb-10 mb-16">
           <p className="text-3xl pt-8 text-center">login</p>

@@ -1,12 +1,13 @@
 import Card from "@/components/Shared/Card/Card";
 import Container from "@/components/Shared/Container/Container";
 import DropDownList from "@/components/Shared/DropDownList/DropDownList";
+import { IPropsSlide } from "@/interfaces/props/IPropsSlide";
 import { TextField } from "@mui/material";
 import Link from "next/link";
 import React, { useState } from "react";
 import { GrSend } from "react-icons/gr";
 
-const News = () => {
+const NewsPage = (props: IPropsSlide) => {
   const [formData, setFormData] = useState(null);
   const handleInputChange = (e: any) => {
     setFormData(e.target.value);
@@ -63,57 +64,19 @@ const News = () => {
       )}
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 mt-5">
-        <Link href={""}>
-          <Card
-            title="Jake Paltrow on Taking a Fresh Look at the Trial of Adolf Eichmann in ‘June..."
-            className="hover:scale-105 my-2 ease-in-out duration-150 "
-          />
-        </Link>
-        <Link href={""}>
-          <Card
-            title="Jake Paltrow on Taking a Fresh Look at the Trial of Adolf Eichmann in ‘June..."
-            className="hover:scale-105 my-2 ease-in-out duration-150 "
-          />
-        </Link>
-        <Link href={""}>
-          <Card
-            title="Jake Paltrow on Taking a Fresh Look at the Trial of Adolf Eichmann in ‘June..."
-            className="hover:scale-105 my-2 ease-in-out duration-150 "
-          />
-        </Link>
-        <Link href={""}>
-          <Card
-            title="Jake Paltrow on Taking a Fresh Look at the Trial of Adolf Eichmann in ‘June..."
-            className="hover:scale-105 my-2 ease-in-out duration-150 "
-          />
-        </Link>
-        <Link href={""}>
-          <Card
-            title="Jake Paltrow on Taking a Fresh Look at the Trial of Adolf Eichmann in ‘June..."
-            className="hover:scale-105 my-2 ease-in-out duration-150 "
-          />
-        </Link>
-        <Link href={""}>
-          <Card
-            title="Jake Paltrow on Taking a Fresh Look at the Trial of Adolf Eichmann in ‘June..."
-            className="hover:scale-105 my-2 ease-in-out duration-150 "
-          />
-        </Link>
-        <Link href={""}>
-          <Card
-            title="Jake Paltrow on Taking a Fresh Look at the Trial of Adolf Eichmann in ‘June..."
-            className="hover:scale-105 my-2 ease-in-out duration-150 "
-          />
-        </Link>
-        <Link href={""}>
-          <Card
-            title="Jake Paltrow on Taking a Fresh Look at the Trial of Adolf Eichmann in ‘June..."
-            className="hover:scale-105 my-2 ease-in-out duration-150 "
-          />
-        </Link>
+        {props.News.data.map((item: any, index: any) => (
+          <Link href={`/articles/${item.slug}`}>
+            <Card
+              key={index}
+              img={item.imageUrl}
+              title={item.title}
+              className="hover:scale-105 my-2 ease-in-out duration-150 "
+            />
+          </Link>
+        ))}
       </div>
     </Container>
   );
 };
 
-export default News;
+export default NewsPage;

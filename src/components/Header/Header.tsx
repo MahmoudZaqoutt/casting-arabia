@@ -116,7 +116,7 @@ const Header = (props: any) => {
                           <button
                             onClick={() => {
                               localStorage.removeItem("token");
-                              router.push("/");
+                              router.push("/auth/login");
                             }}
                             className="hover:bg-blue-50 ease-in-out duration-150 text-lg flex items-center justify-between gap-2"
                           >
@@ -215,7 +215,7 @@ const Header = (props: any) => {
                   className="flex sm:gap-5 gap-2 items-center  "
                   options={[
                     {
-                      href: "/",
+                      href: "/auth/login",
                       content: "Log In",
                       classNameOfLI:
                         "hover:bg-blue-50 ease-in-out duration-150 p-2 sm:block hidden",

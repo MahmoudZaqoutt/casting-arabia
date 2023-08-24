@@ -1,13 +1,14 @@
 import React from "react";
-import LearningCenterPage from "./LearningCenterPage";
+import Test from "./[slug]";
 
-const index = ({ News }: any) => {
+const index = () => {
   return (
     <div>
-      <LearningCenterPage News={News} />
+      <Test />
     </div>
   );
 };
+
 export default index;
 
 export const getStaticProps = async () => {

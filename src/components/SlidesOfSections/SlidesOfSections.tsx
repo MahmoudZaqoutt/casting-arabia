@@ -85,7 +85,7 @@ const SlidesOfSections = (props: IPropsSlide) => {
           }}
           modules={[Navigation]}
           slidesPerView={4}
-          slidesPerGroup={1}
+          slidesPerGroup={3}
           spaceBetween={30}
           breakpoints={{
             100: {
@@ -109,12 +109,12 @@ const SlidesOfSections = (props: IPropsSlide) => {
             },
             850: {
               slidesPerView: 3,
-              slidesPerGroup: 1,
+              slidesPerGroup: 3,
               spaceBetween: 10,
             },
             1250: {
               slidesPerView: 4,
-              slidesPerGroup: 1,
+              slidesPerGroup: 3,
               spaceBetween: 20,
             },
           }}
@@ -191,18 +191,17 @@ const SlidesOfSections = (props: IPropsSlide) => {
             <>
               {props.News.data.map((item: any, index: number) => (
                 <>
-                  {console.log(item)}
                   <SwiperSlide key={index} className="!w-[20.313rem] ">
-                    <Card
-                      img={item.imageUrl}
-                      className="w-[20.313rem]  max-h-[20.875rem] md:hover:scale-105 my-2 ease-in-out duration-150 "
-                      Icon={props.Icon}
-                      paid={props.paid}
-                      title={item.title}
-                      subTitle=""
-                    />
+                    <Link href={`/articles/${item.slug}`}>
+                      <Card
+                        img={item.imageUrl}
+                        className="w-[20.313rem]  max-h-[20.875rem] md:hover:scale-105 my-2 ease-in-out duration-150 "
+                        Icon={props.Icon}
+                        paid={props.paid}
+                        title={item.title}
+                      />
+                    </Link>
                   </SwiperSlide>
-                  ;
                 </>
               ))}
             </>
@@ -210,62 +209,23 @@ const SlidesOfSections = (props: IPropsSlide) => {
             <></>
           )}
 
-          {props.LearningCenter ? (
+          {props.News ? (
             <>
-              <SwiperSlide className="!w-[20.313rem] ">
-                <Card
-                  className="w-[20.313rem]  max-h-[20.875rem] md:hover:scale-105 my-2 ease-in-out duration-150 "
-                  Icon={props.Icon}
-                  paid={props.paid}
-                  title="فيلم قصير _قلم، صفحة، وأستيكا"
-                  subTitle="فيلم قلم وورقة وأستيكا هو فيلم قصير كوميدي مدته حوالي 15 دقيقة باللهجة..."
-                />
-              </SwiperSlide>
-              <SwiperSlide className="!w-[20.313rem] ">
-                <Card
-                  className="w-[20.313rem]  max-h-[20.875rem] md:hover:scale-105 my-2 ease-in-out duration-150 "
-                  Icon={props.Icon}
-                  paid={props.paid}
-                  title="فيلم قصير _قلم، صفحة، وأستيكا"
-                  subTitle="فيلم قلم وورقة وأستيكا هو فيلم قصير كوميدي مدته حوالي 15 دقيقة باللهجة..."
-                />
-              </SwiperSlide>
-              <SwiperSlide className="!w-[20.313rem] ">
-                <Card
-                  className="w-[20.313rem]  max-h-[20.875rem] md:hover:scale-105 my-2 ease-in-out duration-150 "
-                  Icon={props.Icon}
-                  paid={props.paid}
-                  title="فيلم قصير _قلم، صفحة، وأستيكا"
-                  subTitle="فيلم قلم وورقة وأستيكا هو فيلم قصير كوميدي مدته حوالي 15 دقيقة باللهجة..."
-                />
-              </SwiperSlide>
-              <SwiperSlide className="!w-[20.313rem] ">
-                <Card
-                  className="w-[20.313rem]  max-h-[20.875rem] md:hover:scale-105 my-2 ease-in-out duration-150 "
-                  Icon={props.Icon}
-                  paid={props.paid}
-                  title="فيلم قصير _قلم، صفحة، وأستيكا"
-                  subTitle="فيلم قلم وورقة وأستيكا هو فيلم قصير كوميدي مدته حوالي 15 دقيقة باللهجة..."
-                />
-              </SwiperSlide>
-              <SwiperSlide className="!w-[20.313rem] ">
-                <Card
-                  className="w-[20.313rem]  max-h-[20.875rem] md:hover:scale-105 my-2 ease-in-out duration-150 "
-                  Icon={props.Icon}
-                  paid={props.paid}
-                  title="فيلم قصير _قلم، صفحة، وأستيكا"
-                  subTitle="فيلم قلم وورقة وأستيكا هو فيلم قصير كوميدي مدته حوالي 15 دقيقة باللهجة..."
-                />
-              </SwiperSlide>
-              <SwiperSlide className="!w-[20.313rem] ">
-                <Card
-                  className="w-[20.313rem]  max-h-[20.875rem] md:hover:scale-105 my-2 ease-in-out duration-150 "
-                  Icon={props.Icon}
-                  paid={props.paid}
-                  title="فيلم قصير _قلم، صفحة، وأستيكا"
-                  subTitle="فيلم قلم وورقة وأستيكا هو فيلم قصير كوميدي مدته حوالي 15 دقيقة باللهجة..."
-                />
-              </SwiperSlide>
+              {props.News.data.map((item: any, index: number) => (
+                <>
+                  <SwiperSlide key={index} className="!w-[20.313rem] ">
+                    <Link href={`/articles/${item.slug}`}>
+                      <Card
+                        img={item.imageUrl}
+                        className="w-[20.313rem]  max-h-[20.875rem] md:hover:scale-105 my-2 ease-in-out duration-150 "
+                        Icon={props.Icon}
+                        paid={props.paid}
+                        title={item.title}
+                      />
+                    </Link>
+                  </SwiperSlide>
+                </>
+              ))}
             </>
           ) : (
             <></>
