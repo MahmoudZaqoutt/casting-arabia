@@ -6,47 +6,42 @@ import Modall from "@/components/Shared/Modal/Modal";
 import UserInfoForm from "@/components/UserInfoForm/UserInfoForm";
 import BasicInfoForm from "@/components/BasicInfoForm/BasicInfoForm";
 import ProfileImage from "@/pages/creator/profile/ProfileImage/ProfileImage";
-import { UserInfoContext } from "@/contexts";
+import { IPropsModal } from "@/interfaces/props/IPropsModal";
 
-const Profile = () => {
-  let UserInfo = useContext(UserInfoContext);
-  console.log(UserInfo);
-
-  console.log(UserInfo.FirstName);
-
+const Profile = (props: IPropsModal) => {
   return (
     <Container>
       <div className=" flex md:flex-row flex-col my-14 gap-x-20 lg:gap-x-36 ">
         <div className="mb-1 ">
-          <ProfileImage />
+          <ProfileImage profileImage={props.profileInfo.pendingAvatar} />
         </div>
 
         <div className="">
           <div className="flex  items-center gap-5 mb-10">
-            <p className="text-3xl font-semibold">
-              {UserInfo.FirstName} Casting
-            </p>
+            <p className="text-3xl font-semibold">{props.profileInfo.name}</p>
             <Modall
-              modalClassName="!w-[85%]  -mt-10"
+              modalClassName="!w-[65%]  -mt-10"
               buttonClassName="hover:bg-blue-50 rounded-full  p-1 duration-200"
               modalName={
                 <MdOutlineModeEdit className=" text-3xl text-blue-600 " />
               }
-              modalContent={<UserInfoForm show={true} />}
+              modalContent={
+                <UserInfoForm profileInfo={props.profileInfo} show={true} />
+              }
             />
           </div>
 
           <div className="grid grid-cols-3 gap-10 ">
             <TitleAndSubTitle
               title="First Name"
-              subTitle={UserInfo.FirstName}
+              subTitle={props.profileInfo.firstName}
               className=" "
               classNameOfTitle="text-xl text-blue-600 !w-full"
               classNameOfSubTitle="text-xl !w-full"
             />
             <TitleAndSubTitle
               title="Last Name"
-              subTitle={UserInfo.LastName}
+              subTitle={props.profileInfo.lastName}
               className="border-l-2 border-blue-200 pl-2 "
               classNameOfTitle="text-xl text-blue-600 "
               classNameOfSubTitle="text-xl"
@@ -54,13 +49,13 @@ const Profile = () => {
             <TitleAndSubTitle
               title="Company Name"
               className="border-l-2 border-blue-200 pl-2 "
-              subTitle={UserInfo.CompanyName}
+              subTitle={props.profileInfo.companyName}
               classNameOfTitle="text-xl text-blue-600 "
               classNameOfSubTitle="text-xl"
             />
             <TitleAndSubTitle
               title="Phone"
-              subTitle={UserInfo.PhoneNumber}
+              subTitle={props.profileInfo.phoneNumber}
               className="col-span-3"
               classNameOfTitle="text-xl text-blue-600 "
               classNameOfSubTitle="text-xl"
@@ -68,7 +63,7 @@ const Profile = () => {
             <TitleAndSubTitle
               title="Email"
               className="col-span-3"
-              subTitle={UserInfo.email}
+              subTitle={props.profileInfo.email}
               classNameOfTitle="text-xl text-blue-600 "
               classNameOfSubTitle="text-xl"
             />
@@ -77,32 +72,37 @@ const Profile = () => {
           <div className="flex  items-center gap-5 my-10">
             <p className="text-3xl font-semibold"> Basic Info</p>
             <Modall
-              modalClassName="!w-[85%] -mt-10"
+              modalClassName="!w-[65%] -mt-10"
               buttonClassName="hover:bg-blue-50 rounded-full p-1 duration-200"
               modalName={
                 <MdOutlineModeEdit className=" text-3xl text-blue-600 " />
               }
-              modalContent={<BasicInfoForm />}
+              modalContent={<BasicInfoForm profileInfo={props.profileInfo} />}
             />
           </div>
 
           <div className="grid grid-cols-3 gap-10 ">
             <TitleAndSubTitle
               title="Location"
-              subTitle="Jalālābād جلال آباد "
+              subTitle={props.profileInfo.city}
               classNameOfTitle="text-xl text-blue-600 "
               classNameOfSubTitle="text-xl"
             />
             <TitleAndSubTitle
               title="Age"
-              subTitle="4 years"
+              subTitle={`${
+                2023 -
+                Number(
+                  props.profileInfo.dob.split("T").shift().split("-").shift()
+                )
+              } years`}
               className="border-l-2 border-blue-200 pl-2"
               classNameOfTitle="text-xl text-blue-600 "
               classNameOfSubTitle="text-xl"
             />
             <TitleAndSubTitle
               title="Gender"
-              subTitle="Male"
+              subTitle={props.profileInfo.gender}
               className="border-l-2 border-blue-200 pl-2"
               classNameOfTitle="text-xl text-blue-600 "
               classNameOfSubTitle="text-xl"

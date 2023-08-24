@@ -1,40 +1,43 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { schema } from "@/constants/Register";
 import DropDownList from "../Shared/DropDownList/DropDownList";
-import Container from "../Shared/Container/Container";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import { countries } from "@/constants/countries";
+import { useRouter } from "next/router";
 
-const BasicInfoForm = () => {
+const BasicInfoForm = (props: any) => {
   const [errors, setErrors] = useState<any>([]);
-
+  const router = useRouter();
   const [formData, setFormData] = useState({
-    Gender: "",
-    dateOfBirth: { day: "", month: "", year: "" },
-    Country: "",
-    City: "",
+    dob: props.profileInfo.dob,
+    country: props.profileInfo.country,
+    city: props.profileInfo.city,
+    gender: props.profileInfo.gender,
   });
 
   const handleInputChange = (e: any) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   };
+
   const handleDateChange = (e: any) => {
-    console.log(e.$D, e.$M, e.$y);
+    const selectedDate = new Date(e.$y, e.$M, e.$D);
+    const isoDate = selectedDate.toISOString();
     setFormData({
       ...formData,
-      dateOfBirth: { day: e.$D, month: e.$M, year: e.$y },
+      dob: isoDate,
     });
   };
 
   const handleSubmit = (event: any) => {
+    const token = localStorage.getItem("token");
+
     event.preventDefault();
     schema
       .validate(formData, { abortEarly: false })
-      .then(() => {
-        console.log("Form data is valid:", formData);
-      })
+      .then(() => {})
       .catch((validationErrors: any) => {
         const Errors: any = {};
         validationErrors.inner.forEach((error: any) => {
@@ -42,10 +45,30 @@ const BasicInfoForm = () => {
         });
         setErrors(Errors);
       });
+
+    (async () => {
+      try {
+        const res = await fetch(
+          "http://casting-ec2-1307338951.us-east-2.elb.amazonaws.com:7001/me",
+          {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+            body: JSON.stringify(formData),
+          }
+        );
+        const profileInfo = await res.json();
+        if (profileInfo) {
+          router.push("/creator/profile");
+        }
+      } catch (error: any) {}
+    })();
   };
 
   return (
-    <div className="min-h-auto rounded-xl shadow-xl bg-white mt-[4rem] pb-10 mb-16">
+    <div className="min-h-auto rounded-xl shadow-xl bg-white mt-[2rem] pb-10 ">
       <div className="w-[95%] mx-auto">
         <p className="text-2xl pt-8 ">Basic Info</p>
       </div>
@@ -55,14 +78,14 @@ const BasicInfoForm = () => {
 
           <div className="col-span-2">
             <DropDownList
-              options={["Male", "Female"]}
-              name="Gender"
+              options={["male", "female"]}
+              name="gender"
               label="Gender"
-              value={formData.Gender}
+              value={formData.gender}
               onChange={handleInputChange}
             />
             <p className="text-sm  text-red-500  p-2 inline-block ">
-              {errors.Gender}
+              {errors.gender}
             </p>
           </div>
           <div className="col-span-2">
@@ -76,26 +99,26 @@ const BasicInfoForm = () => {
           </div>
           <div className="col-span-2">
             <DropDownList
-              options={["Palestine", "Egypt"]}
-              name="Country"
+              options={countries}
+              name="country"
               label="Country"
-              value={formData.Country}
+              value={formData.country}
               onChange={handleInputChange}
             />
             <p className="text-sm  text-red-500  p-2 inline-block ">
-              {errors.Country}
+              {errors.country}
             </p>
           </div>
           <div className="col-span-2">
             <DropDownList
-              options={["Gaza", "Gaza"]}
-              name="City"
+              options={["Jalālābād جلال آباد", "Gaza"]}
+              name="city"
               label="City"
-              value={formData.City}
+              value={formData.city}
               onChange={handleInputChange}
             />
             <p className="text-sm  text-red-500  p-2 inline-block ">
-              {errors.City}
+              {errors.city}
             </p>
           </div>
         </div>

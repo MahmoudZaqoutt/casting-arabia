@@ -12,7 +12,7 @@ import { AiOutlineExclamationCircle, AiOutlineProfile } from "react-icons/ai";
 import { BsChatSquareText, BsPerson } from "react-icons/bs";
 import { MdLogout, MdOutlineSupervisorAccount } from "react-icons/md";
 import Image from "next/image";
-import img from "../../assets/Rectangle16.png";
+import img from "../../assets/images.png";
 import { useRouter } from "next/router";
 
 const Header = (props: any) => {

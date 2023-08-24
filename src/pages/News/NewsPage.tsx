@@ -65,7 +65,7 @@ const NewsPage = (props: IPropsSlide) => {
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 mt-5">
         {props.News.data.map((item: any, index: any) => (
-          <Link href={`/articles/${item.slug}`}>
+          <Link key={index} href={`/articles/${item.slug}`}>
             <Card
               key={index}
               img={item.imageUrl}

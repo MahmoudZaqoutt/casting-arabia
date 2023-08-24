@@ -6,4 +6,6 @@ export interface IPropsModal {
   onSubmit?: any;
   title?: string;
   date?: any;
+  profileInfo?: any;
+  profileImage?: any;
 }

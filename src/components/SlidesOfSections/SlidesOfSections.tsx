@@ -189,20 +189,18 @@ const SlidesOfSections = (props: IPropsSlide) => {
 
           {props.News ? (
             <>
-              {props.News.data.map((item: any, index: number) => (
-                <>
-                  <SwiperSlide key={index} className="!w-[20.313rem] ">
-                    <Link href={`/articles/${item.slug}`}>
-                      <Card
-                        img={item.imageUrl}
-                        className="w-[20.313rem]  max-h-[20.875rem] md:hover:scale-105 my-2 ease-in-out duration-150 "
-                        Icon={props.Icon}
-                        paid={props.paid}
-                        title={item.title}
-                      />
-                    </Link>
-                  </SwiperSlide>
-                </>
+              {props.News.data.map((item: any, index: any) => (
+                <SwiperSlide key={index} className="!w-[20.313rem] ">
+                  <Link href={`/articles/${item.slug}`}>
+                    <Card
+                      img={item.imageUrl}
+                      className="w-[20.313rem]  max-h-[20.875rem] md:hover:scale-105 my-2 ease-in-out duration-150 "
+                      Icon={props.Icon}
+                      paid={props.paid}
+                      title={item.title}
+                    />
+                  </Link>
+                </SwiperSlide>
               ))}
             </>
           ) : (
@@ -211,20 +209,18 @@ const SlidesOfSections = (props: IPropsSlide) => {
 
           {props.News ? (
             <>
-              {props.News.data.map((item: any, index: number) => (
-                <>
-                  <SwiperSlide key={index} className="!w-[20.313rem] ">
-                    <Link href={`/articles/${item.slug}`}>
-                      <Card
-                        img={item.imageUrl}
-                        className="w-[20.313rem]  max-h-[20.875rem] md:hover:scale-105 my-2 ease-in-out duration-150 "
-                        Icon={props.Icon}
-                        paid={props.paid}
-                        title={item.title}
-                      />
-                    </Link>
-                  </SwiperSlide>
-                </>
+              {props.News.data.map((item: any, index: any) => (
+                <SwiperSlide key={index} className="!w-[20.313rem] ">
+                  <Link href={`/articles/${item.slug}`}>
+                    <Card
+                      img={item.imageUrl}
+                      className="w-[20.313rem]  max-h-[20.875rem] md:hover:scale-105 my-2 ease-in-out duration-150 "
+                      Icon={props.Icon}
+                      paid={props.paid}
+                      title={item.title}
+                    />
+                  </Link>
+                </SwiperSlide>
               ))}
             </>
           ) : (

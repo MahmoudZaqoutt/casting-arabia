@@ -13,7 +13,7 @@ export const schema = yup.object().shape({
   phoneNumber: yup.number().required("required"),
   password: yup.string().required("required"),
   companyName: yup.string().required("required"),
-  City: yup.string().required("required"),
+  city: yup.string().required("required"),
   TitleOfProduction: yup.string().required("this field is required"),
   ProductionCompany: yup.string().required("this field is required"),
   ProductionDescription: yup.string().required("this field is required"),
@@ -25,4 +25,5 @@ export const schema = yup.object().shape({
   compensationAgreement: yup.string().required("this field is required"),
   period: yup.string().required("this field is required"),
   Rate: yup.string().required("this field is required"),
+  dop: yup.string().required("required"),
 });
