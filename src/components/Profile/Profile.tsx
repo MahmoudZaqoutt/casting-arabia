@@ -8,7 +8,24 @@ import BasicInfoForm from "@/components/BasicInfoForm/BasicInfoForm";
 import ProfileImage from "@/pages/creator/profile/ProfileImage/ProfileImage";
 import { IPropsModal } from "@/interfaces/props/IPropsModal";
 
+import Button from "@mui/material/Button";
+import TextField from "@mui/material/TextField";
+import Dialog from "@mui/material/Dialog";
+import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
+import DialogTitle from "@mui/material/DialogTitle";
+
 const Profile = (props: IPropsModal) => {
+  const [open, setOpen] = React.useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
   return (
     <Container>
       <div className=" flex md:flex-row flex-col my-14 gap-x-20 lg:gap-x-36 ">
@@ -19,16 +36,7 @@ const Profile = (props: IPropsModal) => {
         <div className="">
           <div className="flex  items-center gap-5 mb-10">
             <p className="text-3xl font-semibold">{props.profileInfo.name}</p>
-            <Modall
-              modalClassName="!w-[65%]  -mt-10"
-              buttonClassName="hover:bg-blue-50 rounded-full  p-1 duration-200"
-              modalName={
-                <MdOutlineModeEdit className=" text-3xl text-blue-600 " />
-              }
-              modalContent={
-                <UserInfoForm profileInfo={props.profileInfo} show={true} />
-              }
-            />
+            <UserInfoForm profileInfo={props.profileInfo} show={true} />
           </div>
 
           <div className="grid grid-cols-3 gap-10 ">
@@ -71,14 +79,15 @@ const Profile = (props: IPropsModal) => {
 
           <div className="flex  items-center gap-5 my-10">
             <p className="text-3xl font-semibold"> Basic Info</p>
-            <Modall
+            {/* <Modall
               modalClassName="!w-[65%] -mt-10"
               buttonClassName="hover:bg-blue-50 rounded-full p-1 duration-200"
               modalName={
                 <MdOutlineModeEdit className=" text-3xl text-blue-600 " />
               }
               modalContent={<BasicInfoForm profileInfo={props.profileInfo} />}
-            />
+            /> */}
+            <BasicInfoForm profileInfo={props.profileInfo} />
           </div>
 
           <div className="grid grid-cols-3 gap-10 ">

@@ -2,6 +2,13 @@ import React, { createContext, useContext, useState } from "react";
 import TextField from "@mui/material/TextField";
 import { schema } from "@/constants/Register";
 import { useRouter } from "next/router";
+import { MdOutlineModeEdit } from "react-icons/md";
+import {
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+} from "@mui/material";
 const UserInfoForm = (props: any) => {
   const [errors, setErrors] = useState<any>([]);
   const [error, setError] = useState<any>("");
@@ -25,7 +32,7 @@ const UserInfoForm = (props: any) => {
     event.preventDefault();
     schema
       .validate(formData, { abortEarly: false })
-      .then()
+      .then(() => {})
       .catch((validationErrors: any) => {
         const Errors: any = {};
         validationErrors.inner.forEach((error: any) => {
@@ -51,104 +58,132 @@ const UserInfoForm = (props: any) => {
         if (profileInfo) {
           setError(profileInfo.code);
           router.push("/creator/profile");
+          if (
+            (formData.email &&
+              formData.companyName &&
+              formData.firstName &&
+              formData.lastName &&
+              formData.phoneNumber) !== ""
+          ) {
+            setOpen(false);
+          }
         }
       } catch (error: any) {}
     })();
   };
 
+  const [open, setOpen] = React.useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
   return (
     <div>
-      <div className="min-h-auto rounded-xl shadow-xl bg-white mt-[2rem] pb-10">
-        <div className="w-[95%] mx-auto">
-          <p className="text-2xl pt-8 ">Account Info</p>
-        </div>
-        <form onSubmit={handleSubmit} className="w-[95%] mx-auto mt-5">
-          <div>
-            <TextField
-              value={formData.firstName}
-              name="firstName"
-              label="First Name"
-              title="First Name"
-              onChange={handleInputChange}
-              className="w-full h-14 border-2 border-gray-300 outline-none rounded-xl  text-lg "
-            />
-            <p className="text-sm  text-red-500  p-2 inline-block ">
-              {errors.firstName && errors.firstName}
-            </p>
-          </div>
-          <div className="">
-            <TextField
-              value={formData.lastName}
-              name="lastName"
-              label="Last Name"
-              title="Last Name"
-              onChange={handleInputChange}
-              className="w-full h-14 border-2 border-gray-300 outline-none rounded-xl  text-lg "
-            />
-            <p className="text-sm  text-red-500  p-2 inline-block ">
-              {errors.lastName}
-            </p>
-          </div>
+      <button onClick={handleClickOpen}>
+        {""}
+        <MdOutlineModeEdit className=" text-4xl text-blue-600 hover:bg-blue-50 rounded-full   duration-200" />
+      </button>
+      <Dialog open={open} onClose={handleClose}>
+        <DialogTitle>Account Info</DialogTitle>
+        <DialogContent className=" sm:w-[570px] md:w-[600px]">
+          <form onSubmit={handleSubmit} className="w-[95%] mx-auto mt-5">
+            <div>
+              <TextField
+                value={formData.firstName}
+                name="firstName"
+                label="First Name"
+                title="First Name"
+                onChange={handleInputChange}
+                className="w-full h-14 border-2 border-gray-300 outline-none rounded-xl  text-lg "
+              />
+              <p className="text-sm  text-red-500  p-2 inline-block ">
+                {errors.firstName && errors.firstName}
+              </p>
+            </div>
+            <div className="">
+              <TextField
+                value={formData.lastName}
+                name="lastName"
+                label="Last Name"
+                title="Last Name"
+                onChange={handleInputChange}
+                className="w-full h-14 border-2 border-gray-300 outline-none rounded-xl  text-lg "
+              />
+              <p className="text-sm  text-red-500  p-2 inline-block ">
+                {errors.lastName}
+              </p>
+            </div>
 
-          <div className="col-span-2">
-            <TextField
-              value={formData.companyName}
-              name="companyName"
-              label="Company Name"
-              title="Company Name"
-              onChange={handleInputChange}
-              className="w-full h-14 border-2 border-gray-300 outline-none rounded-xl  text-lg "
-            />
-            <p className="text-sm  text-red-500  p-2 inline-block ">
-              {errors.companyName}
-            </p>
-          </div>
+            <div className="col-span-2">
+              <TextField
+                value={formData.companyName}
+                name="companyName"
+                label="Company Name"
+                title="Company Name"
+                onChange={handleInputChange}
+                className="w-full h-14 border-2 border-gray-300 outline-none rounded-xl  text-lg "
+              />
+              <p className="text-sm  text-red-500  p-2 inline-block ">
+                {errors.companyName}
+              </p>
+            </div>
 
-          <div className="col-span-2">
-            <TextField
-              value={formData.email}
-              name="email"
-              label="Email"
-              title="Email"
-              onChange={handleInputChange}
-              className="w-full h-14 border-2 border-gray-300 outline-none rounded-xl  text-lg "
-            />
-            <p className="text-sm  text-red-500  p-2 inline-block ">
-              {errors.email}
-            </p>
-          </div>
+            <div className="col-span-2">
+              <TextField
+                value={formData.email}
+                name="email"
+                label="Email"
+                title="Email"
+                onChange={handleInputChange}
+                className="w-full h-14 border-2 border-gray-300 outline-none rounded-xl  text-lg "
+              />
+              <p className="text-sm  text-red-500  p-2 inline-block ">
+                {errors.email}
+              </p>
+            </div>
 
-          <div className="col-span-2">
-            <TextField
-              value={formData.phoneNumber}
-              name="phoneNumber"
-              label="Phone Number"
-              title="Phone Number"
-              onChange={handleInputChange}
-              className="w-full h-14 border-2 border-gray-300 outline-none rounded-xl  text-lg "
-            />
-            <p className="text-sm  text-red-500  p-2 inline-block ">
-              {errors.phoneNumber}
-            </p>
-          </div>
-          {error ? (
-            <p className="text-lg  text-red-500  p-2 inline-block lowercase">
-              {error}
-            </p>
-          ) : (
-            ""
-          )}
-
-          <div className="w-full mx-auto">
-            <button
-              type="submit"
-              className=" w-full bg-blue-600 hover:bg-blue-800 duration-150 text-white text-xl font-semibold mt-8 p-3 rounded-xl"
-            >
-              Edit
-            </button>
-          </div>
-        </form>
-      </div>
+            <div className="col-span-2">
+              <TextField
+                value={formData.phoneNumber}
+                name="phoneNumber"
+                label="Phone Number"
+                title="Phone Number"
+                onChange={handleInputChange}
+                className="w-full h-14 border-2 border-gray-300 outline-none rounded-xl  text-lg "
+              />
+              <p className="text-sm  text-red-500  p-2 inline-block ">
+                {errors.phoneNumber}
+              </p>
+            </div>
+            {error ? (
+              <p className="text-lg  text-red-500  p-2 inline-block lowercase">
+                {error}
+              </p>
+            ) : (
+              ""
+            )}
+          </form>
+        </DialogContent>
+        <DialogActions>
+          <button
+            onClick={handleClose}
+            className="text-lg font-semibold text-red-500 border-2 border-red-500 w-20 h-10 rounded-lg duration-200 hover:bg-red-50"
+          >
+            Cancel
+          </button>
+          <button
+            onClick={handleSubmit}
+            className="text-lg font-semibold text-white border-2 bg-blue-500 border-blue-500 w-16 h-10 rounded-lg duration-200 hover:bg-blue-700"
+          >
+            Save
+          </button>
+        </DialogActions>
+      </Dialog>
     </div>
   );
 };
