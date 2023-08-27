@@ -4,21 +4,33 @@ import { schema } from "@/constants/Register";
 import Link from "next/link";
 import DropDownList from "@/components/Shared/DropDownList/DropDownList";
 import { TextField } from "@mui/material";
+import axios from "axios";
 
 const index = () => {
   const [errors, setErrors] = useState<any>([]);
   const [formData, setFormData] = useState({
-    RoleDescription: "",
-    compensationAgreement: "Unpaid",
-    period: "",
-    Rate: "",
+    isCompleted: "",
+    isPaid: false,
+    mediaRequired: { characteristics: false, skills: false },
+    characteristics: false,
+    paidRate: "2",
+    paidType: "hourly",
   });
+
   const handleInputChange = (e: any) => {
     const { name, value } = e.target;
+
     setFormData({ ...formData, [name]: value });
+
+    if (name === "isPaid") {
+      value === "Paid"
+        ? setFormData({ ...formData, isPaid: true })
+        : setFormData({ ...formData, isPaid: false });
+    }
   };
 
   const handleSubmit = (event: any) => {
+    const token = localStorage.getItem("token");
     event.preventDefault();
     schema
       .validate(formData, { abortEarly: false })
@@ -32,7 +44,28 @@ const index = () => {
         });
         setErrors(Errors);
       });
+
+    (async () => {
+      try {
+        const res = await axios.put(
+          "http://casting-ec2-1307338951.us-east-2.elb.amazonaws.com:7001/opportunities/2048/roles/1697",
+          formData,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        if (res) {
+          console.log(res);
+        }
+      } catch (error: any) {
+        console.log(error);
+      }
+    })();
   };
+
+  console.log(formData);
   return (
     <Container>
       <div className="mt-12 mb-[133px] h-[400px] ">
@@ -41,43 +74,43 @@ const index = () => {
         </p>
         <div className="flex flex-col sm:w-[500px] mx-auto gap-3 mb-20">
           <div className="mb-5">
-            <p className="text-lg">Compensation & Contract Details</p>
+            <p className="text-lg mb-5">Compensation & Contract Details</p>
             <DropDownList
-              value={formData.compensationAgreement}
+              label="isPaid ?"
               onChange={handleInputChange}
               options={["Paid", "Unpaid"]}
-              name="compensationAgreement"
+              name="isPaid"
             />
             <p className="text-sm  text-red-500  p-2 inline-block ">
-              {errors.compensationAgreement && errors.compensationAgreement}
+              {errors.isPaid && errors.isPaid}
             </p>
           </div>
-          {formData.compensationAgreement === "Paid" ? (
+          {formData.isPaid ? (
             <div className="flex gap-4 mb-5">
               <div className="w-52">
                 <DropDownList
-                  options={["Hourly", "Daily", "Weekly"]}
+                  options={["hourly", "daily", "weekly"]}
                   label="period"
-                  name="period"
+                  name="paidType"
                   onChange={handleInputChange}
-                  value={formData.period}
+                  value={formData.paidType}
                 />
                 <p className="text-sm  text-red-500  p-2 inline-block ">
-                  {errors.period && errors.period}
+                  {errors.paidType && errors.paidType}
                 </p>
               </div>
 
               <div>
                 <TextField
-                  value={formData.Rate}
+                  value={formData.paidRate}
                   variant="standard"
                   label="$ Rate"
-                  name="Rate"
+                  name="paidRate"
                   type="number"
                   onChange={handleInputChange}
                 />
                 <p className="text-sm  text-red-500  p-2 inline-block ">
-                  {errors.Rate && errors.Rate}
+                  {errors.paidRate && errors.paidRate}
                 </p>
               </div>
             </div>
@@ -93,8 +126,8 @@ const index = () => {
               onClick={handleSubmit}
               className="border-2 border-blue-700 bg-blue-700 rounded-md text-lg text-white px-4 py-1 font-semibold hover:bg-blue-600 duration-200"
             >
-              {formData.compensationAgreement === "Unpaid" ||
-              (formData.period && formData.Rate) !== "" ? (
+              {formData.isPaid === false ||
+              (formData.paidType && formData.paidRate) !== "" ? (
                 <Link href={"/creator/opportunities/edit/step-two"}>Save</Link>
               ) : (
                 "Save"
