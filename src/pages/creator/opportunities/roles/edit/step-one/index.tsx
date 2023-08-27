@@ -1,26 +1,26 @@
 import React, { useState } from "react";
-import AddProductionPersonal from "../../../edit/step-one/AddProductionPersonal/AddProductionPersonal";
 import { Checkbox, FormControlLabel, TextField } from "@mui/material";
-import Textarea from "@mui/joy/Textarea";
 import Container from "@/components/Shared/Container/Container";
 import { schema } from "@/constants/Register";
 import Link from "next/link";
 import DropDownList from "@/components/Shared/DropDownList/DropDownList";
+import axios from "axios";
+import { options1, options2 } from "@/constants/talentType";
 
 const index = () => {
   const [errors, setErrors] = useState<any>([]);
+
   const [formData, setFormData] = useState({
-    RoleName: "",
-    talent: "",
-    SubType: "",
-    Gender: "",
+    considerGender: false,
+    gender: "",
+    isAcceptingTapedAudition: false,
+    name: "",
+    otherRoleType: "",
+    otherTalentType: "",
+    talentType: "",
+    type: "",
   });
-
-  const [check, setCheck] = useState({
-    Accepting: false,
-    Requirement: false,
-  });
-
+  console.log(formData);
   const handleInputChange = (e: any) => {
     const { name, value } = e.target;
     setFormData({
@@ -28,11 +28,17 @@ const index = () => {
       [name]: value,
     });
   };
+
   const handleCheckChange = (e: any) => {
     const { checked, name } = e.target;
-    setCheck({ ...check, [name]: checked });
+    setFormData({
+      ...formData,
+      [name]: checked,
+    });
   };
+
   const handleSubmit = (event: any) => {
+    const token = localStorage.getItem("token");
     event.preventDefault();
     schema
       .validate(formData, { abortEarly: false })
@@ -46,6 +52,39 @@ const index = () => {
         });
         setErrors(Errors);
       });
+
+    (async () => {
+      try {
+        const res = await axios.put(
+          "http://casting-ec2-1307338951.us-east-2.elb.amazonaws.com:7001/opportunities/2048",
+          formData,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+
+        console.log(res);
+      } catch (error: any) {
+        console.log(error);
+      }
+    })();
+  };
+
+  const [selectedOption1, setSelectedOption1] = useState<any>("");
+  const [selectedOption2, setSelectedOption2] = useState<any>("");
+
+  const handleSelect1 = (event: any) => {
+    const selectedValue = event.target.value;
+    setSelectedOption1(selectedValue);
+    setSelectedOption2("");
+    setFormData({ ...formData, talentType: selectedValue });
+  };
+
+  const handleSelect2 = (event: any) => {
+    setSelectedOption2(event.target.value);
+    setFormData({ ...formData, type: event.target.value });
   };
   return (
     <Container>
@@ -56,66 +95,99 @@ const index = () => {
         <div className="flex flex-col sm:w-[500px] mx-auto gap-3">
           <div>
             <TextField
-              value={formData.RoleName}
+              value={formData.name}
               onChange={handleInputChange}
-              name="RoleName"
+              name="name"
               label="Role Name"
               variant="standard"
               placeholder="Production Personal"
               className="sm:w-[500px]"
             />
             <p className="text-sm  text-red-500  p-2 inline-block ">
-              {errors.RoleName && errors.RoleName}
+              {errors.name && errors.name}
             </p>
           </div>
 
           <div>
             <DropDownList
-              onChange={handleInputChange}
+              onChange={handleSelect1}
               label="talent you are looking for ?"
-              name="talent"
-              value={formData.talent}
-              options={["Male", "Female"]}
+              name="talentType"
+              value={selectedOption1}
+              options={options1}
             />
-            <p className="text-sm  text-red-500  p-2 inline-block ">
-              {errors.talent && errors.talent}
-            </p>
           </div>
 
-          <div>
-            <DropDownList
-              onChange={handleInputChange}
-              label="Sub Type"
-              name="SubType"
-              value={formData.SubType}
-              options={["Male", "Female"]}
-            />
-            <p className="text-sm  text-red-500  p-2 inline-block ">
-              {errors.SubType && errors.SubType}
-            </p>
-          </div>
+          {formData.talentType === "Other" ? (
+            <div>
+              <TextField
+                value={formData.otherTalentType}
+                onChange={handleInputChange}
+                name="otherTalentType"
+                variant="standard"
+                label="Other Talent Type"
+                className="sm:w-[500px] mt-5"
+              />
+              <p className="text-sm  text-red-500  p-2 inline-block ">
+                {errors.otherTalentType && errors.otherTalentType}
+              </p>
+            </div>
+          ) : (
+            <div className="my-5">
+              <DropDownList
+                onChange={handleSelect2}
+                label="Sub Type"
+                name="type"
+                value={selectedOption2}
+                options={options2[selectedOption1]}
+              />
+            </div>
+          )}
+
+          {formData.type === "Other" ? (
+            <div>
+              <TextField
+                value={formData.otherRoleType}
+                onChange={handleInputChange}
+                name="otherRoleType"
+                variant="standard"
+                label="Other Role Type"
+                className="sm:w-[500px] "
+              />
+              <p className="text-sm  text-red-500  p-2 inline-block ">
+                {errors.otherRoleType && errors.otherRoleType}
+              </p>
+            </div>
+          ) : (
+            <></>
+          )}
+
           <div>
             <DropDownList
               onChange={handleInputChange}
               label="Gender"
-              name="Gender"
-              value={formData.Gender}
-              options={["Male", "Female"]}
+              name="gender"
+              value={formData.gender}
+              options={["male", "female"]}
             />
             <p className="text-sm  text-red-500  p-2 inline-block ">
-              {errors.Gender && errors.Gender}
+              {errors.gender && errors.gender}
             </p>
           </div>
+
           <div className="flex flex-col gap-3">
             <FormControlLabel
               control={
-                <Checkbox name="Requirement" onChange={handleCheckChange} />
+                <Checkbox name="considerGender" onChange={handleCheckChange} />
               }
               label="This is a firm requirement"
             />
             <FormControlLabel
               control={
-                <Checkbox name="Accepting" onChange={handleCheckChange} />
+                <Checkbox
+                  name="isAcceptingTapedAudition"
+                  onChange={handleCheckChange}
+                />
               }
               label="Accepting taped audition?"
             />
@@ -123,16 +195,18 @@ const index = () => {
 
           <div className="flex items-center gap-4">
             <button className="border-2 border-blue-500 rounded-md text-lg text-blue-600 px-4 py-1 font-semibold hover:bg-blue-100 duration-200">
-              Save For Later
+              <Link href={"/creator/opportunities/edit/step-two"}>
+                Save For Later
+              </Link>
             </button>
             <button
               onClick={handleSubmit}
               className="border-2 border-blue-700 bg-blue-700 rounded-md text-lg text-white px-4 py-1 font-semibold hover:bg-blue-600 duration-200"
             >
-              {formData.SubType &&
-              formData.talent &&
-              formData.Gender &&
-              formData.RoleName !== "" ? (
+              {formData.type &&
+              formData.talentType &&
+              formData.gender &&
+              formData.name !== "" ? (
                 <Link href={"/creator/opportunities/roles/edit/step-two"}>
                   Continue
                 </Link>

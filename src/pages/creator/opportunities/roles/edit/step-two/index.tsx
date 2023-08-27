@@ -6,15 +6,24 @@ import Link from "next/link";
 import RangeSlider from "./RangeSlider/RangeSlider";
 import DropDownList from "@/components/Shared/DropDownList/DropDownList";
 import { MdDelete } from "react-icons/md";
+import axios from "axios";
+import Box from "@mui/material/Box";
+import Slider from "@mui/material/Slider";
+import { countries } from "@/constants/countries";
 
 const index = () => {
   const [errors, setErrors] = useState<any>([]);
 
   const [skills, setSkills] = useState([""]);
+  const [value, setValue] = React.useState<number[]>([20, 37]);
 
   const [formData, setFormData] = useState({
-    Skills: skills,
-    Country: "",
+    citizenship: "",
+    considerAge: false,
+    considerCitizen: false,
+    considerSkills: [],
+    maxAge: value[1],
+    minAge: value[0],
   });
 
   const handleInputChange = (e: any) => {
@@ -28,6 +37,7 @@ const index = () => {
   };
 
   const handleSubmit = (event: any) => {
+    const token = localStorage.getItem("token");
     event.preventDefault();
     schema
       .validate(formData, { abortEarly: false })
@@ -41,7 +51,44 @@ const index = () => {
         });
         setErrors(Errors);
       });
+
+    (async () => {
+      try {
+        const res = await axios.put(
+          "http://casting-ec2-1307338951.us-east-2.elb.amazonaws.com:7001/opportunities/2048/roles/1697",
+          formData,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        if (res) {
+          console.log(res);
+        }
+      } catch (error: any) {
+        console.log(error);
+      }
+    })();
   };
+
+  const handleCheckChange = (e: any) => {
+    const { checked, name } = e.target;
+    setFormData({
+      ...formData,
+      [name]: checked,
+    });
+  };
+
+  const handleChange = (event: any, newValue: number | number[]) => {
+    setValue(newValue as number[]);
+    setFormData({
+      ...formData,
+      minAge: event.target.value[0],
+      maxAge: event.target.value[1],
+    });
+  };
+  console.log(formData);
   return (
     <Container>
       <div className="my-12">
@@ -78,30 +125,45 @@ const index = () => {
           </div>
 
           <div className="ml-10">
-            <RangeSlider />
+            <Box sx={{ width: 300 }}>
+              <p className="mb-3">
+                Age Range {value[0]} to {value[1]}
+              </p>
+              <Slider
+                getAriaLabel={() => "Temperature range"}
+                value={value}
+                onChange={handleChange}
+                valueLabelDisplay="auto"
+              />
+            </Box>
           </div>
           <div>
             <FormControlLabel
-              control={<Checkbox name="Requirement" />}
+              control={
+                <Checkbox onChange={handleCheckChange} name="considerAge" />
+              }
               label="This is a firm requirement"
             />
           </div>
 
-          <div className="my-10">
+          <div className="my-5">
             <DropDownList
+              value={formData.citizenship}
               onChange={handleInputChange}
-              options={["Palestine", "Egypt"]}
+              options={countries}
               label="Country of talent"
-              name="Country"
+              name="citizenship"
             />
             <p className="text-sm  text-red-500  p-2 inline-block ">
-              {errors.Country && errors.Country}
+              {errors.citizenship && errors.citizenship}
             </p>
           </div>
 
           <div className="mb-5">
             <FormControlLabel
-              control={<Checkbox name="Requirement" />}
+              control={
+                <Checkbox onChange={handleCheckChange} name="considerCitizen" />
+              }
               label="This is a firm requirement"
             />
           </div>
@@ -114,7 +176,7 @@ const index = () => {
               onClick={handleSubmit}
               className="border-2 border-blue-700 bg-blue-700 rounded-md text-lg text-white px-4 py-1 font-semibold hover:bg-blue-600 duration-200"
             >
-              {formData.Skills && formData.Country !== "" ? (
+              {formData.citizenship !== "" ? (
                 <Link href={"/creator/opportunities/roles/edit/step-three"}>
                   Continue
                 </Link>

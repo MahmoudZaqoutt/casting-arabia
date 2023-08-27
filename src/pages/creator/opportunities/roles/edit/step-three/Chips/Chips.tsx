@@ -16,8 +16,6 @@ export default function Chips(props: IPropsModal) {
     setDate(date ? date : date);
   }, []);
 
-  console.log(date);
-
   const handleDelete = (chipToDelete: ChipData) => () => {
     setChipData((chips: any) =>
       chips.filter((chip: any) => chip !== chipToDelete)

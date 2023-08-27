@@ -214,7 +214,7 @@ const index = () => {
 
           <div className="flex items-center gap-4">
             <button className="border-2 border-blue-500 rounded-md text-lg text-blue-600 px-4 py-1 font-semibold hover:bg-blue-100 duration-200">
-              Save For Later
+              <Link href={"/creator"}>Save For Later</Link>
             </button>
             <button
               onClick={handleSubmit}
