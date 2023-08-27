@@ -2,12 +2,13 @@ import Profile from "@/components/Profile/Profile";
 import React, { useEffect, useState } from "react";
 
 const index = ({ profileInfo }: any) => {
-  const [token, setToken] = useState("");
+  // const [token, setToken] = useState("");
 
-  useEffect(() => {
-    const token = localStorage.getItem("token");
-    setToken(token || "");
-  }, []);
+  // useEffect(() => {
+  //   const token = localStorage.getItem("token");
+  //   setToken(token || "");
+  // }, []);
+
   return <Profile profileInfo={profileInfo} />;
 };
 

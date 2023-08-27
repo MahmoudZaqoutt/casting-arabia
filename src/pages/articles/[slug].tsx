@@ -22,7 +22,7 @@ const Test = () => {
   }, []);
 
   return (
-    <div className="mt-20">
+    <div className="min-h-[477px] my-20">
       <Container>
         {data.map((item: any, index) => (
           <div key={index}>
