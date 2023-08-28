@@ -31,4 +31,5 @@ export const schema = yup.object().shape({
   dop: yup.string().required("required"),
   otherTalentType: yup.string().required("required"),
   otherRoleType: yup.string().required("required"),
+  expirationDate: yup.string().required("required"),
 });

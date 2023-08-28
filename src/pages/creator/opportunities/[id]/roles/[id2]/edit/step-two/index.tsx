@@ -10,13 +10,14 @@ import Box from "@mui/material/Box";
 import Slider from "@mui/material/Slider";
 import { countries } from "@/constants/countries";
 import { useRouter } from "next/router";
+import { SKILLS } from "@/constants/skills";
 
 const index = () => {
   const router = useRouter();
 
   const [errors, setErrors] = useState<any>([]);
 
-  const [skills, setSkills] = useState([""]);
+  const [skills, setSkills] = useState<any>([]);
   const [value, setValue] = React.useState<number[]>([20, 37]);
 
   const [formData, setFormData] = useState({
@@ -33,9 +34,57 @@ const index = () => {
     setFormData({ ...formData, [name]: value });
   };
 
+  const [skillsWithIds, setSkillsWithIds] = useState<any>([]);
+
   const handleSkillChange = (e: any) => {
+    const token = localStorage.getItem("token");
+
     const selectedSkill = e.target.value;
+
     setSkills([...skills, selectedSkill]);
+
+    (async () => {
+      try {
+        const res = await axios.post(
+          `http://casting-ec2-1307338951.us-east-2.elb.amazonaws.com:7001/opportunities/${router.query.id}/roles/${router.query.id2}/skills`,
+          { level: "intermediate", skillId: Math.round(Math.random() * 100) },
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        if (res) {
+          setSkillsWithIds([
+            ...skillsWithIds,
+            { name: selectedSkill, id: res.data.skillId },
+          ]);
+        }
+      } catch (error) {}
+    })();
+  };
+
+  const handleDeleteSkill = async (skillId: any) => {
+    try {
+      const token = localStorage.getItem("token");
+      const res = await axios.delete(
+        `http://casting-ec2-1307338951.us-east-2.elb.amazonaws.com:7001/opportunities/${router.query.id}/roles/1708/skills/${skillId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      if (res) {
+        const updatedSkills = skillsWithIds.filter(
+          (item: any) => item.id !== skillId
+        );
+
+        setSkillsWithIds(updatedSkills);
+      }
+    } catch (error) {
+      console.error("Error deleting skill:", error);
+    }
   };
 
   const handleSubmit = (event: any) => {
@@ -65,9 +114,6 @@ const index = () => {
             },
           }
         );
-        if (res) {
-          console.log(res);
-        }
       } catch (error: any) {
         console.log(error);
       }
@@ -90,6 +136,7 @@ const index = () => {
       maxAge: event.target.value[1],
     });
   };
+
   return (
     <Container>
       <div className="my-12">
@@ -100,7 +147,7 @@ const index = () => {
           <div>
             <DropDownList
               onChange={handleSkillChange}
-              options={["foot", "bas", "s", "a", "f"]}
+              options={SKILLS}
               label="Skills"
               name="Skills"
             />
@@ -110,11 +157,12 @@ const index = () => {
           </div>
           <div className="w-full bg-white h-48  border-[1px] rounded-lg border-gray-300 overflow-y-auto">
             <p className="text-gray-500 p-3">Skill Name</p>
-            {skills.map((item: any, index) => (
+
+            {skillsWithIds.map((item: any, index: any) => (
               <div key={index} className="flex justify-between">
-                <p className="text-lg ml-3 mt-4">{item}</p>
+                <p className="text-lg ml-3 mt-4">{item.name}</p>
                 <div className="flex items-center">
-                  <button>
+                  <button onClick={() => handleDeleteSkill(item.id)}>
                     <MdDelete className="text-2xl text-red-600" />
                     {""}
                   </button>

@@ -8,6 +8,7 @@ const DropDownList = (props: IPropsDropDownList) => {
       <InputLabel id={props.name}>{props.label}</InputLabel>
       <Select
         name={props.name}
+        id={props.id}
         value={props.value}
         label={props.label}
         title={props.label}

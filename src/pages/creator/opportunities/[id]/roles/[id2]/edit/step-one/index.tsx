@@ -31,7 +31,7 @@ const index = () => {
       [name]: value,
     });
   };
-
+  console.log(formData);
   const handleCheckChange = (e: any) => {
     const { checked, name } = e.target;
     setFormData({
@@ -59,7 +59,7 @@ const index = () => {
     (async () => {
       try {
         const res = await axios.put(
-          `ttp://casting-ec2-1307338951.us-east-2.elb.amazonaws.com:7001/opportunities/${router.query.id}`,
+          `http://casting-ec2-1307338951.us-east-2.elb.amazonaws.com:7001/opportunities/${router.query.id}/roles/${router.query.id2}`,
           formData,
           {
             headers: {
@@ -67,6 +67,10 @@ const index = () => {
             },
           }
         );
+
+        if (res) {
+          console.log(res);
+        }
       } catch (error: any) {
         console.log(error);
       }
@@ -87,6 +91,7 @@ const index = () => {
     setSelectedOption2(event.target.value);
     setFormData({ ...formData, type: event.target.value });
   };
+
   return (
     <Container>
       <div className="my-12">
@@ -119,7 +124,7 @@ const index = () => {
             />
           </div>
 
-          {formData.talentType === "Other" ? (
+          {formData.talentType === "other" ? (
             <div>
               <TextField
                 value={formData.otherTalentType}
@@ -145,7 +150,7 @@ const index = () => {
             </div>
           )}
 
-          {formData.type === "Other" ? (
+          {formData.type === "other" ? (
             <div>
               <TextField
                 value={formData.otherRoleType}
