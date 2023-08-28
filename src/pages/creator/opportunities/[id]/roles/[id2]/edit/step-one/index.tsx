@@ -6,8 +6,11 @@ import Link from "next/link";
 import DropDownList from "@/components/Shared/DropDownList/DropDownList";
 import axios from "axios";
 import { options1, options2 } from "@/constants/talentType";
+import { useRouter } from "next/router";
 
 const index = () => {
+  const router = useRouter();
+
   const [errors, setErrors] = useState<any>([]);
 
   const [formData, setFormData] = useState({
@@ -20,7 +23,7 @@ const index = () => {
     talentType: "",
     type: "",
   });
-  console.log(formData);
+
   const handleInputChange = (e: any) => {
     const { name, value } = e.target;
     setFormData({
@@ -56,7 +59,7 @@ const index = () => {
     (async () => {
       try {
         const res = await axios.put(
-          "http://casting-ec2-1307338951.us-east-2.elb.amazonaws.com:7001/opportunities/2048",
+          `ttp://casting-ec2-1307338951.us-east-2.elb.amazonaws.com:7001/opportunities/${router.query.id}`,
           formData,
           {
             headers: {
@@ -64,8 +67,6 @@ const index = () => {
             },
           }
         );
-
-        console.log(res);
       } catch (error: any) {
         console.log(error);
       }
@@ -207,7 +208,9 @@ const index = () => {
               formData.talentType &&
               formData.gender &&
               formData.name !== "" ? (
-                <Link href={"/creator/opportunities/roles/edit/step-two"}>
+                <Link
+                  href={`/creator/opportunities/${router.query.id}/roles/${router.query.id2}/edit/step-two`}
+                >
                   Continue
                 </Link>
               ) : (

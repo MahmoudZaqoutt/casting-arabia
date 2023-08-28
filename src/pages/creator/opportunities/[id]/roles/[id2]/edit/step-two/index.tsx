@@ -3,15 +3,17 @@ import { Checkbox, FormControlLabel, TextField } from "@mui/material";
 import Container from "@/components/Shared/Container/Container";
 import { schema } from "@/constants/Register";
 import Link from "next/link";
-import RangeSlider from "./RangeSlider/RangeSlider";
 import DropDownList from "@/components/Shared/DropDownList/DropDownList";
 import { MdDelete } from "react-icons/md";
 import axios from "axios";
 import Box from "@mui/material/Box";
 import Slider from "@mui/material/Slider";
 import { countries } from "@/constants/countries";
+import { useRouter } from "next/router";
 
 const index = () => {
+  const router = useRouter();
+
   const [errors, setErrors] = useState<any>([]);
 
   const [skills, setSkills] = useState([""]);
@@ -55,7 +57,7 @@ const index = () => {
     (async () => {
       try {
         const res = await axios.put(
-          "http://casting-ec2-1307338951.us-east-2.elb.amazonaws.com:7001/opportunities/2048/roles/1697",
+          `http://casting-ec2-1307338951.us-east-2.elb.amazonaws.com:7001/opportunities/${router.query.id}/roles/${router.query.id2}`,
           formData,
           {
             headers: {
@@ -88,7 +90,6 @@ const index = () => {
       maxAge: event.target.value[1],
     });
   };
-  console.log(formData);
   return (
     <Container>
       <div className="my-12">
@@ -177,7 +178,9 @@ const index = () => {
               className="border-2 border-blue-700 bg-blue-700 rounded-md text-lg text-white px-4 py-1 font-semibold hover:bg-blue-600 duration-200"
             >
               {formData.citizenship !== "" ? (
-                <Link href={"/creator/opportunities/roles/edit/step-three"}>
+                <Link
+                  href={`/creator/opportunities/${router.query.id}/roles/${router.query.id2}/edit/step-three`}
+                >
                   Continue
                 </Link>
               ) : (

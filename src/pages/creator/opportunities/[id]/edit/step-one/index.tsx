@@ -8,8 +8,11 @@ import axios from "axios";
 import { PlusOutlined } from "@ant-design/icons";
 import { Button, Form } from "antd";
 import { AiOutlineClose } from "react-icons/ai";
+import { useRouter } from "next/router";
 
 const index = () => {
+  const router = useRouter();
+
   const [errors, setErrors] = useState<any>([]);
   const [formData, setFormData] = useState({
     title: "",
@@ -58,7 +61,7 @@ const index = () => {
     (async () => {
       try {
         const res = await axios.put(
-          "http://casting-ec2-1307338951.us-east-2.elb.amazonaws.com:7001/opportunities/2048",
+          `http://casting-ec2-1307338951.us-east-2.elb.amazonaws.com:7001/opportunities/${router.query.id}`,
           {
             title: formData.title,
             company: formData.company,
@@ -223,7 +226,9 @@ const index = () => {
               {formData.title &&
               formData.company &&
               formData.productionDescription !== "" ? (
-                <Link href={"/creator/opportunities/edit/step-two"}>
+                <Link
+                  href={`/creator/opportunities/${router.query.id}/edit/step-two`}
+                >
                   Continue
                 </Link>
               ) : (

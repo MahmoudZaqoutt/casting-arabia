@@ -19,8 +19,11 @@ import {
   DialogTitle,
 } from "@mui/material";
 import axios from "axios";
+import { useRouter } from "next/router";
 
 const index = () => {
+  const router = useRouter();
+
   const currentDate = dayjs();
 
   const { RangePicker } = DatePicker;
@@ -71,7 +74,7 @@ const index = () => {
     (async () => {
       try {
         const res = await axios.put(
-          "http://casting-ec2-1307338951.us-east-2.elb.amazonaws.com:7001/opportunities/2048/roles/1697",
+          `http://casting-ec2-1307338951.us-east-2.elb.amazonaws.com:7001/opportunities/${router.query.id}/roles/${router.query.id2}`,
           formData,
           {
             headers: {
@@ -227,7 +230,9 @@ const index = () => {
               className="border-2 border-blue-700 bg-blue-700 rounded-md text-lg text-white px-4 py-1 font-semibold hover:bg-blue-600 duration-200"
             >
               {formData.description && formData.location !== "" ? (
-                <Link href={"/creator/opportunities/roles/edit/step-four"}>
+                <Link
+                  href={`/creator/opportunities/${router.query.id}/roles/${router.query.id2}/edit/step-four`}
+                >
                   Continue
                 </Link>
               ) : (

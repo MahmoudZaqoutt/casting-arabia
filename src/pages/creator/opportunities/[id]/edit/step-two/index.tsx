@@ -8,8 +8,13 @@ import { IoAddOutline } from "react-icons/io5";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import { useRouter } from "next/router";
+import axios from "axios";
 
 const index = () => {
+  const router = useRouter();
+  console.log(router.query.id);
+
   const [errors, setErrors] = useState<any>([]);
   const [formData, setFormData] = useState({
     RoleName: "",
@@ -43,6 +48,35 @@ const index = () => {
         setErrors(Errors);
       });
   };
+
+  const handleDynamicRoute = (e: any) => {
+    const token = localStorage.getItem("token");
+    e.preventDefault();
+
+    (async () => {
+      try {
+        const response = await axios.post(
+          `http://casting-ec2-1307338951.us-east-2.elb.amazonaws.com:7001/opportunities/${router.query.id}/roles`,
+          {
+            name: "",
+          },
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        if (response.data && response.data.id) {
+          router.push(
+            `/creator/opportunities/${router.query.id}/roles/${response.data.id}/edit/step-one`
+          );
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    })();
+  };
+
   return (
     <Container>
       <div className="my-12">
@@ -52,10 +86,12 @@ const index = () => {
         <div className="flex flex-col sm:w-[500px] mx-auto gap-3">
           <div className="flex sm:w-[500px] mx-auto justify-between items-center">
             <p className="text-xl text-gray-500   ">Role(s) You're Castig</p>
-            <button className=" hover:bg-blue-50 duration-200 text-gray-500 rounded-full text-3xl">
-              <Link href={"/creator/opportunities/roles/edit/step-one"}>
-                <IoAddOutline /> {""}
-              </Link>
+
+            <button
+              onClick={handleDynamicRoute}
+              className=" hover:bg-blue-50 duration-200 text-gray-500 rounded-full text-3xl"
+            >
+              <IoAddOutline /> {""}
             </button>
           </div>
           <div>
@@ -91,7 +127,7 @@ const index = () => {
               className="border-2 border-blue-700 bg-blue-700 rounded-md text-lg text-white px-4 py-1 font-semibold hover:bg-blue-600 duration-200"
             >
               {formData.RoleName !== "" ? (
-                <Link href={"/creator/opportunities/edit/summary"}>
+                <Link href={`/creator/opportunities/edit/summary`}>
                   Continue
                 </Link>
               ) : (

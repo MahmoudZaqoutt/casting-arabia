@@ -11,6 +11,8 @@ import Modall from "../Shared/Modal/Modal";
 import TalentRegister from "../../pages/TalentRegister";
 import RolesCard from "@/pages/creator/roles/rolesCard/RolesCard";
 import OpportunitiesCard from "@/pages/creator/OpportunitiesCard/OpportunitiesCard";
+import axios from "axios";
+import { useRouter } from "next/router";
 
 const SlidesOfSections = (props: IPropsSlide) => {
   const [isBeginning, setIsBeginning] = useState(true);
@@ -19,6 +21,37 @@ const SlidesOfSections = (props: IPropsSlide) => {
   const handleChange = (swiper: any) => {
     setIsBeginning(swiper.isBeginning);
     setIsEnd(swiper.isEnd);
+  };
+
+  const router = useRouter();
+
+  const handleDynamicRoute = (e: any) => {
+    const token = localStorage.getItem("token");
+    e.preventDefault();
+    console.log("first");
+
+    (async () => {
+      try {
+        const response = await axios.post(
+          "http://casting-ec2-1307338951.us-east-2.elb.amazonaws.com:7001/opportunities",
+          {
+            title: "",
+          },
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        if (response.data && response.data.id) {
+          router.push(
+            `/creator/opportunities/${response.data.id}/edit/step-one`
+          );
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    })();
   };
 
   return (
@@ -30,11 +63,11 @@ const SlidesOfSections = (props: IPropsSlide) => {
           <div className="flex items-center gap-5">
             {props.link ? (
               <div>
-                <Link href={props.link}>
+                <button onClick={handleDynamicRoute}>
                   <p className="font-semibold text-xl text-blue-600 border-2 border-blue-600 rounded-md px-5 py-2 hover:bg-blue-100 duration-200">
                     New
                   </p>
-                </Link>
+                </button>
               </div>
             ) : (
               ""

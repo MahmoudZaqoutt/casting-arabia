@@ -5,8 +5,11 @@ import Link from "next/link";
 import DropDownList from "@/components/Shared/DropDownList/DropDownList";
 import { TextField } from "@mui/material";
 import axios from "axios";
+import { useRouter } from "next/router";
 
 const index = () => {
+  const router = useRouter();
+
   const [errors, setErrors] = useState<any>([]);
   const [formData, setFormData] = useState({
     isCompleted: "",
@@ -48,7 +51,7 @@ const index = () => {
     (async () => {
       try {
         const res = await axios.put(
-          "http://casting-ec2-1307338951.us-east-2.elb.amazonaws.com:7001/opportunities/2048/roles/1697",
+          `http://casting-ec2-1307338951.us-east-2.elb.amazonaws.com:7001/opportunities/${router.query.id}/roles/${router.query.id2}`,
           formData,
           {
             headers: {
@@ -128,7 +131,11 @@ const index = () => {
             >
               {formData.isPaid === false ||
               (formData.paidType && formData.paidRate) !== "" ? (
-                <Link href={"/creator/opportunities/edit/step-two"}>Save</Link>
+                <Link
+                  href={`/creator/opportunities/${router.query.id}/edit/step-two`}
+                >
+                  Save
+                </Link>
               ) : (
                 "Save"
               )}

@@ -22,7 +22,7 @@ const index = ({ News }: any) => {
           <SlidesOfSections
             title="My Opportunities"
             id={"MyOpportunities"}
-            link="/creator/opportunities/edit/step-one"
+            link=".."
             MyOpportunities={true}
           />
           <SlidesOfSections
