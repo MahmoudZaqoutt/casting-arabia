@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Container from "@/components/Shared/Container/Container";
 import { schema } from "@/constants/Register";
 import Link from "next/link";
@@ -11,11 +11,50 @@ const index = () => {
   const router = useRouter();
 
   const [errors, setErrors] = useState<any>([]);
+
+  const [data, setData] = useState<any>();
+
+  useEffect(() => {
+    (async () => {
+      if (router.query.id && router.query.id2) {
+        try {
+          const token = localStorage.getItem("token");
+          const res = await axios.get(
+            `http://casting-ec2-1307338951.us-east-2.elb.amazonaws.com:7001/opportunities/${router.query.id}/roles/${router.query.id2}`,
+            {
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+            }
+          );
+
+          if (res) {
+            setData(res.data);
+          }
+        } catch (error) {}
+      }
+    })();
+  }, [router.query.id, router.query.id2]);
+
+  useEffect(() => {
+    if (data) {
+      setFormData({
+        isCompleted: data.isCompleted,
+        isPaid: data.isPaid,
+        mediaRequired: {
+          characteristics: data.mediaRequired.characteristics,
+          skills: data.mediaRequired.skills,
+        },
+        paidRate: data.paidRate,
+        paidType: data.paidType,
+      });
+    }
+  }, [data]);
+
   const [formData, setFormData] = useState({
-    isCompleted: "",
+    isCompleted: false,
     isPaid: false,
     mediaRequired: { characteristics: false, skills: false },
-    characteristics: false,
     paidRate: "2",
     paidType: "hourly",
   });
@@ -27,8 +66,8 @@ const index = () => {
 
     if (name === "isPaid") {
       value === "Paid"
-        ? setFormData({ ...formData, isPaid: true })
-        : setFormData({ ...formData, isPaid: false });
+        ? setFormData({ ...formData, isPaid: true, isCompleted: true })
+        : setFormData({ ...formData, isPaid: false, isCompleted: true });
     }
   };
 
@@ -68,7 +107,6 @@ const index = () => {
     })();
   };
 
-  console.log(formData);
   return (
     <Container>
       <div className="mt-12 mb-[133px] h-[400px] ">
@@ -83,6 +121,7 @@ const index = () => {
               onChange={handleInputChange}
               options={["Paid", "Unpaid"]}
               name="isPaid"
+              value={formData.isPaid ? "Paid" : "Unpaid"}
             />
             <p className="text-sm  text-red-500  p-2 inline-block ">
               {errors.isPaid && errors.isPaid}

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Checkbox, FormControlLabel, TextField } from "@mui/material";
 import Container from "@/components/Shared/Container/Container";
 import { schema } from "@/constants/Register";
@@ -17,16 +17,54 @@ const index = () => {
 
   const [errors, setErrors] = useState<any>([]);
 
-  const [skills, setSkills] = useState<any>([]);
   const [value, setValue] = React.useState<number[]>([20, 37]);
 
-  const [formData, setFormData] = useState({
+  const [data, setData] = useState<any>();
+
+  useEffect(() => {
+    (async () => {
+      if (router.query.id && router.query.id2) {
+        try {
+          const token = localStorage.getItem("token");
+          const res = await axios.get(
+            `http://casting-ec2-1307338951.us-east-2.elb.amazonaws.com:7001/opportunities/${router.query.id}/roles/${router.query.id2}`,
+            {
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+            }
+          );
+
+          if (res) {
+            setData(res.data);
+          }
+        } catch (error) {}
+      }
+    })();
+  }, [router.query.id, router.query.id2]);
+
+  useEffect(() => {
+    if (data) {
+      setFormData({
+        citizenship: data.citizenship,
+        considerAge: data.isAcceptingTapedAudition,
+        considerCitizen: data.considerCitizen,
+        maxAge: data.maxAge,
+        minAge: data.minAge,
+        considerSkills: data.skills,
+      });
+      setValue([data.minAge, data.maxAge]);
+    }
+  }, [data]);
+
+  console.log(data);
+  const [formData, setFormData] = useState<any>({
     citizenship: "",
     considerAge: false,
     considerCitizen: false,
-    considerSkills: [],
     maxAge: value[1],
     minAge: value[0],
+    considerSkills: [],
   });
 
   const handleInputChange = (e: any) => {
@@ -34,14 +72,10 @@ const index = () => {
     setFormData({ ...formData, [name]: value });
   };
 
-  const [skillsWithIds, setSkillsWithIds] = useState<any>([]);
-
   const handleSkillChange = (e: any) => {
     const token = localStorage.getItem("token");
 
     const selectedSkill = e.target.value;
-
-    setSkills([...skills, selectedSkill]);
 
     (async () => {
       try {
@@ -55,20 +89,22 @@ const index = () => {
           }
         );
         if (res) {
-          setSkillsWithIds([
-            ...skillsWithIds,
-            { name: selectedSkill, id: res.data.skillId },
-          ]);
+          setFormData({
+            ...formData,
+            considerSkills: [
+              ...formData.considerSkills,
+              { skill: { id: res.data.id, title: selectedSkill } },
+            ],
+          });
         }
       } catch (error) {}
     })();
   };
-
   const handleDeleteSkill = async (skillId: any) => {
     try {
       const token = localStorage.getItem("token");
       const res = await axios.delete(
-        `http://casting-ec2-1307338951.us-east-2.elb.amazonaws.com:7001/opportunities/${router.query.id}/roles/1708/skills/${skillId}`,
+        `http://casting-ec2-1307338951.us-east-2.elb.amazonaws.com:7001/opportunities/${router.query.id}/roles/${router.query.id2}/skills/${skillId}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -76,11 +112,10 @@ const index = () => {
         }
       );
       if (res) {
-        const updatedSkills = skillsWithIds.filter(
+        const updatedSkills = formData.considerSkills.filter(
           (item: any) => item.id !== skillId
         );
-
-        setSkillsWithIds(updatedSkills);
+        setFormData({ ...formData, considerSkills: updatedSkills });
       }
     } catch (error) {
       console.error("Error deleting skill:", error);
@@ -102,7 +137,6 @@ const index = () => {
         });
         setErrors(Errors);
       });
-
     (async () => {
       try {
         const res = await axios.put(
@@ -158,9 +192,9 @@ const index = () => {
           <div className="w-full bg-white h-48  border-[1px] rounded-lg border-gray-300 overflow-y-auto">
             <p className="text-gray-500 p-3">Skill Name</p>
 
-            {skillsWithIds.map((item: any, index: any) => (
+            {formData.considerSkills?.map((item: any, index: any) => (
               <div key={index} className="flex justify-between">
-                <p className="text-lg ml-3 mt-4">{item.name}</p>
+                <p className="text-lg ml-3 mt-4">{item.skill.title}</p>
                 <div className="flex items-center">
                   <button onClick={() => handleDeleteSkill(item.id)}>
                     <MdDelete className="text-2xl text-red-600" />
@@ -189,7 +223,11 @@ const index = () => {
           <div>
             <FormControlLabel
               control={
-                <Checkbox onChange={handleCheckChange} name="considerAge" />
+                <Checkbox
+                  checked={formData.considerAge}
+                  onChange={handleCheckChange}
+                  name="considerAge"
+                />
               }
               label="This is a firm requirement"
             />
@@ -211,7 +249,11 @@ const index = () => {
           <div className="mb-5">
             <FormControlLabel
               control={
-                <Checkbox onChange={handleCheckChange} name="considerCitizen" />
+                <Checkbox
+                  checked={formData.considerCitizen}
+                  onChange={handleCheckChange}
+                  name="considerCitizen"
+                />
               }
               label="This is a firm requirement"
             />

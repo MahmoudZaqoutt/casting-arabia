@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Checkbox, FormControlLabel, TextField } from "@mui/material";
 import Container from "@/components/Shared/Container/Container";
 import { schema } from "@/constants/Register";
@@ -10,8 +10,47 @@ import { useRouter } from "next/router";
 
 const index = () => {
   const router = useRouter();
-
   const [errors, setErrors] = useState<any>([]);
+  const [data, setData] = useState<any>();
+
+  useEffect(() => {
+    (async () => {
+      if (router.query.id && router.query.id2) {
+        try {
+          const token = localStorage.getItem("token");
+          const res = await axios.get(
+            `http://casting-ec2-1307338951.us-east-2.elb.amazonaws.com:7001/opportunities/${router.query.id}/roles/${router.query.id2}`,
+            {
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+            }
+          );
+
+          if (res) {
+            setData(res.data);
+          }
+        } catch (error) {}
+      }
+    })();
+  }, [router.query.id, router.query.id2]);
+
+  useEffect(() => {
+    if (data) {
+      setFormData({
+        considerGender: data.considerGender,
+        gender: data.gender,
+        isAcceptingTapedAudition: data.isAcceptingTapedAudition,
+        name: data.name,
+        otherRoleType: data.otherRoleType,
+        otherTalentType: data.otherTalentType,
+        talentType: data.talentType,
+        type: data.type,
+      });
+      setSelectedOption1(data.talentType);
+      setSelectedOption2(data.type);
+    }
+  }, [data]);
 
   const [formData, setFormData] = useState({
     considerGender: false,
@@ -31,7 +70,6 @@ const index = () => {
       [name]: value,
     });
   };
-  console.log(formData);
   const handleCheckChange = (e: any) => {
     const { checked, name } = e.target;
     setFormData({
@@ -184,13 +222,18 @@ const index = () => {
           <div className="flex flex-col gap-3">
             <FormControlLabel
               control={
-                <Checkbox name="considerGender" onChange={handleCheckChange} />
+                <Checkbox
+                  checked={formData.considerGender}
+                  name="considerGender"
+                  onChange={handleCheckChange}
+                />
               }
               label="This is a firm requirement"
             />
             <FormControlLabel
               control={
                 <Checkbox
+                  checked={formData.isAcceptingTapedAudition}
                   name="isAcceptingTapedAudition"
                   onChange={handleCheckChange}
                 />

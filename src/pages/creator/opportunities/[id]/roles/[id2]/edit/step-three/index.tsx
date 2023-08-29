@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Textarea from "@mui/joy/Textarea";
 import Container from "@/components/Shared/Container/Container";
 import { schema } from "@/constants/Register";
@@ -29,12 +29,51 @@ const index = () => {
   const { RangePicker } = DatePicker;
   const [errors, setErrors] = useState<any>([]);
 
+  const [data, setData] = useState<any>();
+
+  useEffect(() => {
+    (async () => {
+      if (router.query.id && router.query.id2) {
+        try {
+          const token = localStorage.getItem("token");
+          const res = await axios.get(
+            `http://casting-ec2-1307338951.us-east-2.elb.amazonaws.com:7001/opportunities/${router.query.id}/roles/${router.query.id2}`,
+            {
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+            }
+          );
+
+          if (res) {
+            console.log(res);
+            setData(res.data);
+          }
+        } catch (error) {}
+      }
+    })();
+  }, [router.query.id, router.query.id2]);
+
+  useEffect(() => {
+    if (data) {
+      setFormData({
+        ...formData,
+        description: data?.description,
+        location: data?.location,
+        auditionDates: [
+          data.auditionDates?.map((item: any) => item.split("T").shift()),
+        ],
+      });
+    }
+  }, [data]);
+
   const [formData, setFormData] = useState<any>({
     description: "",
     location: "",
     shootingAvailability: [],
     auditionDates: [],
   });
+
   const handleInputChange = (e: any) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
@@ -96,7 +135,7 @@ const index = () => {
   const handleChangeDate = (e: any) => {
     const selectedDate = dayjs(`${e.$y}-${e.$M + 1}-${e.$D}`);
     const monthName = selectedDate.format("MMM");
-    setDate(`${e.$D}-${monthName}-${e.$y}`);
+    setDate(`${e.$y}-${e.$M + 1}-${e.$D}`);
   };
 
   const handleDateSubmit = (event: any) => {
@@ -122,7 +161,6 @@ const index = () => {
     const updatedAuditionDates = formData.auditionDates.filter(
       (date: string) => date !== dateToDelete
     );
-
     setFormData({ ...formData, auditionDates: updatedAuditionDates });
   };
 
@@ -204,7 +242,7 @@ const index = () => {
           </div>
 
           <div className="flex items-center gap-5 !w-[500px] ">
-            {formData.auditionDates.map((item: string, index: number) => (
+            {formData.auditionDates?.map((item: string, index: number) => (
               <div key={index}>
                 <Chip label={item} onDelete={() => handleDelete(item)} />
               </div>

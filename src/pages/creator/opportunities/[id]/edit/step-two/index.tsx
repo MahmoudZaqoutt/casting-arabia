@@ -27,7 +27,6 @@ const index = () => {
   const handleSubmit = (event: any) => {
     const token = localStorage.getItem("token");
     event.preventDefault();
-
     schema
       .validate(expirationDate, { abortEarly: false })
       .then(() => {
@@ -93,7 +92,7 @@ const index = () => {
         const token = localStorage.getItem("token");
         if (router.query.id) {
           const res = await axios.get(
-            `http://casting-ec2-1307338951.us-east-2.elb.amazonaws.com:7001/opportunities/${router.query.id}/roles`,
+            `http://casting-ec2-1307338951.us-east-2.elb.amazonaws.com:7001/opportunities/${router.query.id}`,
             {
               headers: {
                 Authorization: `Bearer ${token}`,
@@ -101,7 +100,7 @@ const index = () => {
             }
           );
           if (res) {
-            setMyRoles(res.data);
+            setMyRoles(res.data.roles);
             console.log(res.data);
           }
         }
@@ -244,7 +243,9 @@ const index = () => {
               className="border-2 border-blue-700 bg-blue-700 rounded-md text-lg text-white px-4 py-1 font-semibold hover:bg-blue-600 duration-200"
             >
               {expirationDate !== "" ? (
-                <Link href={`/creator/opportunities/edit/summary`}>
+                <Link
+                  href={`/creator/opportunities/${router.query.id}/edit/summary`}
+                >
                   Continue
                 </Link>
               ) : (
