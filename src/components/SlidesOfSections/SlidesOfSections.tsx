@@ -17,7 +17,7 @@ import { useRouter } from "next/router";
 const SlidesOfSections = (props: IPropsSlide) => {
   const [isBeginning, setIsBeginning] = useState(true);
   const [isEnd, setIsEnd] = useState(false);
-
+  console.log(props.myRoles);
   const handleChange = (swiper: any) => {
     setIsBeginning(swiper.isBeginning);
     setIsEnd(swiper.isEnd);
@@ -28,7 +28,6 @@ const SlidesOfSections = (props: IPropsSlide) => {
   const handleDynamicRoute = (e: any) => {
     const token = localStorage.getItem("token");
     e.preventDefault();
-    console.log("first");
 
     (async () => {
       try {
@@ -194,27 +193,13 @@ const SlidesOfSections = (props: IPropsSlide) => {
 
           {props.myRoles ? (
             <>
-              <SwiperSlide className="!w-[20.313rem] ">
-                <RolesCard />
-              </SwiperSlide>
-              <SwiperSlide className="!w-[20.313rem] ">
-                <RolesCard />
-              </SwiperSlide>
-              <SwiperSlide className="!w-[20.313rem] ">
-                <RolesCard />
-              </SwiperSlide>
-              <SwiperSlide className="!w-[20.313rem] ">
-                <RolesCard />
-              </SwiperSlide>
-              <SwiperSlide className="!w-[20.313rem] ">
-                <RolesCard />
-              </SwiperSlide>
-              <SwiperSlide className="!w-[20.313rem] ">
-                <RolesCard />
-              </SwiperSlide>
-              <SwiperSlide className="!w-[20.313rem] ">
-                <RolesCard />
-              </SwiperSlide>
+              {props.myRoles.map((item: any, index: any) => (
+                <SwiperSlide key={index} className="!w-[20.313rem] ">
+                  <Link href={`/creator`}>
+                    <RolesCard img={item.coverImage} name={item.name} />
+                  </Link>
+                </SwiperSlide>
+              ))}
             </>
           ) : (
             <></>
@@ -260,6 +245,7 @@ const SlidesOfSections = (props: IPropsSlide) => {
             <></>
           )}
         </Swiper>
+
         <div className="text-center">
           {props.buttonContent ? (
             <Modall

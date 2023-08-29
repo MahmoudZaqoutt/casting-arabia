@@ -9,4 +9,5 @@ export interface IPropsCard {
   status?: any;
   id?: number;
   img?: any;
+  name?: string;
 }
