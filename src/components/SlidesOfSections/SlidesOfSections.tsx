@@ -17,7 +17,6 @@ import { useRouter } from "next/router";
 const SlidesOfSections = (props: IPropsSlide) => {
   const [isBeginning, setIsBeginning] = useState(true);
   const [isEnd, setIsEnd] = useState(false);
-  console.log(props.myRoles);
   const handleChange = (swiper: any) => {
     setIsBeginning(swiper.isBeginning);
     setIsEnd(swiper.isEnd);
@@ -153,39 +152,17 @@ const SlidesOfSections = (props: IPropsSlide) => {
         >
           {props.MyOpportunities ? (
             <>
-              <SwiperSlide className="!w-[20.313rem] ">
-                <OpportunitiesCard title="Nam ea quas et velit" />
-              </SwiperSlide>
-              <SwiperSlide className="!w-[20.313rem] ">
-                <OpportunitiesCard status={"draft"} />
-              </SwiperSlide>
-              <SwiperSlide className="!w-[20.313rem] ">
-                <OpportunitiesCard title="Nam ea quas et velit" />
-              </SwiperSlide>
-              <SwiperSlide className="!w-[20.313rem] ">
-                <OpportunitiesCard status={"draft"} />
-              </SwiperSlide>
-              <SwiperSlide className="!w-[20.313rem] ">
-                <OpportunitiesCard title="Nam ea quas et velit" />
-              </SwiperSlide>
-              <SwiperSlide className="!w-[20.313rem] ">
-                <OpportunitiesCard
-                  status={"draft"}
-                  title="Nam ea quas et velit"
-                />
-              </SwiperSlide>
-              <SwiperSlide className="!w-[20.313rem] ">
-                <OpportunitiesCard status={"draft"} />
-              </SwiperSlide>
-              <SwiperSlide className="!w-[20.313rem] ">
-                <OpportunitiesCard title="Nam ea quas et velit" />
-              </SwiperSlide>
-              <SwiperSlide className="!w-[20.313rem] ">
-                <OpportunitiesCard
-                  status={"draft"}
-                  title="Nam ea quas et velit"
-                />
-              </SwiperSlide>
+              {props.MyOpportunities.map((item: any, index: any) => (
+                <SwiperSlide className="!w-[20.313rem] ">
+                  <Link key={index} href={`creator/opportunities/${item.id}`}>
+                    <OpportunitiesCard
+                      img={item.coverImage}
+                      title={item.title}
+                      status={item.status}
+                    />
+                  </Link>
+                </SwiperSlide>
+              ))}
             </>
           ) : (
             <></>

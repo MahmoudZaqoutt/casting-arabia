@@ -8,7 +8,7 @@ export interface IPropsSlide {
   link?: string;
   linkContent?: string;
   myRoles?: any;
-  MyOpportunities?: boolean;
+  MyOpportunities?: any;
   News?: any;
   LearningCenter?: boolean;
 }

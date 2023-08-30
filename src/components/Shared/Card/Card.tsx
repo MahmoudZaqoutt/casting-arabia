@@ -16,7 +16,7 @@ const Card = (props: IPropsCard) => {
         alt="img"
         // height={100}
         // width={100}
-        className="w-full h-[10rem]"
+        className="w-full h-[10rem] rounded-xl"
       />
       <div className="flex flex-col gap-5 justify-between mt-5 h-auto">
         <TitleAndSubTitle

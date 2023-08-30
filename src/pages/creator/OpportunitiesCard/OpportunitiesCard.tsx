@@ -9,8 +9,9 @@ import { IPropsCard } from "@/interfaces/props/IPropsCard";
 import Select from "./Select/Select";
 const OpportunitiesCard = (props: IPropsCard) => {
   return (
-    <div className="w-[20.313rem]  max-h-[20.875rem] md:hover:scale-105 my-2 ease-in-out duration-150 ">
-      <Image src={img} alt="img" className="w-full h-[10rem]" />
+    // w-[20.313rem]
+    <div className=" max-h-[20.875rem] md:hover:scale-105 my-2 ease-in-out duration-150 ">
+      <img src={props.img} alt="img" className="w-full h-[10rem] rounded-xl" />
       <div className="flex flex-col gap-5 justify-between mt-5 h-auto">
         <div className="flex items-center justify-between">
           <TitleAndSubTitle

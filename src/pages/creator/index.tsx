@@ -6,7 +6,7 @@ import SlidesOfSections from "@/components/SlidesOfSections/SlidesOfSections";
 import WhoAreYouSection from "@/components/WhoAreYou/WhoAreYouSection/WhoAreYouSection";
 import Header from "@/components/Header/Header";
 
-const index = ({ News, myRoles }: any) => {
+const index = ({ News, myRoles, MyOpportunities }: any) => {
   return (
     <>
       <div className="mb-20">
@@ -17,7 +17,7 @@ const index = ({ News, myRoles }: any) => {
             id={"MyOpportunities"}
             link=".."
             href="/creator/opportunities"
-            MyOpportunities={true}
+            MyOpportunities={MyOpportunities}
           />
           <SlidesOfSections
             title="My Roles"
@@ -48,7 +48,7 @@ const index = ({ News, myRoles }: any) => {
 export default index;
 
 export const getServerSideProps = async () => {
-  const res = await fetch(
+  const res1 = await fetch(
     "http://casting-ec2-1307338951.us-east-2.elb.amazonaws.com:7001/articles/pub/timeline"
   );
 
@@ -61,13 +61,23 @@ export const getServerSideProps = async () => {
     }
   );
 
+  const res3 = await fetch(
+    "http://casting-ec2-1307338951.us-east-2.elb.amazonaws.com:7001/opportunities",
+    {
+      headers: {
+        Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTY3OCwiaWF0IjoxNjkyODc0Mzg5LCJleHAiOjE3MjQ0MzE5ODl9.JsWpkdxrkyAY8C48EoEr6OLEMXQHFtcDZ0nqqyPrRw0`, // Your token here
+      },
+    }
+  );
+  const News = await res1.json();
   const myRoles = await res2.json();
-  const News = await res.json();
+  const MyOpportunities = await res3.json();
 
   return {
     props: {
       News: News,
       myRoles: myRoles,
+      MyOpportunities: MyOpportunities,
     },
   };
 };
