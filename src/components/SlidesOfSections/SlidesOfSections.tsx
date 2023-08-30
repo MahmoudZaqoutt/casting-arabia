@@ -23,7 +23,6 @@ const SlidesOfSections = (props: IPropsSlide) => {
   };
 
   const router = useRouter();
-
   const handleDynamicRoute = (e: any) => {
     const token = localStorage.getItem("token");
     e.preventDefault();
@@ -154,13 +153,14 @@ const SlidesOfSections = (props: IPropsSlide) => {
             <>
               {props.MyOpportunities.map((item: any, index: any) => (
                 <SwiperSlide className="!w-[20.313rem] ">
-                  <Link key={index} href={`creator/opportunities/${item.id}`}>
-                    <OpportunitiesCard
-                      img={item.coverImage}
-                      title={item.title}
-                      status={item.status}
-                    />
-                  </Link>
+                  {/* <Link key={index} href={`creator/opportunities/${item.id}`}> */}
+                  <OpportunitiesCard
+                    Id={item.id}
+                    img={item.coverImage}
+                    title={item.title}
+                    status={item.status}
+                  />
+                  {/* </Link> */}
                 </SwiperSlide>
               ))}
             </>

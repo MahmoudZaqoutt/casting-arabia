@@ -1,31 +1,43 @@
-// import React from "react";
-
-// const Select = () => {
-//   return <div>Select</div>;
-// };
-
-// export default Select;
-
+import { IconButton, Menu, MenuItem } from "@mui/material";
+import axios from "axios";
 import * as React from "react";
-import IconButton from "@mui/material/IconButton";
-import Menu from "@mui/material/Menu";
-import MenuItem from "@mui/material/MenuItem";
-import MoreVertIcon from "@mui/icons-material/MoreVert";
+import Option from "./Option/Option";
 import { GrView } from "react-icons/gr";
 import { MdDeleteOutline, MdOutlineModeEditOutline } from "react-icons/md";
-import Option from "./Option/Option";
+import MoreVertIcon from "@mui/icons-material/MoreVert";
+import { IPropsCard } from "@/interfaces/props/IPropsCard";
+import { useRouter } from "next/router";
+import Link from "next/link";
 
 const ITEM_HEIGHT = 48;
 
-export default function Select() {
+export default function Select(props: IPropsCard) {
+  const router = useRouter();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
   };
-  const handleClose = (e: any) => {
-    console.log(e);
+  const handleClose = () => {
     setAnchorEl(null);
+  };
+
+  const handleDelete = async (id: any) => {
+    const token = localStorage.getItem("token");
+    try {
+      const res = await axios.delete(
+        `http://casting-ec2-1307338951.us-east-2.elb.amazonaws.com:7001/opportunities/${id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+    } catch (error) {}
+  };
+
+  const handleEdit = async (id: any) => {
+    router.push(`/creator/opportunities/${id}/edit/step-one`);
   };
 
   return (
@@ -57,19 +69,25 @@ export default function Select() {
         onChange={handleClose}
       >
         <MenuItem onClick={handleClose}>
-          <Option Icon={<GrView className="text-xl" />} content="View" />
+          <Link href={`creator/opportunities/${props.Id}`}>
+            <Option Icon={<GrView className="text-xl" />} content="View" />
+          </Link>
         </MenuItem>
         <MenuItem onClick={handleClose}>
-          <Option
-            Icon={<MdOutlineModeEditOutline className="text-xl" />}
-            content="Edit"
-          />
+          <button onClick={() => handleEdit(props.Id)}>
+            <Option
+              Icon={<MdOutlineModeEditOutline className="text-xl" />}
+              content="Edit"
+            />{" "}
+          </button>
         </MenuItem>
         <MenuItem onClick={handleClose}>
-          <Option
-            Icon={<MdDeleteOutline className="text-xl" />}
-            content="Delete"
-          />
+          <button onClick={() => handleDelete(props.Id)}>
+            <Option
+              Icon={<MdDeleteOutline className="text-xl" />}
+              content="Delete"
+            />{" "}
+          </button>
         </MenuItem>
       </Menu>
     </div>

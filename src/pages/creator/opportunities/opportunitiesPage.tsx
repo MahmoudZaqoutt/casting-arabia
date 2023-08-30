@@ -8,12 +8,14 @@ import { AiOutlineCheck } from "react-icons/ai";
 import { TbClockHour4 } from "react-icons/tb";
 import { FaPen } from "react-icons/fa";
 import { GiCancel } from "react-icons/gi";
+import axios from "axios";
+import { useRouter } from "next/router";
 
 const OpportunitiesPage = (props: IPropsSlide) => {
   console.log(props.MyOpportunities[0]);
   const [search, setSearch] = useState("");
   const [data, setData] = useState(props.MyOpportunities);
-
+  const router = useRouter();
   const handleInputChange = (e: any) => {
     setSearch(e.target.value);
     setData(
@@ -64,11 +66,42 @@ const OpportunitiesPage = (props: IPropsSlide) => {
     );
   };
 
+  const handleDynamicRoute = async (e: any) => {
+    const token = localStorage.getItem("token");
+    e.preventDefault();
+
+    try {
+      const response = await fetch(
+        "http://casting-ec2-1307338951.us-east-2.elb.amazonaws.com:7001/opportunities",
+        {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({ title: "" }),
+        }
+      );
+
+      const result = await response.json();
+      if (result && result.id) {
+        router.push(`/creator/opportunities/${result.id}/edit/step-one`);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   return (
     <div className="min-h-[500px]">
       <Container>
-        <div className="mt-14">
+        <div className="mt-14 flex justify-between items-center">
           <p className="text-4xl font-semibold text-blue-700">Opportunities</p>
+
+          <button onClick={handleDynamicRoute}>
+            <p className="font-semibold text-xl text-blue-600 border-2 border-blue-600 rounded-md px-5 py-2 hover:bg-blue-100 duration-200">
+              New
+            </p>
+          </button>
         </div>
         <div className="mt-7 flex justify-between">
           <form className="w-full">
@@ -116,13 +149,14 @@ const OpportunitiesPage = (props: IPropsSlide) => {
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-5 my-5">
           {data?.map((item: any, index: any) => (
-            <Link key={index} href={`opportunities/${item.id}`}>
-              <OpportunitiesCard
-                img={item.coverImage}
-                title={item.title}
-                status={item.status}
-              />
-            </Link>
+            // <Link key={index} href={`opportunities/${item.id}`}>
+            <OpportunitiesCard
+              Id={item.id}
+              img={item.coverImage}
+              title={item.title}
+              status={item.status}
+            />
+            // </Link>
           ))}
         </div>
       </Container>

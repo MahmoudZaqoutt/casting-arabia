@@ -7,7 +7,7 @@ export interface IPropsCard {
   className?: string;
   iconStatus?: any;
   status?: any;
-  id?: number;
+  Id?: number;
   img?: any;
   name?: string;
 }

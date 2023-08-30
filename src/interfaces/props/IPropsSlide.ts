@@ -1,5 +1,5 @@
 export interface IPropsSlide {
-  id?: string;
+  id?: any;
   title?: string;
   Icon?: string;
   paid?: string;

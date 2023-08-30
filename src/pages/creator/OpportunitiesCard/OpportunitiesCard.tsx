@@ -1,17 +1,20 @@
-import Image from "next/image";
 import React from "react";
 import TitleAndSubTitle from "@/components/Shared/TitleAndSubTitle/TitleAndSubTitle";
 import { AiOutlineCheck } from "react-icons/ai";
 import { BiSolidPencil } from "react-icons/bi";
-
-import img from "../../../assets/Rectangle16.png";
 import { IPropsCard } from "@/interfaces/props/IPropsCard";
 import Select from "./Select/Select";
+import Link from "next/link";
 const OpportunitiesCard = (props: IPropsCard) => {
   return (
-    // w-[20.313rem]
     <div className=" max-h-[20.875rem] md:hover:scale-105 my-2 ease-in-out duration-150 ">
-      <img src={props.img} alt="img" className="w-full h-[10rem] rounded-xl" />
+      <Link href={`creator/opportunities/${props.Id}`}>
+        <img
+          src={props.img}
+          alt="img"
+          className="w-full h-[10rem] rounded-xl"
+        />
+      </Link>
       <div className="flex flex-col gap-5 justify-between mt-5 h-auto">
         <div className="flex items-center justify-between">
           <TitleAndSubTitle
@@ -20,7 +23,7 @@ const OpportunitiesCard = (props: IPropsCard) => {
             classNameOfTitle="font-semibold"
             classNameOfSubTitle="text-sm text-gray-500"
           />
-          <Select />
+          <Select Id={props.Id} />
         </div>
 
         <div>

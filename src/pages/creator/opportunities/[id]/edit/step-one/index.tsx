@@ -13,6 +13,43 @@ import { useRouter } from "next/router";
 const index = () => {
   const router = useRouter();
 
+  const [data, setData] = useState<any>();
+
+  useEffect(() => {
+    (async () => {
+      if (router.query.id) {
+        try {
+          const token = localStorage.getItem("token");
+          const res = await axios.get(
+            `http://casting-ec2-1307338951.us-east-2.elb.amazonaws.com:7001/opportunities/${router.query.id}`,
+            {
+              headers: {
+                Authorization: `Bearer ${token}`,
+              },
+            }
+          );
+
+          if (res) {
+            setData(res.data);
+          }
+        } catch (error) {
+          console.log(error);
+        }
+      }
+    })();
+  }, [router.query.id]);
+
+  useEffect(() => {
+    if (data) {
+      setFormData({
+        title: data.title,
+        company: data.company,
+        productionPersonnel: [],
+        productionDescription: data.productionDescription,
+      });
+    }
+  }, [data]);
+
   const [errors, setErrors] = useState<any>([]);
   const [formData, setFormData] = useState({
     title: "",
@@ -39,8 +76,6 @@ const index = () => {
   const onFinish = (values: any) => {
     console.log("Received values of form:", values);
   };
-
-  console.log(formData);
 
   const handleSubmit = (event: any) => {
     const token = localStorage.getItem("token");
