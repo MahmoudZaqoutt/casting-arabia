@@ -3,6 +3,7 @@ import Header from "@/components/Header/Header";
 import "@/styles/globals.css";
 import type { AppProps } from "next/app";
 import "./index.css";
+import Head from "next/head";
 import { useRouter } from "next/router";
 
 export default function App({ Component, pageProps }: AppProps) {
@@ -14,6 +15,9 @@ export default function App({ Component, pageProps }: AppProps) {
 
   return (
     <>
+      <Head>
+        <title>Casting Arabia</title>
+      </Head>
       <Header isAuthorized={!isAuth} />;
       <Component {...pageProps} />
       <Footer />
