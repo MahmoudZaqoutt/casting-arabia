@@ -33,7 +33,7 @@ const index = () => {
     description: "",
     location: "",
     shootingAvailability: [],
-    auditionDates: [],
+    auditionDates: ["2023-01-01"],
   });
 
   useEffect(() => {
@@ -51,7 +51,6 @@ const index = () => {
           );
 
           if (res) {
-            console.log(res);
             setData(res.data);
           }
         } catch (error) {}
@@ -65,9 +64,7 @@ const index = () => {
         ...formData,
         description: data?.description,
         location: data?.location,
-        auditionDates: [
-          data.auditionDates?.map((item: any) => item.split("T").shift()),
-        ],
+        auditionDates: data.auditionDates ? data.auditionDates : ["2023-01-01"],
       });
     }
   }, [data]);
@@ -240,7 +237,10 @@ const index = () => {
           <div className="flex items-center gap-5 !w-[500px] ">
             {formData.auditionDates?.map((item: string, index: number) => (
               <div key={index}>
-                <Chip label={item} onDelete={() => handleDelete(item)} />
+                <Chip
+                  label={item.split("T").shift()}
+                  onDelete={() => handleDelete(item)}
+                />
               </div>
             ))}
           </div>
