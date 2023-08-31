@@ -33,6 +33,10 @@ export default function Select(props: IPropsCard) {
           },
         }
       );
+
+      if (res) {
+        router.push(router.pathname);
+      }
     } catch (error) {}
   };
 
@@ -69,7 +73,7 @@ export default function Select(props: IPropsCard) {
         onChange={handleClose}
       >
         <MenuItem onClick={handleClose}>
-          <Link href={`creator/opportunities/${props.Id}`}>
+          <Link href={`/creator/opportunities/${props.Id}`}>
             <Option Icon={<GrView className="text-xl" />} content="View" />
           </Link>
         </MenuItem>

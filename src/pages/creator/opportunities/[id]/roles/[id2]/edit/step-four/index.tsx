@@ -9,10 +9,15 @@ import { useRouter } from "next/router";
 
 const index = () => {
   const router = useRouter();
-
   const [errors, setErrors] = useState<any>([]);
-
   const [data, setData] = useState<any>();
+  const [formData, setFormData] = useState({
+    isCompleted: false,
+    isPaid: false,
+    mediaRequired: { characteristics: false, skills: false },
+    paidRate: "2",
+    paidType: "hourly",
+  });
 
   useEffect(() => {
     (async () => {
@@ -51,17 +56,8 @@ const index = () => {
     }
   }, [data]);
 
-  const [formData, setFormData] = useState({
-    isCompleted: false,
-    isPaid: false,
-    mediaRequired: { characteristics: false, skills: false },
-    paidRate: "2",
-    paidType: "hourly",
-  });
-
   const handleInputChange = (e: any) => {
     const { name, value } = e.target;
-
     setFormData({ ...formData, [name]: value });
 
     if (name === "isPaid") {
@@ -70,7 +66,6 @@ const index = () => {
         : setFormData({ ...formData, isPaid: false, isCompleted: true });
     }
   };
-
   const handleSubmit = (event: any) => {
     const token = localStorage.getItem("token");
     event.preventDefault();
@@ -98,9 +93,6 @@ const index = () => {
             },
           }
         );
-        if (res) {
-          console.log(res);
-        }
       } catch (error: any) {
         console.log(error);
       }

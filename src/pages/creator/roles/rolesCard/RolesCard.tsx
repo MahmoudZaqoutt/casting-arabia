@@ -1,6 +1,5 @@
 import React from "react";
 import { IPropsCard } from "@/interfaces/props/IPropsCard";
-import Link from "next/link";
 const RolesCard = (props: IPropsCard) => {
   return (
     <div className="w-[18.313rem] flex gap-5  max-h-[20.875rem] md:hover:scale-105 my-2 ease-in-out duration-150 ">

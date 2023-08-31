@@ -151,26 +151,24 @@ const SlidesOfSections = (props: IPropsSlide) => {
         >
           {props.MyOpportunities ? (
             <>
-              {props.MyOpportunities.map((item: any, index: any) => (
-                <SwiperSlide className="!w-[20.313rem] ">
-                  {/* <Link key={index} href={`creator/opportunities/${item.id}`}> */}
+              {props.MyOpportunities.map((item: any, index: number) => (
+                <SwiperSlide key={index} className="!w-[20.313rem] ">
                   <OpportunitiesCard
                     Id={item.id}
                     img={item.coverImage}
                     title={item.title}
                     status={item.status}
                   />
-                  {/* </Link> */}
                 </SwiperSlide>
               ))}
             </>
           ) : (
-            <></>
+            ""
           )}
 
           {props.myRoles ? (
             <>
-              {props.myRoles.map((item: any, index: any) => (
+              {props.myRoles.map((item: any, index: number) => (
                 <SwiperSlide key={index} className="!w-[20.313rem] ">
                   <Link href={`/creator`}>
                     <RolesCard img={item.coverImage} name={item.name} />
@@ -179,12 +177,12 @@ const SlidesOfSections = (props: IPropsSlide) => {
               ))}
             </>
           ) : (
-            <></>
+            ""
           )}
 
           {props.News ? (
             <>
-              {props.News.data.map((item: any, index: any) => (
+              {props.News.data.map((item: any, index: number) => (
                 <SwiperSlide key={index} className="!w-[20.313rem] ">
                   <Link href={`/articles/${item.slug}`}>
                     <Card
@@ -199,12 +197,12 @@ const SlidesOfSections = (props: IPropsSlide) => {
               ))}
             </>
           ) : (
-            <></>
+            ""
           )}
 
           {props.News ? (
             <>
-              {props.News.data.map((item: any, index: any) => (
+              {props.News.data.map((item: any, index: number) => (
                 <SwiperSlide key={index} className="!w-[20.313rem] ">
                   <Link href={`/articles/${item.slug}`}>
                     <Card
@@ -219,7 +217,7 @@ const SlidesOfSections = (props: IPropsSlide) => {
               ))}
             </>
           ) : (
-            <></>
+            ""
           )}
         </Swiper>
 

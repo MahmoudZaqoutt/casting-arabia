@@ -2,21 +2,32 @@ import Link from "next/link";
 import React, { useState } from "react";
 import TextField from "@mui/material/TextField";
 import Radio from "@mui/material/Radio";
-import { FormControlLabel, RadioGroup } from "@mui/material";
+import {
+  FormControl,
+  FormControlLabel,
+  IconButton,
+  InputAdornment,
+  InputLabel,
+  OutlinedInput,
+  RadioGroup,
+} from "@mui/material";
 import { schema } from "@/constants/Register";
-import DropDownList from "../../components/Shared/DropDownList/DropDownList";
-import Container from "../../components/Shared/Container/Container";
-import ToolTip from "../../components/Shared/ToolTip/ToolTip";
 import axios from "axios";
 import { useRouter } from "next/router";
 import Chip from "@mui/material/Chip";
 import { countries } from "@/constants/countries";
+import Container from "@/components/Shared/Container/Container";
+import ToolTip from "@/components/Shared/ToolTip/ToolTip";
+import DropDownList from "@/components/Shared/DropDownList/DropDownList";
+import Visibility from "@mui/icons-material/Visibility";
+import VisibilityOff from "@mui/icons-material/VisibilityOff";
 
 const index = () => {
   const router = useRouter();
   const [talentTypes, setTalentTypes] = React.useState<readonly string[]>([]);
   const [errors, setErrors] = useState<any>([]);
   const [error, setError] = useState<any>("");
+  const [showPassword, setShowPassword] = React.useState(false);
   const [formData, setFormData] = useState<any>({
     companyName: "dash",
     country: "",
@@ -76,6 +87,14 @@ const index = () => {
         setError(error.response.data.code);
       }
     })();
+  };
+
+  const handleClickShowPassword = () => setShowPassword((show) => !show);
+
+  const handleMouseDownPassword = (
+    event: React.MouseEvent<HTMLButtonElement>
+  ) => {
+    event.preventDefault();
   };
 
   return (
@@ -313,17 +332,36 @@ const index = () => {
               </p>
             </div>
             <div className="col-span-2">
-              <TextField
-                value={formData.password}
-                name="password"
-                label="Password"
-                title="Password"
-                type="Password"
-                onChange={handleInputChange}
-                className="w-full h-14 border-2 border-gray-300 outline-none rounded-xl  text-lg "
-              />
+              <FormControl
+                className="w-full h-14 border-2 border-gray-300 outline-none rounded-xl  text-lg"
+                variant="outlined"
+              >
+                <InputLabel>Password</InputLabel>
+                <OutlinedInput
+                  id="outlined-adornment-password"
+                  type={showPassword ? "text" : "password"}
+                  endAdornment={
+                    <InputAdornment position="end">
+                      <IconButton
+                        aria-label="toggle password visibility"
+                        onClick={handleClickShowPassword}
+                        onMouseDown={handleMouseDownPassword}
+                        edge="end"
+                      >
+                        {showPassword ? <VisibilityOff /> : <Visibility />}
+                      </IconButton>
+                    </InputAdornment>
+                  }
+                  title="Password"
+                  onChange={handleInputChange}
+                  name="password"
+                  label="Password"
+                  value={formData.password}
+                />
+              </FormControl>
+
               <p className="text-sm  text-red-500  p-2 inline-block ">
-                {errors.password}
+                {errors.password ? errors.password : ""}
               </p>
             </div>
           </div>

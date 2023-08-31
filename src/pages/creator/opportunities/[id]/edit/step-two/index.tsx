@@ -24,6 +24,7 @@ const index = () => {
   const handleDateChange = (e: any) => {
     setExpirationDate(`${e.$y}-${e.$M + 1}-${e.$D}`);
   };
+
   const handleSubmit = (event: any) => {
     const token = localStorage.getItem("token");
     event.preventDefault();
@@ -58,6 +59,7 @@ const index = () => {
       }
     })();
   };
+
   const handleDynamicRoute = (e: any) => {
     const token = localStorage.getItem("token");
     e.preventDefault();

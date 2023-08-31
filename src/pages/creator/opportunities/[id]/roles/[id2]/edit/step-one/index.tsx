@@ -12,6 +12,16 @@ const index = () => {
   const router = useRouter();
   const [errors, setErrors] = useState<any>([]);
   const [data, setData] = useState<any>();
+  const [formData, setFormData] = useState({
+    considerGender: false,
+    gender: "",
+    isAcceptingTapedAudition: false,
+    name: "",
+    otherRoleType: "",
+    otherTalentType: "",
+    talentType: "",
+    type: "",
+  });
 
   useEffect(() => {
     (async () => {
@@ -51,17 +61,6 @@ const index = () => {
       setSelectedOption2(data.type);
     }
   }, [data]);
-
-  const [formData, setFormData] = useState({
-    considerGender: false,
-    gender: "",
-    isAcceptingTapedAudition: false,
-    name: "",
-    otherRoleType: "",
-    otherTalentType: "",
-    talentType: "",
-    type: "",
-  });
 
   const handleInputChange = (e: any) => {
     const { name, value } = e.target;

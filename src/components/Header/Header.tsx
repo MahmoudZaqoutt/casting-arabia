@@ -127,12 +127,13 @@ const Header = (props: any) => {
                     },
                   ]}
                 />
+
                 <MenuItems
                   className="sm:hidden"
                   shape={<MenuIcon className="text-4xl" />}
                   Items={[
                     {
-                      href: "/TalentRegister",
+                      href: "/creator/review",
                       content: (
                         <div className="hover:bg-blue-50 ease-in-out duration-150 text-lg flex items-center justify-between gap-2">
                           <AiOutlineProfile className="text-2xl" />
@@ -141,7 +142,7 @@ const Header = (props: any) => {
                       ),
                     },
                     {
-                      href: "/TalentRegister",
+                      href: "/chats",
                       content: (
                         <div className="hover:bg-blue-50 ease-in-out duration-150 text-lg flex items-center justify-between gap-2">
                           <BsChatSquareText className="text-2xl" />
@@ -150,7 +151,7 @@ const Header = (props: any) => {
                       ),
                     },
                     {
-                      href: "/TalentRegister",
+                      href: "/community",
                       content: (
                         <div className="hover:bg-blue-50 ease-in-out duration-150 text-lg flex items-center justify-between gap-2">
                           <MdOutlineSupervisorAccount className="text-2xl" />
@@ -159,7 +160,7 @@ const Header = (props: any) => {
                       ),
                     },
                     {
-                      href: "/TalentRegister",
+                      href: "/about-us",
                       content: (
                         <div className="hover:bg-blue-50 ease-in-out duration-150 text-lg flex items-center justify-between gap-2">
                           <AiOutlineExclamationCircle className="text-2xl" />
@@ -245,7 +246,7 @@ const Header = (props: any) => {
                       ),
                     },
                     {
-                      href: "/TalentRegister",
+                      href: "/auth/register",
                       content: "Create account",
                       classNameOfLI:
                         "bg-blue-500 text-white p-3 hidden sm:block rounded-xl !w-full hover:bg-opacity-90 ease-in-out duration-150",
@@ -256,8 +257,8 @@ const Header = (props: any) => {
                   className="sm:hidden"
                   shape={<MenuIcon className="text-4xl " />}
                   Items={[
-                    { href: "/TalentRegister", content: "Create account" },
-                    { href: "/Login", content: "Log In" },
+                    { href: "/auth/register", content: "Create account" },
+                    { href: "/auth/login", content: "Log In" },
                   ]}
                 />
               </div>

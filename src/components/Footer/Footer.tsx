@@ -2,6 +2,7 @@ import React from "react";
 import { List } from "../Shared/List/List";
 import Logo from "../Logo/Logo";
 import Container from "../Shared/Container/Container";
+import { footerLinks } from "@/constants/footerLinks";
 
 const Footer = () => {
   return (
@@ -11,32 +12,7 @@ const Footer = () => {
           <Logo />
           <List
             className=" sm:gap-5 text-gray-400 flex flex-col sm:flex-row md:ml-0 "
-            options={[
-              {
-                id: 1,
-                href: "/",
-                content: "Contact Us",
-                classNameOfLI: "hover:underline ease-in-out duration-150 p-2",
-              },
-              {
-                id: 2,
-                href: "/",
-                content: "About Us",
-                classNameOfLI: "hover:underline ease-in-out duration-150 p-2",
-              },
-              {
-                id: 3,
-                href: "/",
-                content: "Terms of Service",
-                classNameOfLI: "hover:underline ease-in-out duration-150 p-2",
-              },
-              {
-                id: 4,
-                href: "/",
-                content: "Privacy Policy",
-                classNameOfLI: "hover:underline ease-in-out duration-150 p-2",
-              },
-            ]}
+            options={footerLinks}
           />
         </div>
       </Container>

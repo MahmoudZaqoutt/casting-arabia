@@ -1,5 +1,4 @@
-import React, { useEffect, useState } from "react";
-import Login from "./auth/login";
+import { useEffect } from "react";
 import { useRouter } from "next/router";
 
 const index = () => {
@@ -13,7 +12,7 @@ const index = () => {
     }
   }, []);
 
-  return "";
+  return <div className="min-h-[600px]"></div>;
 };
 
 export default index;

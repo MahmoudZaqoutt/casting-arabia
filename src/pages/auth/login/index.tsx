@@ -5,7 +5,6 @@ import * as yup from "yup";
 import Container from "@/components/Shared/Container/Container";
 import axios from "axios";
 import { useRouter } from "next/router";
-import Header from "@/components/Header/Header";
 import { FormControl } from "@mui/material";
 import IconButton from "@mui/material/IconButton";
 import OutlinedInput from "@mui/material/OutlinedInput";
@@ -16,32 +15,22 @@ import VisibilityOff from "@mui/icons-material/VisibilityOff";
 
 const Login = () => {
   const router = useRouter();
-
-  // console.log();
-
-  const [token, setToken] = useState<any>("");
-
-  const [isAuthorized, setIsAuthorized] = useState(false);
-
-  useEffect(() => {
-    const token = localStorage.getItem("token");
-    if (token) {
-      router.push("/creator");
-      setIsAuthorized(true);
-    } else {
-      router.push("/auth/login");
-      setIsAuthorized(false);
-    }
-  }, []);
-
+  const [errors, setErrors] = useState<any>([]);
+  const [error, setError] = useState<any>("");
+  const [showPassword, setShowPassword] = React.useState(false);
   const [formData, setFormData] = useState({
     email: "dash.casting.2023+1@gmail.com",
     password: "dash@123",
   });
 
-  const [errors, setErrors] = useState<any>([]);
-
-  const [error, setError] = useState<any>("");
+  useEffect(() => {
+    const token = localStorage.getItem("token");
+    if (token) {
+      router.push("/creator");
+    } else {
+      router.push("/auth/login");
+    }
+  }, []);
 
   const handleInputChange = (e: any) => {
     const { name, value } = e.target;
@@ -80,8 +69,6 @@ const Login = () => {
         setErrors(Errors);
       });
   };
-
-  const [showPassword, setShowPassword] = React.useState(false);
 
   const handleClickShowPassword = () => setShowPassword((show) => !show);
 
@@ -144,7 +131,7 @@ const Login = () => {
                 </p>
               </div>
             </div>
-            <Link href={"/ForgetPassword"}>
+            <Link href={"/forgetPassword"}>
               <p className="text-xl   text-blue-600 ml-2 sm:ml-4 lg:ml-6 xl:ml-7 hover:bg-blue-50 ease-in-out duration-150 p-2 inline-block ">
                 Forget password
               </p>

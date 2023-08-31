@@ -1,4 +1,3 @@
-import Image from "next/image";
 import React from "react";
 import TitleAndSubTitle from "../TitleAndSubTitle/TitleAndSubTitle";
 import {
@@ -11,13 +10,7 @@ import { IPropsCard } from "@/interfaces/props/IPropsCard";
 const Card = (props: IPropsCard) => {
   return (
     <div className={props.className}>
-      <img
-        src={props.img}
-        alt="img"
-        // height={100}
-        // width={100}
-        className="w-full h-[10rem] rounded-xl"
-      />
+      <img src={props.img} alt="img" className="w-full h-[10rem] rounded-xl" />
       <div className="flex flex-col gap-5 justify-between mt-5 h-auto">
         <TitleAndSubTitle
           title={props.title}

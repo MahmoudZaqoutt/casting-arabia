@@ -12,8 +12,14 @@ import { useRouter } from "next/router";
 
 const index = () => {
   const router = useRouter();
-
   const [data, setData] = useState<any>();
+  const [errors, setErrors] = useState<any>([]);
+  const [formData, setFormData] = useState({
+    title: "",
+    company: "",
+    productionPersonnel: [],
+    productionDescription: "",
+  });
 
   useEffect(() => {
     (async () => {
@@ -49,14 +55,6 @@ const index = () => {
       });
     }
   }, [data]);
-
-  const [errors, setErrors] = useState<any>([]);
-  const [formData, setFormData] = useState({
-    title: "",
-    company: "",
-    productionPersonnel: [],
-    productionDescription: "",
-  });
 
   const handleInputChange = (e: any) => {
     const { name, value } = e.target;

@@ -8,28 +8,27 @@ import RolesCard from "./rolesCard/RolesCard";
 import { IPropsSlide } from "@/interfaces/props/IPropsSlide";
 
 const RolesPage = (props: IPropsSlide) => {
-  console.log(props.myRoles[1].name);
+  const [data, setData] = useState(props.myRoles);
+
+  const [isSectionVisible, setIsSectionVisible] = useState(false);
+
   const [formData, setFormData] = useState({
     search: "",
     opportunity: "",
     status: "",
   });
+
   const handleInputChange = (e: any) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
     if (name === "search") {
       setData(
-        props.myRoles.filter(
-          (item: any) =>
-            item.name?.toLowerCase().includes(e.target.value.toLowerCase())
+        props.myRoles.filter((item: any) =>
+          item.name?.toLowerCase().includes(e.target.value.toLowerCase())
         )
       );
     }
   };
-
-  const [data, setData] = useState(props.myRoles);
-
-  const [isSectionVisible, setIsSectionVisible] = useState(false);
 
   const toggleSection = () => {
     setIsSectionVisible(!isSectionVisible);

@@ -3,7 +3,6 @@ import React, { useState } from "react";
 import { Upload } from "antd";
 import type { RcFile, UploadFile, UploadProps } from "antd/es/upload/interface";
 import { IPropsModal } from "@/interfaces/props/IPropsModal";
-import axios from "axios";
 
 const ProfileImage = (props: IPropsModal) => {
   const [fileList, setFileList] = useState<UploadFile[]>([
@@ -19,18 +18,9 @@ const ProfileImage = (props: IPropsModal) => {
     setFileList(newFileList);
     console.log(newFileList);
 
-    // (async()=>{
-    //   try {
-    //     const res =await axios.post('http://casting-ec2-1307338951.us-east-2.elb.amazonaws.com:7001/upload/get-upload-url')
-    //   } catch (error) {
-
-    //   }
-
-    // })()
-
     (async () => {
       try {
-        const token = localStorage.getItem("token"); // Assuming you have the token stored in localStorage
+        const token = localStorage.getItem("token");
         const url =
           "http://casting-ec2-1307338951.us-east-2.elb.amazonaws.com:7001/upload/get-upload-url";
 
@@ -39,8 +29,8 @@ const ProfileImage = (props: IPropsModal) => {
         const response = await fetch(url, {
           method: "POST",
           headers: {
-            "Content-Type": "application/json", // Specifying the content type
-            Authorization: `Bearer ${token}`, // Adding the authorization token to the header
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
           },
           body: requestBody,
         });
@@ -52,7 +42,6 @@ const ProfileImage = (props: IPropsModal) => {
         const responseData = await response.json();
         console.log(responseData);
       } catch (error) {
-        // Handle errors here
         console.error("An error occurred:", error);
       }
     })();

@@ -4,7 +4,7 @@ import axios from "axios";
 import React, { useState } from "react";
 import * as yup from "yup";
 
-const ForgetPassword = () => {
+const forgetPassword = () => {
   const [errors, setErrors] = useState<any>([]);
   const [error, setError] = useState<any>("");
   const [success, setSuccess] = useState<any>("");
@@ -88,4 +88,4 @@ const ForgetPassword = () => {
   );
 };
 
-export default ForgetPassword;
+export default forgetPassword;

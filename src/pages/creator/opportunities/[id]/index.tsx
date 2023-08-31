@@ -146,18 +146,18 @@ const index = () => {
                                 classNameOfTitle="text-xl font-semibold"
                                 classNameOfSubTitle="text-lg"
                               />
-                              {item.auditionDates?.map(
-                                (item: any, index: number) => (
-                                  <TitleAndSubTitle
-                                    key={index}
-                                    className="flex items-center gap-1"
-                                    title="Audition/Meeting Dates:"
-                                    subTitle={item.split("T").shift()}
-                                    classNameOfTitle="text-xl font-semibold"
-                                    classNameOfSubTitle="text-lg"
-                                  />
-                                )
-                              )}
+
+                              <TitleAndSubTitle
+                                key={index}
+                                className="flex items-center gap-1"
+                                title="Audition/Meeting Dates:"
+                                subTitle={String(item.auditionDates[0])
+                                  .split("T")
+                                  .shift()}
+                                classNameOfTitle="text-xl font-semibold"
+                                classNameOfSubTitle="text-lg"
+                              />
+
                               <TitleAndSubTitle
                                 title="fliming Availability:"
                                 classNameOfTitle="text-xl font-semibold"

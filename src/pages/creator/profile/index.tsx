@@ -1,14 +1,7 @@
 import Profile from "@/components/Profile/Profile";
-import React, { useEffect, useState } from "react";
+import React from "react";
 
 const index = ({ profileInfo }: any) => {
-  // const [token, setToken] = useState("");
-
-  // useEffect(() => {
-  //   const token = localStorage.getItem("token");
-  //   setToken(token || "");
-  // }, []);
-
   return <Profile profileInfo={profileInfo} />;
 };
 

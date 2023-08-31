@@ -17,6 +17,7 @@ import {
 const BasicInfoForm = (props: any) => {
   const [errors, setErrors] = useState<any>([]);
   const router = useRouter();
+  const [open, setOpen] = React.useState(false);
   const [formData, setFormData] = useState({
     dob: props.profileInfo.dob,
     country: props.profileInfo.country,
@@ -81,8 +82,6 @@ const BasicInfoForm = (props: any) => {
       } catch (error: any) {}
     })();
   };
-
-  const [open, setOpen] = React.useState(false);
 
   const handleClickOpen = () => {
     setOpen(true);

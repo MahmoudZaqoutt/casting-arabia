@@ -9,7 +9,7 @@ export default function App({ Component, pageProps }: AppProps) {
   const router = useRouter();
   const path = router.pathname;
 
-  const testPath = ["login", "TalentRegister", "ForgetPassword"];
+  const testPath = ["login", "register", "forgetPassword"];
   const isAuth = testPath.includes(path.split("/").pop() || "");
 
   return (

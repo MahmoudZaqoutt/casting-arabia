@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React from "react";
 import Container from "@/components/Shared/Container/Container";
 import TitleAndSubTitle from "@/components/Shared/TitleAndSubTitle/TitleAndSubTitle";
 import UserInfoForm from "@/components/UserInfoForm/UserInfoForm";
@@ -14,7 +14,7 @@ const Profile = (props: IPropsModal) => {
           <ProfileImage profileImage={props.profileInfo.pendingAvatar} />
         </div>
 
-        <div className="">
+        <div>
           <div className="flex  items-center gap-5 mb-10">
             <p className="text-3xl font-semibold">{props.profileInfo.name}</p>
             <UserInfoForm profileInfo={props.profileInfo} show={true} />

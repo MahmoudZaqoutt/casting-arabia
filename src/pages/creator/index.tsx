@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import "swiper/css";
 import "swiper/css/pagination";
 
@@ -25,19 +25,13 @@ const index = ({ News, myRoles, MyOpportunities }: any) => {
             href="creator/roles"
             myRoles={myRoles}
           />
-          {/* <SlidesOfSections
-          title="Opportunities"
-          id={"Opportunities"}
-          paid="p"
-          Icon="i"
-          buttonContent="Show More"
-        /> */}
-          <SlidesOfSections News={News} title="News" id={"News"} href="News" />
+
+          <SlidesOfSections News={News} title="News" id={"News"} href="news" />
           <SlidesOfSections
             News={News}
             title="Learning Center"
             id={"LearningCenter"}
-            href="LearningCenter"
+            href="learningCenter"
           />
         </div>
       </div>

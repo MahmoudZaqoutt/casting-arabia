@@ -148,15 +148,14 @@ const OpportunitiesPage = (props: IPropsSlide) => {
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-5 my-5">
-          {data?.map((item: any, index: any) => (
-            // <Link key={index} href={`opportunities/${item.id}`}>
+          {data?.map((item: any, index: number) => (
             <OpportunitiesCard
+              key={index}
               Id={item.id}
               img={item.coverImage}
               title={item.title}
               status={item.status}
             />
-            // </Link>
           ))}
         </div>
       </Container>

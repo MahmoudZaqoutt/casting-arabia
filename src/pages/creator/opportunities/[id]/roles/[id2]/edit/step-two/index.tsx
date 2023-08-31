@@ -14,12 +14,17 @@ import { SKILLS } from "@/constants/skills";
 
 const index = () => {
   const router = useRouter();
-
   const [errors, setErrors] = useState<any>([]);
-
   const [value, setValue] = React.useState<number[]>([20, 37]);
-
   const [data, setData] = useState<any>();
+  const [formData, setFormData] = useState<any>({
+    citizenship: "",
+    considerAge: false,
+    considerCitizen: false,
+    maxAge: value[1],
+    minAge: value[0],
+    considerSkills: [],
+  });
 
   useEffect(() => {
     (async () => {
@@ -56,16 +61,6 @@ const index = () => {
       setValue([data.minAge, data.maxAge]);
     }
   }, [data]);
-
-  console.log(data);
-  const [formData, setFormData] = useState<any>({
-    citizenship: "",
-    considerAge: false,
-    considerCitizen: false,
-    maxAge: value[1],
-    minAge: value[0],
-    considerSkills: [],
-  });
 
   const handleInputChange = (e: any) => {
     const { name, value } = e.target;

@@ -8,7 +8,7 @@ import Link from "next/link";
 const OpportunitiesCard = (props: IPropsCard) => {
   return (
     <div className=" max-h-[20.875rem] md:hover:scale-105 my-2 ease-in-out duration-150 ">
-      <Link href={`creator/opportunities/${props.Id}`}>
+      <Link href={`/creator/opportunities/${props.Id}`}>
         <img
           src={props.img}
           alt="img"

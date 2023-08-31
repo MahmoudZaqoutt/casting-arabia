@@ -7,7 +7,6 @@ import { schema } from "@/constants/Register";
 import DropDownList from "../Shared/DropDownList/DropDownList";
 import Container from "../Shared/Container/Container";
 import ToolTip from "../Shared/ToolTip/ToolTip";
-import axios from "axios";
 
 const SeekerRegister = () => {
   const [errors, setErrors] = useState<any>([]);
@@ -46,19 +45,6 @@ const SeekerRegister = () => {
         setErrors(Errors);
       });
   };
-
-  // useEffect(() => {
-  //   (async () => {
-  //     try {
-  //       const res = await axios.get(
-  //         "https://api.dev.boka.co/content-management/sections"
-  //       );
-  //       console.log(res);
-  //     } catch (error: any) {
-  //       console.log(error.message);
-  //     }
-  //   })();
-  // }, []);
 
   return (
     <Container>

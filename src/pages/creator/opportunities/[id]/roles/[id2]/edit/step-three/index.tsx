@@ -23,13 +23,16 @@ import { useRouter } from "next/router";
 
 const index = () => {
   const router = useRouter();
-
   const currentDate = dayjs();
-
   const { RangePicker } = DatePicker;
   const [errors, setErrors] = useState<any>([]);
-
   const [data, setData] = useState<any>();
+  const [formData, setFormData] = useState<any>({
+    description: "",
+    location: "",
+    shootingAvailability: [],
+    auditionDates: [],
+  });
 
   useEffect(() => {
     (async () => {
@@ -66,13 +69,6 @@ const index = () => {
       });
     }
   }, [data]);
-
-  const [formData, setFormData] = useState<any>({
-    description: "",
-    location: "",
-    shootingAvailability: [],
-    auditionDates: [],
-  });
 
   const handleInputChange = (e: any) => {
     const { name, value } = e.target;

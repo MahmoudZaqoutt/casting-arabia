@@ -15,18 +15,12 @@ import {
 
 export default function BasicDateCalendar() {
   const currentDate = dayjs();
-  const [errors, setErrors] = React.useState<any>([]);
   const [dateManually, setDateManually] = React.useState<any>(true);
 
   const [formData, setFormData] = React.useState({
     date: { day: "", month: "", year: "" },
   });
-
-  const handleInputChange = (e: any) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
-  };
-
+  
   const handleDateChange = (e: any) => {
     setFormData({
       ...formData,
