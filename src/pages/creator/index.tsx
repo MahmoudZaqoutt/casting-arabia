@@ -1,10 +1,8 @@
 import React from "react";
 import "swiper/css";
 import "swiper/css/pagination";
-
 import SlidesOfSections from "@/components/SlidesOfSections/SlidesOfSections";
 import WhoAreYouSection from "@/components/WhoAreYou/WhoAreYouSection/WhoAreYouSection";
-import Header from "@/components/Header/Header";
 
 const index = ({ News, myRoles, MyOpportunities }: any) => {
   return (

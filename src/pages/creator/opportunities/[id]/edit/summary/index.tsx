@@ -1,3 +1,4 @@
+import Loading from "@/components/Shared/Loading/Loading";
 import TitleAndSubTitle from "@/components/Shared/TitleAndSubTitle/TitleAndSubTitle";
 import axios from "axios";
 import { useRouter } from "next/router";
@@ -6,6 +7,7 @@ import React, { useEffect, useState } from "react";
 const index = () => {
   const [error, setError] = useState("");
   const router = useRouter();
+  const [isLoading, setIsLoading] = useState(false);
   const [data, setData] = useState<any>();
   useEffect(() => {
     (async () => {
@@ -51,6 +53,7 @@ const index = () => {
           }
         );
         if (res) {
+          setIsLoading(true);
           router.push(`/creator`);
         }
       }
@@ -135,12 +138,18 @@ const index = () => {
         <button className="text-xl text-blue-600 border-2 border-blue-600 rounded-lg px-3 py-1 duration-200 hover:bg-blue-50 font-semibold">
           Save For Later
         </button>
-        <button
-          onClick={handlePublish}
-          className="text-xl text-white border-2 bg-blue-600 border-blue-600 rounded-lg px-3 py-1 duration-200 hover:bg-blue-700 font-semibold"
-        >
-          Publish
-        </button>
+        {isLoading ? (
+          <div className="text-xl text-white border-2 bg-blue-600 border-blue-600 rounded-lg px-3 py-1 duration-200 hover:bg-blue-700 font-semibold">
+            <Loading buttonContent="Publish" />
+          </div>
+        ) : (
+          <button
+            onClick={handlePublish}
+            className="text-xl text-white border-2 bg-blue-600 border-blue-600 rounded-lg px-3 py-1 duration-200 hover:bg-blue-700 font-semibold"
+          >
+            Publish
+          </button>
+        )}
       </div>
       {error ? <p className="text-xl text-red-500 mb-5">{error}</p> : ""}
     </div>

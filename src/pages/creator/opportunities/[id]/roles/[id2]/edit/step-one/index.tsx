@@ -7,10 +7,12 @@ import DropDownList from "@/components/Shared/DropDownList/DropDownList";
 import axios from "axios";
 import { options1, options2 } from "@/constants/talentType";
 import { useRouter } from "next/router";
+import Loading from "@/components/Shared/Loading/Loading";
 
 const index = () => {
   const router = useRouter();
   const [errors, setErrors] = useState<any>([]);
+  const [isLoading, setIsLoading] = useState(false);
   const [data, setData] = useState<any>();
   const [formData, setFormData] = useState({
     considerGender: false,
@@ -106,7 +108,7 @@ const index = () => {
         );
 
         if (res) {
-          console.log(res);
+          setIsLoading(true);
         }
       } catch (error: any) {
         console.log(error);
@@ -142,7 +144,6 @@ const index = () => {
               onChange={handleInputChange}
               name="name"
               label="Role Name"
-              variant="standard"
               placeholder="Production Personal"
               className="sm:w-[500px]"
             />
@@ -247,23 +248,34 @@ const index = () => {
                 Save For Later
               </Link>
             </button>
-            <button
-              onClick={handleSubmit}
-              className="border-2 border-blue-700 bg-blue-700 rounded-md text-lg text-white px-4 py-1 font-semibold hover:bg-blue-600 duration-200"
-            >
-              {formData.type &&
-              formData.talentType &&
-              formData.gender &&
-              formData.name !== "" ? (
-                <Link
-                  href={`/creator/opportunities/${router.query.id}/roles/${router.query.id2}/edit/step-two`}
-                >
-                  Continue
-                </Link>
-              ) : (
-                "Continue"
-              )}
-            </button>
+
+            {isLoading &&
+            formData.type &&
+            formData.talentType &&
+            formData.gender &&
+            formData.name !== "" ? (
+              <div className="border-2 border-blue-700 bg-blue-700 rounded-md text-lg text-white px-4 py-1 font-semibold hover:bg-blue-600 duration-200">
+                <Loading buttonContent="Continue" />
+              </div>
+            ) : (
+              <button
+                onClick={handleSubmit}
+                className="border-2 border-blue-700 bg-blue-700 rounded-md text-lg text-white px-4 py-1 font-semibold hover:bg-blue-600 duration-200"
+              >
+                {formData.type &&
+                formData.talentType &&
+                formData.gender &&
+                formData.name !== "" ? (
+                  <Link
+                    href={`/creator/opportunities/${router.query.id}/roles/${router.query.id2}/edit/step-two`}
+                  >
+                    Continue
+                  </Link>
+                ) : (
+                  "Continue"
+                )}
+              </button>
+            )}
           </div>
         </div>
       </div>

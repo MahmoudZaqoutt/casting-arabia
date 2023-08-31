@@ -11,18 +11,18 @@ import Slider from "@mui/material/Slider";
 import { countries } from "@/constants/countries";
 import { useRouter } from "next/router";
 import { SKILLS } from "@/constants/skills";
+import Loading from "@/components/Shared/Loading/Loading";
 
 const index = () => {
   const router = useRouter();
   const [errors, setErrors] = useState<any>([]);
-  const [value, setValue] = React.useState<number[]>([20, 37]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [value, setValue] = React.useState<number[]>([]);
   const [data, setData] = useState<any>();
   const [formData, setFormData] = useState<any>({
     citizenship: "",
     considerAge: false,
     considerCitizen: false,
-    maxAge: value[1],
-    minAge: value[0],
     considerSkills: [],
   });
 
@@ -54,8 +54,6 @@ const index = () => {
         citizenship: data.citizenship,
         considerAge: data.isAcceptingTapedAudition,
         considerCitizen: data.considerCitizen,
-        maxAge: data.maxAge,
-        minAge: data.minAge,
         considerSkills: data.skills,
       });
       setValue([data.minAge, data.maxAge]);
@@ -143,6 +141,9 @@ const index = () => {
             },
           }
         );
+        if (res) {
+          setIsLoading(true);
+        }
       } catch (error: any) {
         console.log(error);
       }
@@ -180,9 +181,6 @@ const index = () => {
               label="Skills"
               name="Skills"
             />
-            <p className="text-sm  text-red-500  p-2 inline-block ">
-              {errors.Skills && errors.Skills}
-            </p>
           </div>
           <div className="w-full bg-white h-48  border-[1px] rounded-lg border-gray-300 overflow-y-auto">
             <p className="text-gray-500 p-3">Skill Name</p>
@@ -258,20 +256,27 @@ const index = () => {
             <button className="border-2 border-blue-500 rounded-md text-lg text-blue-600 px-4 py-1 font-semibold hover:bg-blue-100 duration-200">
               Save For Later
             </button>
-            <button
-              onClick={handleSubmit}
-              className="border-2 border-blue-700 bg-blue-700 rounded-md text-lg text-white px-4 py-1 font-semibold hover:bg-blue-600 duration-200"
-            >
-              {formData.citizenship !== "" ? (
-                <Link
-                  href={`/creator/opportunities/${router.query.id}/roles/${router.query.id2}/edit/step-three`}
-                >
-                  Continue
-                </Link>
-              ) : (
-                "Continue"
-              )}
-            </button>
+
+            {isLoading && formData.citizenship !== "" ? (
+              <div className="border-2 border-blue-700 bg-blue-700 rounded-md text-lg text-white px-4 py-1 font-semibold hover:bg-blue-600 duration-200">
+                <Loading buttonContent="Continue" />
+              </div>
+            ) : (
+              <button
+                onClick={handleSubmit}
+                className="border-2 border-blue-700 bg-blue-700 rounded-md text-lg text-white px-4 py-1 font-semibold hover:bg-blue-600 duration-200"
+              >
+                {formData.citizenship !== "" ? (
+                  <Link
+                    href={`/creator/opportunities/${router.query.id}/roles/${router.query.id2}/edit/step-three`}
+                  >
+                    Continue
+                  </Link>
+                ) : (
+                  "Continue"
+                )}
+              </button>
+            )}
           </div>
         </div>
       </div>

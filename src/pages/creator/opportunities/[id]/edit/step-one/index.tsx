@@ -9,11 +9,14 @@ import { PlusOutlined } from "@ant-design/icons";
 import { Button, Form } from "antd";
 import { AiOutlineClose } from "react-icons/ai";
 import { useRouter } from "next/router";
+import Loading from "@/components/Shared/Loading/Loading";
 
 const index = () => {
   const router = useRouter();
   const [data, setData] = useState<any>();
+  const [isLoading, setIsLoading] = useState(false);
   const [errors, setErrors] = useState<any>([]);
+
   const [formData, setFormData] = useState({
     title: "",
     company: "",
@@ -108,7 +111,9 @@ const index = () => {
           }
         );
 
-        console.log(res);
+        if (res) {
+          setIsLoading(true);
+        }
       } catch (error: any) {
         console.log(error);
       }
@@ -252,22 +257,32 @@ const index = () => {
             <button className="border-2 border-blue-500 rounded-md text-lg text-blue-600 px-4 py-1 font-semibold hover:bg-blue-100 duration-200">
               <Link href={"/creator"}>Save For Later</Link>
             </button>
-            <button
-              onClick={handleSubmit}
-              className="border-2 border-blue-700 bg-blue-700 rounded-md text-lg text-white px-4 py-1 font-semibold hover:bg-blue-600 duration-200"
-            >
-              {formData.title &&
-              formData.company &&
-              formData.productionDescription !== "" ? (
-                <Link
-                  href={`/creator/opportunities/${router.query.id}/edit/step-two`}
-                >
-                  Continue
-                </Link>
-              ) : (
-                "Continue"
-              )}
-            </button>
+
+            {formData.title &&
+            formData.company &&
+            formData.productionDescription !== "" &&
+            isLoading ? (
+              <div className="border-2 border-blue-700 bg-blue-700 rounded-md text-lg text-white px-4 py-1 font-semibold hover:bg-blue-600 duration-200">
+                <Loading buttonContent="Continue" />
+              </div>
+            ) : (
+              <button
+                onClick={handleSubmit}
+                className="border-2 border-blue-700 bg-blue-700 rounded-md text-lg text-white px-4 py-1 font-semibold hover:bg-blue-600 duration-200"
+              >
+                {formData.title &&
+                formData.company &&
+                formData.productionDescription !== "" ? (
+                  <Link
+                    href={`/creator/opportunities/${router.query.id}/edit/step-two`}
+                  >
+                    Continue
+                  </Link>
+                ) : (
+                  "Continue"
+                )}
+              </button>
+            )}
           </div>
         </div>
       </div>

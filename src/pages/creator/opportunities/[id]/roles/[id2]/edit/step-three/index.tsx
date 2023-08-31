@@ -20,11 +20,13 @@ import {
 } from "@mui/material";
 import axios from "axios";
 import { useRouter } from "next/router";
+import Loading from "@/components/Shared/Loading/Loading";
 
 const index = () => {
   const router = useRouter();
   const currentDate = dayjs();
   const { RangePicker } = DatePicker;
+  const [isLoading, setIsLoading] = useState(false);
   const [errors, setErrors] = useState<any>([]);
   const [data, setData] = useState<any>();
   const [formData, setFormData] = useState<any>({
@@ -118,7 +120,7 @@ const index = () => {
           }
         );
         if (res) {
-          console.log(res);
+          setIsLoading(true);
         }
       } catch (error: any) {
         console.log(error);
@@ -159,8 +161,6 @@ const index = () => {
     );
     setFormData({ ...formData, auditionDates: updatedAuditionDates });
   };
-
-  console.log(formData);
 
   return (
     <Container>
@@ -259,20 +259,26 @@ const index = () => {
             <button className="border-2 border-blue-500 rounded-md text-lg text-blue-600 px-4 py-1 font-semibold hover:bg-blue-100 duration-200">
               Save For Later
             </button>
-            <button
-              onClick={handleSubmit}
-              className="border-2 border-blue-700 bg-blue-700 rounded-md text-lg text-white px-4 py-1 font-semibold hover:bg-blue-600 duration-200"
-            >
-              {formData.description && formData.location !== "" ? (
-                <Link
-                  href={`/creator/opportunities/${router.query.id}/roles/${router.query.id2}/edit/step-four`}
-                >
-                  Continue
-                </Link>
-              ) : (
-                "Continue"
-              )}
-            </button>
+            {isLoading && formData.description && formData.location !== "" ? (
+              <div className="border-2 border-blue-700 bg-blue-700 rounded-md text-lg text-white px-4 py-1 font-semibold hover:bg-blue-600 duration-200">
+                <Loading buttonContent="Continue" />
+              </div>
+            ) : (
+              <button
+                onClick={handleSubmit}
+                className="border-2 border-blue-700 bg-blue-700 rounded-md text-lg text-white px-4 py-1 font-semibold hover:bg-blue-600 duration-200"
+              >
+                {formData.description && formData.location !== "" ? (
+                  <Link
+                    href={`/creator/opportunities/${router.query.id}/roles/${router.query.id2}/edit/step-four`}
+                  >
+                    Continue
+                  </Link>
+                ) : (
+                  "Continue"
+                )}
+              </button>
+            )}
           </div>
         </div>
       </div>

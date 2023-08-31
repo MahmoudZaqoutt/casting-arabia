@@ -13,10 +13,12 @@ import { MdModeEditOutline } from "react-icons/md";
 import { AiOutlineClose } from "react-icons/ai";
 import { Switch } from "@mui/material";
 import ToolTip from "@/components/Shared/ToolTip/ToolTip";
+import Loading from "@/components/Shared/Loading/Loading";
 
 const index = () => {
   const currentDate = dayjs();
   const router = useRouter();
+  const [isLoading, setIsLoading] = useState(false);
   const [myRoles, setMyRoles] = useState<any>([]);
   const [errors, setErrors] = useState<any>([]);
   const [expirationDate, setExpirationDate] = useState("");
@@ -52,7 +54,7 @@ const index = () => {
           }
         );
         if (response) {
-          console.log(response);
+          setIsLoading(true);
         }
       } catch (error) {
         console.log(error);
@@ -103,7 +105,6 @@ const index = () => {
           );
           if (res) {
             setMyRoles(res.data.roles);
-            console.log(res.data);
           }
         }
       } catch (error) {}
@@ -133,10 +134,6 @@ const index = () => {
           },
         }
       );
-
-      if (res) {
-        console.log(res);
-      }
     } catch (error) {
       console.log(error);
     }
@@ -240,20 +237,27 @@ const index = () => {
             <button className="border-2 border-blue-500 rounded-md text-lg text-blue-600 px-4 py-1 font-semibold hover:bg-blue-100 duration-200">
               Save For Later
             </button>
-            <button
-              onClick={handleSubmit}
-              className="border-2 border-blue-700 bg-blue-700 rounded-md text-lg text-white px-4 py-1 font-semibold hover:bg-blue-600 duration-200"
-            >
-              {expirationDate !== "" ? (
-                <Link
-                  href={`/creator/opportunities/${router.query.id}/edit/summary`}
-                >
-                  Continue
-                </Link>
-              ) : (
-                "Continue"
-              )}
-            </button>
+
+            {isLoading && expirationDate !== "" ? (
+              <div className="border-2 border-blue-700 bg-blue-700 rounded-md text-lg text-white px-4 py-1 font-semibold hover:bg-blue-600 duration-200">
+                <Loading buttonContent="Continue" />
+              </div>
+            ) : (
+              <button
+                onClick={handleSubmit}
+                className="border-2 border-blue-700 bg-blue-700 rounded-md text-lg text-white px-4 py-1 font-semibold hover:bg-blue-600 duration-200"
+              >
+                {expirationDate !== "" ? (
+                  <Link
+                    href={`/creator/opportunities/${router.query.id}/edit/summary`}
+                  >
+                    Continue
+                  </Link>
+                ) : (
+                  "Continue"
+                )}
+              </button>
+            )}
           </div>
         </div>
       </div>

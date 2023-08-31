@@ -13,6 +13,7 @@ import RolesCard from "@/pages/creator/roles/rolesCard/RolesCard";
 import OpportunitiesCard from "@/pages/creator/OpportunitiesCard/OpportunitiesCard";
 import axios from "axios";
 import { useRouter } from "next/router";
+import Loading from "../Shared/Loading/Loading";
 
 const SlidesOfSections = (props: IPropsSlide) => {
   const [isBeginning, setIsBeginning] = useState(true);
