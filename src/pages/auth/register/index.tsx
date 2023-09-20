@@ -21,6 +21,7 @@ import ToolTip from "@/components/Shared/ToolTip/ToolTip";
 import DropDownList from "@/components/Shared/DropDownList/DropDownList";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
+import Cookies from "js-cookie";
 
 const index = () => {
   const router = useRouter();
@@ -79,6 +80,7 @@ const index = () => {
           formData
         );
         if (res) {
+          Cookies.set(`token`, res.data.accessToken);
           localStorage.setItem("token", res.data.accessToken);
           router.push("/creator");
         }
@@ -96,7 +98,7 @@ const index = () => {
   ) => {
     event.preventDefault();
   };
-
+  console.log(formData);
   return (
     <Container>
       <div className="min-h-auto rounded-xl shadow-xl bg-white mt-[4rem] pb-10 mb-16">
@@ -243,15 +245,15 @@ const index = () => {
                 <div className="col-span-2">
                   <DropDownList
                     options={[
-                      "Singer",
-                      "Actor",
-                      "Model",
-                      "Host/hostess",
-                      "Musician",
+                      "singer",
+                      "actor",
+                      "model",
+                      "host/hostess",
+                      "musician",
                       "staff",
                       "writer",
-                      "Dancer",
-                      "Other",
+                      "dancer",
+                      "other",
                     ]}
                     label="what talent are you looking for?"
                     name="talentTypes"

@@ -14,6 +14,7 @@ import { MdLogout, MdOutlineSupervisorAccount } from "react-icons/md";
 import Image from "next/image";
 import img from "../../assets/images.png";
 import { useRouter } from "next/router";
+import Cookies from "js-cookie";
 
 const Header = (props: any) => {
   const router = useRouter();
@@ -115,6 +116,7 @@ const Header = (props: any) => {
                         <div>
                           <button
                             onClick={() => {
+                              Cookies.remove("token");
                               localStorage.removeItem("token");
                               router.push("/auth/login");
                             }}

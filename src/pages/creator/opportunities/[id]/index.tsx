@@ -11,13 +11,12 @@ import AccordionDetails from "@mui/material/AccordionDetails";
 import Typography from "@mui/material/Typography";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
-const index = () => {
+const index = ({ token }: any) => {
   const [data, setData] = useState([]);
   const router = useRouter();
 
   useEffect(() => {
     (async () => {
-      const token = localStorage.getItem("token");
       try {
         const res = await axios.get(
           "http://casting-ec2-1307338951.us-east-2.elb.amazonaws.com:7001/opportunities",
@@ -247,3 +246,17 @@ const index = () => {
 };
 
 export default index;
+
+export const getServerSideProps = async (context: any) => {
+  const cookies = context.req.headers?.cookie;
+  const accessToken = cookies
+    ?.split(";")
+    ?.find((cookie: any) => cookie?.trim()?.startsWith("token="));
+  const token = accessToken?.split("=")[1];
+
+  return {
+    props: {
+      token,
+    },
+  };
+};

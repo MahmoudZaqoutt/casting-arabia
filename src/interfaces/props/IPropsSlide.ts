@@ -11,4 +11,5 @@ export interface IPropsSlide {
   MyOpportunities?: any;
   News?: any;
   LearningCenter?: boolean;
+  token?: string;
 }

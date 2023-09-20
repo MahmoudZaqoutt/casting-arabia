@@ -15,12 +15,13 @@ import { Switch } from "@mui/material";
 import ToolTip from "@/components/Shared/ToolTip/ToolTip";
 import Loading from "@/components/Shared/Loading/Loading";
 
-const index = () => {
+const index = ({ token }: any) => {
   const currentDate = dayjs();
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
   const [myRoles, setMyRoles] = useState<any>([]);
   const [errors, setErrors] = useState<any>([]);
+  const [error, setError] = useState<any>("");
   const [expirationDate, setExpirationDate] = useState("");
 
   const handleDateChange = (e: any) => {
@@ -28,7 +29,6 @@ const index = () => {
   };
 
   const handleSubmit = (event: any) => {
-    const token = localStorage.getItem("token");
     event.preventDefault();
     schema
       .validate(expirationDate, { abortEarly: false })
@@ -57,13 +57,12 @@ const index = () => {
           setIsLoading(true);
         }
       } catch (error) {
-        console.log(error);
+        setError("required");
       }
     })();
   };
 
   const handleDynamicRoute = (e: any) => {
-    const token = localStorage.getItem("token");
     e.preventDefault();
 
     (async () => {
@@ -93,7 +92,6 @@ const index = () => {
   useEffect(() => {
     (async () => {
       try {
-        const token = localStorage.getItem("token");
         if (router.query.id) {
           const res = await axios.get(
             `http://casting-ec2-1307338951.us-east-2.elb.amazonaws.com:7001/opportunities/${router.query.id}`,
@@ -112,8 +110,6 @@ const index = () => {
   }, [router.query.id]);
 
   const handleCheckSwitch = async (id: any) => {
-    const token = localStorage.getItem("token");
-
     try {
       const updatedRoles = myRoles.map((role: any) => {
         if (role.id === id) {
@@ -145,7 +141,6 @@ const index = () => {
   };
 
   const handleDelete = async (id: any) => {
-    const token = localStorage.getItem("token");
     try {
       const res = await axios.delete(
         `http://casting-ec2-1307338951.us-east-2.elb.amazonaws.com:7001/opportunities/${router.query.id}/roles/${id}`,
@@ -231,6 +226,7 @@ const index = () => {
                 onChange={handleDateChange}
               />
             </LocalizationProvider>
+            {error ? <p className="text-red-500">{error}</p> : ""}
           </div>
 
           <div className="flex items-center gap-4">
@@ -266,3 +262,17 @@ const index = () => {
 };
 
 export default index;
+
+export const getServerSideProps = async (context: any) => {
+  const cookies = context.req.headers?.cookie;
+  const accessToken = cookies
+    ?.split(";")
+    ?.find((cookie: any) => cookie?.trim()?.startsWith("token="));
+  const token = accessToken?.split("=")[1];
+
+  return {
+    props: {
+      token,
+    },
+  };
+};

@@ -20,7 +20,6 @@ const ProfileImage = (props: IPropsModal) => {
 
     (async () => {
       try {
-        const token = localStorage.getItem("token");
         const url =
           "http://casting-ec2-1307338951.us-east-2.elb.amazonaws.com:7001/upload/get-upload-url";
 
@@ -30,7 +29,7 @@ const ProfileImage = (props: IPropsModal) => {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
+            Authorization: `Bearer ${props.token}`,
           },
           body: requestBody,
         });

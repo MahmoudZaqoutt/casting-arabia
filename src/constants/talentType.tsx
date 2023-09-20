@@ -9,6 +9,7 @@ export const options1 = [
   "writer",
   "other",
 ];
+
 export const options2: any = {
   actor: ["lead", "supporting", "stunt", "background_actor", "other"],
   singer: ["lead", "supporting", "stunt", "background_actor", "other"],

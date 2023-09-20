@@ -22,7 +22,7 @@ import axios from "axios";
 import { useRouter } from "next/router";
 import Loading from "@/components/Shared/Loading/Loading";
 
-const index = () => {
+const index = ({ token }: any) => {
   const router = useRouter();
   const currentDate = dayjs();
   const { RangePicker } = DatePicker;
@@ -40,7 +40,6 @@ const index = () => {
     (async () => {
       if (router.query.id && router.query.id2) {
         try {
-          const token = localStorage.getItem("token");
           const res = await axios.get(
             `http://casting-ec2-1307338951.us-east-2.elb.amazonaws.com:7001/opportunities/${router.query.id}/roles/${router.query.id2}`,
             {
@@ -90,7 +89,6 @@ const index = () => {
   };
 
   const handleSubmit = (event: any) => {
-    const token = localStorage.getItem("token");
     event.preventDefault();
     schema
       .validate(formData, { abortEarly: false })
@@ -287,3 +285,17 @@ const index = () => {
 };
 
 export default index;
+
+export const getServerSideProps = async (context: any) => {
+  const cookies = context.req.headers?.cookie;
+  const accessToken = cookies
+    ?.split(";")
+    ?.find((cookie: any) => cookie?.trim()?.startsWith("token="));
+  const token = accessToken?.split("=")[1];
+
+  return {
+    props: {
+      token,
+    },
+  };
+};

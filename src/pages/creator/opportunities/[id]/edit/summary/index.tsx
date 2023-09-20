@@ -4,7 +4,7 @@ import axios from "axios";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 
-const index = () => {
+const index = ({ token }: any) => {
   const [error, setError] = useState("");
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
@@ -12,7 +12,6 @@ const index = () => {
   useEffect(() => {
     (async () => {
       try {
-        const token = localStorage.getItem("token");
         if (router.query.id) {
           const res = await axios.get(
             `http://casting-ec2-1307338951.us-east-2.elb.amazonaws.com:7001/opportunities/${router.query.id}`,
@@ -34,7 +33,6 @@ const index = () => {
     e.preventDefault();
 
     try {
-      const token = localStorage.getItem("token");
       if (router.query.id) {
         const res = await axios.put(
           `http://casting-ec2-1307338951.us-east-2.elb.amazonaws.com:7001/opportunities/${router.query.id}`,
@@ -157,3 +155,17 @@ const index = () => {
 };
 
 export default index;
+
+export const getServerSideProps = async (context: any) => {
+  const cookies = context.req.headers?.cookie;
+  const accessToken = cookies
+    ?.split(";")
+    ?.find((cookie: any) => cookie?.trim()?.startsWith("token="));
+  const token = accessToken?.split("=")[1];
+
+  return {
+    props: {
+      token,
+    },
+  };
+};

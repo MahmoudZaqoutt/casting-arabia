@@ -23,7 +23,7 @@ const OpportunitiesCard = (props: IPropsCard) => {
             classNameOfTitle="font-semibold"
             classNameOfSubTitle="text-sm text-gray-500"
           />
-          <Select Id={props.Id} />
+          <Select token={props.token} Id={props.Id} />
         </div>
 
         <div>

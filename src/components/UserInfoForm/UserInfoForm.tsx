@@ -27,8 +27,6 @@ const UserInfoForm = (props: any) => {
   };
 
   const handleSubmit = (event: any) => {
-    const token = localStorage.getItem("token");
-
     event.preventDefault();
     schema
       .validate(formData, { abortEarly: false })
@@ -49,7 +47,7 @@ const UserInfoForm = (props: any) => {
             method: "PUT",
             headers: {
               "Content-Type": "application/json",
-              Authorization: `Bearer ${token}`,
+              Authorization: `Bearer ${props.token}`,
             },
             body: JSON.stringify(formData),
           }

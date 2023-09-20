@@ -4,13 +4,15 @@ import "swiper/css/pagination";
 import SlidesOfSections from "@/components/SlidesOfSections/SlidesOfSections";
 import WhoAreYouSection from "@/components/WhoAreYou/WhoAreYouSection/WhoAreYouSection";
 
-const index = ({ News, myRoles, MyOpportunities }: any) => {
+const index = ({ News, myRoles, MyOpportunities, token }: any) => {
+  console.log(token);
   return (
     <>
       <div className="mb-20">
         {/* <WhoAreYouSection /> */}
         <div>
           <SlidesOfSections
+            {...{ token }}
             title="My Opportunities"
             id={"MyOpportunities"}
             link=".."
@@ -18,14 +20,22 @@ const index = ({ News, myRoles, MyOpportunities }: any) => {
             MyOpportunities={MyOpportunities}
           />
           <SlidesOfSections
+            {...{ token }}
             title="My Roles"
             id={"MyRoles"}
             href="creator/roles"
             myRoles={myRoles}
           />
 
-          <SlidesOfSections News={News} title="News" id={"News"} href="news" />
           <SlidesOfSections
+            {...{ token }}
+            News={News}
+            title="News"
+            id={"News"}
+            href="news"
+          />
+          <SlidesOfSections
+            {...{ token }}
             News={News}
             title="Learning Center"
             id={"LearningCenter"}
@@ -39,7 +49,13 @@ const index = ({ News, myRoles, MyOpportunities }: any) => {
 
 export default index;
 
-export const getServerSideProps = async () => {
+export const getServerSideProps = async (context: any) => {
+  const cookies = context.req.headers?.cookie;
+  const accessToken = cookies
+    ?.split(";")
+    ?.find((cookie: any) => cookie?.trim()?.startsWith("token="));
+  const token = accessToken?.split("=")[1];
+
   const res1 = await fetch(
     "http://casting-ec2-1307338951.us-east-2.elb.amazonaws.com:7001/articles/pub/timeline"
   );
@@ -48,7 +64,7 @@ export const getServerSideProps = async () => {
     "http://casting-ec2-1307338951.us-east-2.elb.amazonaws.com:7001/roles?page=0&limit=9",
     {
       headers: {
-        Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTY3OCwiaWF0IjoxNjkyODc0Mzg5LCJleHAiOjE3MjQ0MzE5ODl9.JsWpkdxrkyAY8C48EoEr6OLEMXQHFtcDZ0nqqyPrRw0`, // Your token here
+        Authorization: `Bearer ${token}`,
       },
     }
   );
@@ -57,7 +73,7 @@ export const getServerSideProps = async () => {
     "http://casting-ec2-1307338951.us-east-2.elb.amazonaws.com:7001/opportunities",
     {
       headers: {
-        Authorization: `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTY3OCwiaWF0IjoxNjkyODc0Mzg5LCJleHAiOjE3MjQ0MzE5ODl9.JsWpkdxrkyAY8C48EoEr6OLEMXQHFtcDZ0nqqyPrRw0`, // Your token here
+        Authorization: `Bearer ${token}`,
       },
     }
   );
@@ -67,6 +83,7 @@ export const getServerSideProps = async () => {
 
   return {
     props: {
+      token,
       News: News,
       myRoles: myRoles,
       MyOpportunities: MyOpportunities,

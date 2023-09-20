@@ -8,4 +8,5 @@ export interface IPropsModal {
   date?: any;
   profileInfo?: any;
   profileImage?: any;
+  token?: string;
 }

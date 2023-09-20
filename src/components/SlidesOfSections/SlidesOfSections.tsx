@@ -13,7 +13,6 @@ import RolesCard from "@/pages/creator/roles/rolesCard/RolesCard";
 import OpportunitiesCard from "@/pages/creator/OpportunitiesCard/OpportunitiesCard";
 import axios from "axios";
 import { useRouter } from "next/router";
-import Loading from "../Shared/Loading/Loading";
 
 const SlidesOfSections = (props: IPropsSlide) => {
   const [isBeginning, setIsBeginning] = useState(true);
@@ -25,7 +24,6 @@ const SlidesOfSections = (props: IPropsSlide) => {
 
   const router = useRouter();
   const handleDynamicRoute = (e: any) => {
-    const token = localStorage.getItem("token");
     e.preventDefault();
 
     (async () => {
@@ -37,7 +35,7 @@ const SlidesOfSections = (props: IPropsSlide) => {
           },
           {
             headers: {
-              Authorization: `Bearer ${token}`,
+              Authorization: `Bearer ${props.token}`,
             },
           }
         );

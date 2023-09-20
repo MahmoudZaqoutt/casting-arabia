@@ -23,13 +23,12 @@ export default function Select(props: IPropsCard) {
   };
 
   const handleDelete = async (id: any) => {
-    const token = localStorage.getItem("token");
     try {
       const res = await axios.delete(
         `http://casting-ec2-1307338951.us-east-2.elb.amazonaws.com:7001/opportunities/${id}`,
         {
           headers: {
-            Authorization: `Bearer ${token}`,
+            Authorization: `Bearer ${props.token}`,
           },
         }
       );

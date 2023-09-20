@@ -12,6 +12,7 @@ import InputLabel from "@mui/material/InputLabel";
 import InputAdornment from "@mui/material/InputAdornment";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
+import Cookies from "js-cookie";
 
 const Login = () => {
   const router = useRouter();
@@ -54,6 +55,7 @@ const Login = () => {
           );
 
           if (res) {
+            Cookies.set(`token`, res.data.accessToken);
             localStorage.setItem("token", res.data.accessToken);
             router.push("/creator");
           }
