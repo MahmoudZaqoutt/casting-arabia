@@ -11,18 +11,20 @@ const WhoAreYouSection = () => {
         <WhoAreYou
           title="Are you a Talent?"
           subTitle="Do you love to act, sing, dance, model, write, or other jobs in entertainment? If so, you’ve come to the right place. Watch this video and sign up to apply for opportunities."
-          src={""}
+          src={
+            "https://casting-arabia-uploads.s3.us-east-2.amazonaws.com/videos/talent.mp4"
+          }
           link="Join as TALENT"
-          href="TalentRegister"
+          href="/auth/register"
           className="mt-5"
         />
         <WhoAreYou
           title="Are you hiring for a project?"
           subTitle="Are you looking for talented actors, singers, dancers, writers, and camera crew for your next project? Casting Arabia can help you. Watch this video and click below to register and post your next opportunity."
-          src=""
+          src="https://casting-arabia-uploads.s3.us-east-2.amazonaws.com/videos/seeker.mp4"
           className="md:!flex-row-reverse md:mt-5"
           link="Join as SEEKER"
-          href="SeekerRegister"
+          href="/auth/register"
         />
       </div>
 

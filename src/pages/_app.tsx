@@ -11,7 +11,7 @@ import LinearProgress from "@mui/material/LinearProgress";
 export default function App({ Component, pageProps }: AppProps) {
   const router = useRouter();
   const path = router.pathname;
-  const testPath = ["login", "register", "forgetPassword"];
+  const testPath = ["login", "register", "forgetPassword", "info"];
   const isAuth = testPath.includes(path.split("/").pop() || "");
   const [isLoading, setIsLoading] = useState(false);
 

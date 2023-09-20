@@ -15,6 +15,7 @@ import Image from "next/image";
 import img from "../../assets/images.png";
 import { useRouter } from "next/router";
 import Cookies from "js-cookie";
+import Link from "next/link";
 
 const Header = (props: any) => {
   const router = useRouter();
@@ -26,7 +27,7 @@ const Header = (props: any) => {
           <Container>
             <div className="w-full flex items-center justify-between h-full pt-4">
               <div className="flex items-center gap-5  ">
-                <Logo />
+                <Logo link="creator" />
               </div>
 
               <div className="flex justify-between items-center">
@@ -184,7 +185,7 @@ const Header = (props: any) => {
           <Container>
             <div className="w-full flex items-center justify-between h-full pt-4">
               <div className="flex items-center gap-5  ">
-                <Logo />
+                <Logo link="info" />
                 <List
                   className=" gap-5 text-blue-600 hidden lg:flex"
                   options={[
